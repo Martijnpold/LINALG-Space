@@ -1,16 +1,9 @@
-file(GLOB_RECURSE LIB_SOURCES "*.cpp")
-list(REMOVE_ITEM LIB_SOURCES "main.cpp")
+file(GLOB_RECURSE PROJ_SOURCES "*.cpp")
+list(REMOVE_ITEM PROJ_SOURCES "main.cpp")
 
-add_library(library STATIC ${LIB_SOURCES})
+add_library(proj_lib STATIC ${PROJ_SOURCES})
+target_include_directories(proj_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(game main.cpp)
 
-target_include_directories(library
-        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-
-set(SDL2_DIR "${CMAKE_SOURCE_DIR}/vendor/SDL2-2.0.10")
-find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
-
-add_executable(executable main.cpp)
-
-target_link_libraries(executable
-        PUBLIC library)
+target_link_libraries(game PUBLIC proj_lib)
+target_include_directories(game PUBLIC "${PROJECT_BINARY_DIR}")
