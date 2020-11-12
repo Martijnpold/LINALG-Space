@@ -20,7 +20,7 @@ namespace space::world {
     }
 
     std::string Vector::to_string() const {
-        return "Vector{" + std::to_string(x) + ", " + std::to_string(y) + "}";
+        return "Vector(" + std::to_string(x) + ", " + std::to_string(y) + ")";
     }
 
     std::ostream& operator<<(std::ostream& strm, const Vector& v) {
