@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Vector.hpp"
+
 #include <vector>
 #include <string>
 
@@ -15,6 +17,11 @@ namespace space::world {
     public:
         Matrix(unsigned int width, unsigned int height);
         Matrix(unsigned int width, unsigned int height, const std::vector<float>& values);
+
+        Matrix operator+(const Matrix& matrix) const;
+        Matrix operator-(const Matrix& matrix) const;
+        Matrix operator*(const Matrix& matrix) const;
+        Matrix operator*(const Vector& vector) const;
 
         /**
          * Overwrite all values currently in the Matrix with new ones. This method interprets the provided list of values
@@ -34,7 +41,10 @@ namespace space::world {
 
         void set(unsigned int x, unsigned int y, float value);
         [[nodiscard]] float get(unsigned int x, unsigned int y) const;
+
         [[nodiscard]] unsigned int size() const;
+        [[nodiscard]] unsigned int height() const;
+        [[nodiscard]] unsigned int width() const;
 
         [[nodiscard]] std::string to_string() const;
 

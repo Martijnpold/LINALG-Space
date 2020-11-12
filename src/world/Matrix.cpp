@@ -10,6 +10,46 @@ namespace space::world {
         fill(values);
     }
 
+    Matrix Matrix::operator+(const Matrix& matrix) const {
+        if (width() != matrix.width() || height() != matrix.height()) {
+            throw std::logic_error {"Can not add differently sized Matrices together"};
+        }
+
+        Matrix dest {_width, _height};
+
+        for (int y = 0; y < _height; ++y) {
+            for (int x = 0; x < _width; ++x) {
+                float a = get(x, y);
+                float b = matrix.get(x, y);
+                dest.set(x, y, a + b);
+            }
+        }
+
+        return dest;
+    }
+
+    Matrix Matrix::operator-(const Matrix& matrix) const {
+        throw std::logic_error {"Not implemented"}; // TODO
+    }
+
+    Matrix Matrix::operator*(const Matrix& matrix) const {
+        throw std::logic_error {"Not implemented"}; // TODO
+    }
+
+    Matrix Matrix::operator*(const Vector& vector) const {
+        throw std::logic_error {"Not implemented"}; // TODO
+    }
+
+    //#region getters / setters
+
+    unsigned int Matrix::width() const {
+        return _width;
+    }
+
+    unsigned int Matrix::height() const {
+        return _height;
+    }
+
     unsigned int Matrix::size() const {
         return _width * _height;
     }
@@ -32,6 +72,8 @@ namespace space::world {
     unsigned int Matrix::to_index(unsigned int x, unsigned int y) const {
         return y * _width + x;
     }
+
+    //#endregion
 
     //#region printing
 
