@@ -1,6 +1,7 @@
 #define SDL_main main
 
 #include <iostream>
+#include <world/SpaceRenderer.hpp>
 #include "sdl/SDLWrapper.hpp"
 #include "world/Vector.hpp"
 
@@ -8,15 +9,16 @@ using namespace space::world;
 using namespace space::sdl;
 
 int main() {
-    Vector a{5, 10};
-    Vector b{10, -5};
+    Vector a{2, 4};
+    Vector b{4, -2};
     std::cout << a << std::endl;
     std::cout << b << std::endl;
     std::cout << a + b << std::endl;
     std::cout << a - b << std::endl;
-    std::cout << a * 3 << std::endl;
+    std::cout << a * 2 << std::endl;
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(500, 500);
+    auto spaceRenderer = std::make_unique<space::world::SpaceRenderer>(sdl);
 
     SDL_bool done = SDL_FALSE;
 
@@ -29,8 +31,12 @@ int main() {
         }
 
         sdl->clear();
-        sdl->setColor(255, 0, 0);
-        sdl->drawLine(0, 0, 100, 100);
+        spaceRenderer->renderGrid(25);
+        spaceRenderer->renderVector(a, 25);
+        spaceRenderer->renderVector(b, 25);
+        spaceRenderer->renderVector(a + b, 25);
+        spaceRenderer->renderVector(a - b, 25);
+        spaceRenderer->renderVector(a * 1.25, 25);
         sdl->present();
     }
 
