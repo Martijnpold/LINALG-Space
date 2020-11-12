@@ -6,8 +6,7 @@ namespace space::sdl {
             printf("SDL_Init failed: %s\n", SDL_GetError());
         }
 
-        _window.reset(SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                       width, height, 0));
+        _window.reset(SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, 0));
         _renderer.reset(SDL_CreateRenderer(_window.get(), -1, SDL_RENDERER_ACCELERATED));
     }
 
@@ -43,4 +42,4 @@ namespace space::sdl {
         SDL_GetWindowSize(_window.get(), nullptr, &h);
         return h;
     }
-}
+} // namespace space::sdl

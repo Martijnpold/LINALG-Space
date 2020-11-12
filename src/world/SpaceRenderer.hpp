@@ -1,7 +1,7 @@
 #pragma once
 
-#include "sdl/SDLWrapper.hpp"
 #include "Vector.hpp"
+#include "sdl/SDLWrapper.hpp"
 
 namespace space::world {
     class SpaceRenderer {
@@ -11,8 +11,8 @@ namespace space::world {
     public:
         explicit SpaceRenderer(std::shared_ptr<sdl::SDLWrapper> renderer);
 
-        void renderVector(const Vector &v, float gridSize);
+        void renderVector(const Vector& v, float gridSize);
 
         void renderGrid(float gridSize);
     };
-}
+} // namespace space::world

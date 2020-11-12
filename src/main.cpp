@@ -1,16 +1,17 @@
 #define SDL_main main
 
-#include <iostream>
-#include <world/SpaceRenderer.hpp>
 #include "sdl/SDLWrapper.hpp"
 #include "world/Vector.hpp"
+
+#include <iostream>
+#include <world/SpaceRenderer.hpp>
 
 using namespace space::world;
 using namespace space::sdl;
 
 int main(int argc, char* argv[]) {
-    Vector a{2, 4};
-    Vector b{4, -2};
+    Vector a {2, 4};
+    Vector b {4, -2};
     std::cout << a << std::endl;
     std::cout << b << std::endl;
     std::cout << a + b << std::endl;

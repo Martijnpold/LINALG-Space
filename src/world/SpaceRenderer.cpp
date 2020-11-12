@@ -1,10 +1,10 @@
 #include "SpaceRenderer.hpp"
 
 namespace space::world {
-    SpaceRenderer::SpaceRenderer(std::shared_ptr<sdl::SDLWrapper> renderer) : _renderer{std::move(renderer)} {
+    SpaceRenderer::SpaceRenderer(std::shared_ptr<sdl::SDLWrapper> renderer) : _renderer {std::move(renderer)} {
     }
 
-    void SpaceRenderer::renderVector(const Vector &v, float gridSize) {
+    void SpaceRenderer::renderVector(const Vector& v, float gridSize) {
         _renderer->setColor(255, 0, 0);
 
         float width = _renderer->getWidth();
@@ -19,7 +19,7 @@ namespace space::world {
         int columns = height / gridSize;
         for (int x = 0; x <= rows / 2; x += 1) {
             for (int y = 0; y <= columns / 2; y += 1) {
-                if(x == 0 || y == 0) {
+                if (x == 0 || y == 0) {
                     _renderer->setColor(150, 255, 150);
                 } else {
                     _renderer->setColor(51, 51, 51);
@@ -32,4 +32,4 @@ namespace space::world {
             }
         }
     }
-}
+} // namespace space::world
