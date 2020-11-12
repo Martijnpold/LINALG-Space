@@ -31,8 +31,6 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        int my_int = 2;
-
         sdl->clear();
         spaceRenderer->renderGrid(25);
         spaceRenderer->renderVector(a, 25);
