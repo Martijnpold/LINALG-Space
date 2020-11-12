@@ -8,17 +8,15 @@ namespace space::world {
         float x, y;
 
         Vector();
-
         Vector(float x, float y);
 
         Vector operator+(const Vector &v) const;
-
         Vector operator-(const Vector &v) const;
-
         Vector operator*(float f) const;
 
-        [[nodiscard]] std::string to_string() const;
+        friend Vector operator*(float i, const Vector &v);
 
-        friend std::ostream &operator<<(std::ostream &outputStream, const Vector &p);
+        [[nodiscard]] std::string to_string() const;
+        friend std::ostream &operator<<(std::ostream &outputStream, const Vector &v);
     };
 }

@@ -8,7 +8,7 @@
 using namespace space::world;
 using namespace space::sdl;
 
-int main() {
+int main(int argc, char* argv[]) {
     Vector a{2, 4};
     Vector b{4, -2};
     std::cout << a << std::endl;
@@ -30,14 +30,18 @@ int main() {
             }
         }
 
+        int my_int = 2;
+
         sdl->clear();
         spaceRenderer->renderGrid(25);
         spaceRenderer->renderVector(a, 25);
         spaceRenderer->renderVector(b, 25);
         spaceRenderer->renderVector(a + b, 25);
         spaceRenderer->renderVector(a - b, 25);
-        spaceRenderer->renderVector(a * 1.25, 25);
+        spaceRenderer->renderVector(1.25 * a, 25);
         sdl->present();
+
+        SDL_Delay(50);
     }
 
     return 0;

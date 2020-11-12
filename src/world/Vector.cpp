@@ -26,4 +26,8 @@ namespace space::world {
     std::ostream &operator<<(std::ostream &strm, const Vector &v) {
         return strm << v.to_string();
     }
+
+    Vector operator*(float i, const Vector &v) {
+        return v * i;
+    }
 }

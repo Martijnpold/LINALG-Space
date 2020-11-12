@@ -22,7 +22,7 @@ namespace space::world {
                 if(x == 0 || y == 0) {
                     _renderer->setColor(150, 255, 150);
                 } else {
-                    _renderer->setColor(152, 152, 152);
+                    _renderer->setColor(51, 51, 51);
                 }
 
                 _renderer->drawLine(width / 2 + x * gridSize, 0, width / 2 + x * gridSize, height);
