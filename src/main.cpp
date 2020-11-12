@@ -18,3 +18,7 @@ int main() {
 
     return 0;
 }
+
+int WinMain() {
+    return main();
+}
