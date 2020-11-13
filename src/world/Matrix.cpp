@@ -29,7 +29,21 @@ namespace space::world {
     }
 
     Matrix Matrix::operator-(const Matrix& matrix) const {
-        throw std::logic_error {"Not implemented"}; // TODO
+        if (width() != matrix.width() || height() != matrix.height()) {
+            throw std::logic_error {"Can not subtract differently sized Matrices together"};
+        }
+
+        Matrix dest {_width, _height};
+
+        for (int y = 0; y < _height; ++y) {
+            for (int x = 0; x < _width; ++x) {
+                float a = get(x, y);
+                float b = matrix.get(x, y);
+                dest.set(x, y, a - b);
+            }
+        }
+
+        return dest;
     }
 
     Matrix Matrix::operator*(const Matrix& matrix) const {

@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
     std::cout << "A: " << A << std::endl;
     std::cout << "B: " << B << std::endl;
     std::cout << "A + B: " << A + B << std::endl;
+    std::cout << "A - B: " << A - B << std::endl;
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(500, 500);
     auto spaceRenderer = std::make_unique<space::world::SpaceRenderer>(sdl);
