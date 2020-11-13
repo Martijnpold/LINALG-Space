@@ -11,8 +11,8 @@ namespace space::world {
     public:
         explicit SpaceRenderer(std::shared_ptr<sdl::SDLWrapper> renderer);
 
-        void renderVector(const Vector& v, float gridSize);
+        void renderVector(const Vector& v, const sdl::Color& c, float gridSize);
 
-        void renderGrid(float gridSize);
+        void renderGrid(const sdl::Color& c, float gridSize);
     };
 } // namespace space::world

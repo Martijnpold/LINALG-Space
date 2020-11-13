@@ -23,6 +23,10 @@ namespace space::sdl {
         SDL_RenderClear(_renderer.get());
     }
 
+    void SDLWrapper::setColor(const Color& c) {
+        setColor(c.r, c.g, c.b);
+    }
+
     void SDLWrapper::setColor(int r, int g, int b) {
         SDL_SetRenderDrawColor(_renderer.get(), r, g, b, 255);
     }

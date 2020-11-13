@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Color.hpp"
+
 #include <SDL.h>
 #include <memory>
 
@@ -19,6 +21,8 @@ namespace space::sdl {
         void clear();
 
         void present();
+
+        void setColor(const Color& c);
 
         void setColor(int r, int g, int b);
 

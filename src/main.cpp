@@ -6,6 +6,7 @@
 #include "world/Matrix.hpp"
 
 #include <iostream>
+#include <math.h>
 #include <world/SpaceRenderer.hpp>
 
 using namespace space::world;
@@ -29,7 +30,7 @@ int main(int argc, char* argv[]) {
     std::cout << "A + B: " << A + B << std::endl;
     std::cout << "A - B: " << A - B << std::endl;
 
-    auto sdl = std::make_shared<space::sdl::SDLWrapper>(500, 500);
+    auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
     auto spaceRenderer = std::make_unique<space::world::SpaceRenderer>(sdl);
 
     SDL_bool done = SDL_FALSE;
@@ -42,13 +43,14 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        float gridSize = 25;
         sdl->clear();
-        spaceRenderer->renderGrid(25);
-        spaceRenderer->renderVector(a, 25);
-        spaceRenderer->renderVector(b, 25);
-        spaceRenderer->renderVector(a + b, 25);
-        spaceRenderer->renderVector(a - b, 25);
-        spaceRenderer->renderVector(1.25 * a, 25);
+        spaceRenderer->renderGrid(Color {38, 38, 38}, gridSize);
+        spaceRenderer->renderVector(a + b, Color {0, 0, 255}, gridSize);
+        spaceRenderer->renderVector(a - b, Color {255, 255, 0}, gridSize);
+        spaceRenderer->renderVector(1.25 * a, Color {255, 0, 255}, gridSize);
+        spaceRenderer->renderVector(a, Color {255, 0, 0}, gridSize);
+        spaceRenderer->renderVector(b, Color {0, 255, 0}, gridSize);
         sdl->present();
 
         SDL_Delay(50);

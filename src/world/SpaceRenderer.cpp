@@ -4,15 +4,15 @@ namespace space::world {
     SpaceRenderer::SpaceRenderer(std::shared_ptr<sdl::SDLWrapper> renderer) : _renderer {std::move(renderer)} {
     }
 
-    void SpaceRenderer::renderVector(const Vector& v, float gridSize) {
-        _renderer->setColor(255, 0, 0);
-
+    void SpaceRenderer::renderVector(const Vector& v, const sdl::Color& c, float gridSize) {
+        _renderer->setColor(c);
         float width = _renderer->getWidth();
         float height = _renderer->getHeight();
         _renderer->drawLine(width / 2, height / 2, width / 2 + v.x * gridSize, height / 2 - v.y * gridSize);
     }
 
-    void SpaceRenderer::renderGrid(float gridSize) {
+    void SpaceRenderer::renderGrid(const sdl::Color& c, float gridSize) {
+        _renderer->setColor(c);
         float width = _renderer->getWidth();
         float height = _renderer->getHeight();
         int rows = width / gridSize;
