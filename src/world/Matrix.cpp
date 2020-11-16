@@ -10,6 +10,14 @@ namespace space::world {
         fill(values);
     }
 
+    Matrix Matrix::createScalingMatrix(float xScale, float yScale) {
+        return Matrix {3, 3, {xScale, 0, 0, 0, yScale, 0, 0, 0, 1}};
+    }
+
+    Matrix Matrix::createTranslationMatrix(float xTranslation, float yTranslation) {
+        return Matrix {3, 3, {1, 0, xTranslation, 0, 1, yTranslation, 0, 0, 1}};
+    }
+
     Matrix Matrix::operator+(const Matrix& other) const {
         if (width() != other.width() || height() != other.height()) {
             throw std::logic_error {"Can not add differently sized Matrices together"};
@@ -75,10 +83,7 @@ namespace space::world {
     Vector Matrix::operator*(const Vector& vector) const {
         Matrix vectorAsMatrix {1, 3, {vector.x, vector.y, 1}};
         Matrix result = *this * vectorAsMatrix;
-        return Vector {
-                result.get(0, 0),
-                result.get(0, 1)
-        };
+        return Vector {result.get(0, 0), result.get(0, 1)};
     }
 
     //#region getters / setters

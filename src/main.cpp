@@ -48,12 +48,15 @@ int main(int argc, char* argv[]) {
     std::cout << "Matrix multiplication with Vector:" << std::endl;
     std::cout << std::endl;
 
-    Matrix E {3, 3, {1, 0, -1, 0, 1, 2, 0, 0, 1}};
+    Matrix E = Matrix::createTranslationMatrix(-1, 2);
+    Matrix F = Matrix::createScalingMatrix(2, 2);
     Vector c {3, -1};
     std::cout << "E: " << E << std::endl;
+    std::cout << "F: " << F << std::endl;
     std::cout << "c: " << c << std::endl;
     std::cout << "E * c: " << E * c << std::endl;
-    
+    std::cout << "F * c: " << F * c << std::endl;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
