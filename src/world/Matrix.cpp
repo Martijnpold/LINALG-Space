@@ -10,8 +10,8 @@ namespace space::world {
         fill(values);
     }
 
-    Matrix Matrix::operator+(const Matrix& matrix) const {
-        if (width() != matrix.width() || height() != matrix.height()) {
+    Matrix Matrix::operator+(const Matrix& other) const {
+        if (width() != other.width() || height() != other.height()) {
             throw std::logic_error {"Can not add differently sized Matrices together"};
         }
 
@@ -20,7 +20,7 @@ namespace space::world {
         for (int y = 0; y < _height; ++y) {
             for (int x = 0; x < _width; ++x) {
                 float a = get(x, y);
-                float b = matrix.get(x, y);
+                float b = other.get(x, y);
                 dest.set(x, y, a + b);
             }
         }
@@ -28,8 +28,8 @@ namespace space::world {
         return dest;
     }
 
-    Matrix Matrix::operator-(const Matrix& matrix) const {
-        if (width() != matrix.width() || height() != matrix.height()) {
+    Matrix Matrix::operator-(const Matrix& other) const {
+        if (width() != other.width() || height() != other.height()) {
             throw std::logic_error {"Can not subtract differently sized Matrices together"};
         }
 
@@ -38,7 +38,7 @@ namespace space::world {
         for (int y = 0; y < _height; ++y) {
             for (int x = 0; x < _width; ++x) {
                 float a = get(x, y);
-                float b = matrix.get(x, y);
+                float b = other.get(x, y);
                 dest.set(x, y, a - b);
             }
         }
@@ -46,12 +46,30 @@ namespace space::world {
         return dest;
     }
 
-    Matrix Matrix::operator*(const Matrix& matrix) const {
-        throw std::logic_error {"Not implemented"}; // TODO
-    }
+    Matrix Matrix::operator*(const Matrix& other) const {
+        if (width() != other.height()) {
+            throw std::logic_error {"Can not multiply Matrix of width: " + std::to_string(width()) +
+                                    " with Matrix of height: " + std::to_string(other.height())};
+        }
 
-    Matrix Matrix::operator*(const Vector& vector) const {
-        throw std::logic_error {"Not implemented"}; // TODO
+        Matrix dest {other.width(), height()};
+        unsigned int multiplicationRowSize = width();
+
+        for (int y = 0; y < height(); ++y) {
+            for (int x = 0; x < other.width(); ++x) {
+                float value = 0;
+
+                for (int i = 0; i < multiplicationRowSize; ++i) {
+                    float a = get(i, y);
+                    float b = other.get(x, i);
+                    value += a * b;
+                }
+
+                dest.set(x, y, value);
+            }
+        }
+
+        return dest;
     }
 
     //#region getters / setters

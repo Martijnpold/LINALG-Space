@@ -1,9 +1,8 @@
 #define SDL_main main
 
 #include "sdl/SDLWrapper.hpp"
-#include "world/Vector.hpp"
-
 #include "world/Matrix.hpp"
+#include "world/Vector.hpp"
 
 #include <iostream>
 #include <math.h>
@@ -29,6 +28,14 @@ int main(int argc, char* argv[]) {
     std::cout << "B: " << B << std::endl;
     std::cout << "A + B: " << A + B << std::endl;
     std::cout << "A - B: " << A - B << std::endl;
+
+    std::cout << std::endl;
+
+    Matrix C {3, 2, {1, 2, 3, 4, 5, 6}};
+    Matrix D {2, 3, {7, 8, 9, 10, 11, 12}};
+    std::cout << "C: " << C << std::endl;
+    std::cout << "D: " << D << std::endl;
+    std::cout << "C * D: " << C * D << std::endl;
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
     auto spaceRenderer = std::make_unique<space::world::SpaceRenderer>(sdl);

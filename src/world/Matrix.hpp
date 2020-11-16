@@ -18,10 +18,9 @@ namespace space::world {
         Matrix(unsigned int width, unsigned int height);
         Matrix(unsigned int width, unsigned int height, const std::vector<float>& values);
 
-        Matrix operator+(const Matrix& matrix) const;
-        Matrix operator-(const Matrix& matrix) const;
+        Matrix operator+(const Matrix& other) const;
+        Matrix operator-(const Matrix& other) const;
         Matrix operator*(const Matrix& matrix) const;
-        Matrix operator*(const Vector& vector) const;
 
         /**
          * Overwrite all values currently in the Matrix with new ones. This method interprets the provided list of values
@@ -51,7 +50,7 @@ namespace space::world {
         friend std::ostream& operator<<(std::ostream& outputStream, const Matrix& matrix);
 
     private:
-        unsigned int to_index(unsigned int x, unsigned int y) const;
+        [[nodiscard]] unsigned int to_index(unsigned int x, unsigned int y) const;
     };
 
 } // namespace space::world
