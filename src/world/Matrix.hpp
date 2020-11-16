@@ -21,6 +21,7 @@ namespace space::world {
         Matrix operator+(const Matrix& other) const;
         Matrix operator-(const Matrix& other) const;
         Matrix operator*(const Matrix& matrix) const;
+        Vector operator*(const Vector& vector) const;
 
         /**
          * Overwrite all values currently in the Matrix with new ones. This method interprets the provided list of values
@@ -46,7 +47,6 @@ namespace space::world {
         [[nodiscard]] unsigned int width() const;
 
         [[nodiscard]] std::string to_string() const;
-
         friend std::ostream& operator<<(std::ostream& outputStream, const Matrix& matrix);
 
     private:

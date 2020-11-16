@@ -72,6 +72,15 @@ namespace space::world {
         return dest;
     }
 
+    Vector Matrix::operator*(const Vector& vector) const {
+        Matrix vectorAsMatrix {1, 3, {vector.x, vector.y, 1}};
+        Matrix result = *this * vectorAsMatrix;
+        return Vector {
+                result.get(0, 0),
+                result.get(0, 1)
+        };
+    }
+
     //#region getters / setters
 
     unsigned int Matrix::width() const {
