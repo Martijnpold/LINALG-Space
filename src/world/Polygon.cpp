@@ -35,6 +35,14 @@ namespace space::world {
 
     void Polygon::scale(float xFactor, float yFactor) {
         Vector c = center();
+        scale(xFactor, yFactor, c);
+    }
+
+    void Polygon::scale(float factor, const Vector& center) {
+        scale(factor, factor, center);
+    }
+
+    void Polygon::scale(float xFactor, float yFactor, const Vector& c) {
         Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y);
         Matrix s = Matrix::createScalingMatrix(xFactor, yFactor);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y);

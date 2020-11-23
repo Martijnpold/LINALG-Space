@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 
         sdl->present();
 
-        p.scale(1.005);
+        p.scale(1.005, {0, 0});
 
         SDL_Delay(50);
     }
