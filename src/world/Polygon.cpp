@@ -4,8 +4,15 @@
 
 namespace space::world {
 
+    Polygon::Polygon(bool isOpenEnded) : _isOpenEnded {isOpenEnded} {
+    }
+
     Polygon::Polygon(std::vector<Vector> points, bool isOpenEnded)
         : _points {std::move(points)}, _isOpenEnded {isOpenEnded} {
+    }
+
+    void Polygon::add(const Vector& point) {
+        _points.push_back(point);
     }
 
     bool Polygon::isOpenEnded() const {
