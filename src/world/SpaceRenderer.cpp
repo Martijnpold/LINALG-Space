@@ -11,6 +11,20 @@ namespace space::world {
         _renderer->drawLine(width / 2, height / 2, width / 2 + v.x * gridSize, height / 2 - v.y * gridSize);
     }
 
+    void SpaceRenderer::renderLine(const Vector& from, const Vector& to, const sdl::Color& c, float gridSize) {
+        _renderer->setColor(c);
+        float width = _renderer->getWidth();
+        float height = _renderer->getHeight();
+        _renderer->drawLine(width / 2 + to.x * gridSize, height / 2 + to.y * gridSize, width / 2 + to.x * gridSize,
+                            height / 2 - to.y * gridSize);
+    }
+
+    void SpaceRenderer::renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize) {
+        for (int i = 0; i < polygon.points().size(); i++) {
+            renderLine(polygon.points()[i], polygon.points()[(i + 1) % polygon.points().size()], c, gridSize);
+        }
+    }
+
     void SpaceRenderer::renderGrid(const sdl::Color& c, float gridSize) {
         _renderer->setColor(c);
         float width = _renderer->getWidth();

@@ -1,7 +1,10 @@
 #pragma once
 
 #include "Vector.hpp"
+#include "Polygon.h"
 #include "sdl/SDLWrapper.hpp"
+
+#include <vector>
 
 namespace space::world {
     class SpaceRenderer {
@@ -14,5 +17,7 @@ namespace space::world {
         void renderVector(const Vector& v, const sdl::Color& c, float gridSize);
 
         void renderGrid(const sdl::Color& c, float gridSize);
+        void renderLine(const Vector& from, const Vector& to, const sdl::Color& c, float gridSize);
+        void renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize);
     };
 } // namespace space::world
