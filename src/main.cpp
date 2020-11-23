@@ -93,6 +93,12 @@ int main(int argc, char* argv[]) {
 //        spaceRenderer->renderVector(a, Color {255, 0, 0}, gridSize);
 //        spaceRenderer->renderVector(b, Color {0, 255, 0}, gridSize);
         spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
+        spaceRenderer->renderVector(p.center(), Color {255, 255, 0}, gridSize);
+
+        p.scale(1.005);
+
+//        std::cout << p.center() << std::endl;
+
         sdl->present();
 
         SDL_Delay(50);
