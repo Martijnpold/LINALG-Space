@@ -15,8 +15,8 @@ namespace space::world {
         _renderer->setColor(c);
         float width = _renderer->getWidth();
         float height = _renderer->getHeight();
-        _renderer->drawLine(width / 2 + from.x * gridSize, height / 2 + from.y * gridSize, width / 2 + to.x * gridSize,
-                            height / 2 + to.y * gridSize);
+        _renderer->drawLine(width / 2 + from.x * gridSize, height / 2 - from.y * gridSize, width / 2 + to.x * gridSize,
+                            height / 2 - to.y * gridSize);
     }
 
     void SpaceRenderer::renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize) {
