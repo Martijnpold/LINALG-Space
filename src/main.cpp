@@ -2,11 +2,11 @@
 
 #include "sdl/SDLWrapper.hpp"
 #include "world/Matrix.hpp"
+#include "world/Polygon.h"
+#include "world/SpaceRenderer.hpp"
 #include "world/Vector.hpp"
 
 #include <iostream>
-#include <math.h>
-#include <world/SpaceRenderer.hpp>
 
 using namespace space::world;
 using namespace space::sdl;
@@ -59,6 +59,18 @@ int main(int argc, char* argv[]) {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    Polygon p;
+    p.add({1, 1});
+    p.add({1, 3});
+    p.add({3, 3});
+    p.add({3, 1});
+
+    std::cout << std::endl;
+    std::cout << "Polygon" << std::endl;
+    std::cout << p.center().x << " " << p.center().y << std::endl;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
     auto spaceRenderer = std::make_unique<space::world::SpaceRenderer>(sdl);
 
@@ -75,11 +87,12 @@ int main(int argc, char* argv[]) {
         float gridSize = 25;
         sdl->clear();
         spaceRenderer->renderGrid(Color {38, 38, 38}, gridSize);
-        spaceRenderer->renderVector(a + b, Color {0, 0, 255}, gridSize);
-        spaceRenderer->renderVector(a - b, Color {255, 255, 0}, gridSize);
-        spaceRenderer->renderVector(1.25 * a, Color {255, 0, 255}, gridSize);
-        spaceRenderer->renderVector(a, Color {255, 0, 0}, gridSize);
-        spaceRenderer->renderVector(b, Color {0, 255, 0}, gridSize);
+//        spaceRenderer->renderVector(a + b, Color {0, 0, 255}, gridSize);
+//        spaceRenderer->renderVector(a - b, Color {255, 255, 0}, gridSize);
+//        spaceRenderer->renderVector(1.25 * a, Color {255, 0, 255}, gridSize);
+//        spaceRenderer->renderVector(a, Color {255, 0, 0}, gridSize);
+//        spaceRenderer->renderVector(b, Color {0, 255, 0}, gridSize);
+        spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
         sdl->present();
 
         SDL_Delay(50);
