@@ -1,5 +1,7 @@
 #include "Matrix.hpp"
 
+#include <cmath>
+
 namespace space::world {
 
     Matrix::Matrix(unsigned int width, unsigned int height)
@@ -16,6 +18,10 @@ namespace space::world {
 
     Matrix Matrix::createTranslationMatrix(float xTranslation, float yTranslation) {
         return Matrix {3, 3, {1, 0, xTranslation, 0, 1, yTranslation, 0, 0, 1}};
+    }
+
+    Matrix Matrix::createRotationMatrix(float angle) {
+        return Matrix(3, 3, {std::cos(angle), -std::sin(angle), 0, std::sin(angle), std::cos(angle), 0, 0, 0, 1});
     }
 
     Matrix Matrix::operator+(const Matrix& other) const {

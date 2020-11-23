@@ -28,6 +28,9 @@ namespace space::world {
         void scale(float xFactor, float yFactor);
         void scale(float xFactor, float yFactor, const Vector& center);
         void scale(float factor, const Vector& center);
+
+        void rotate(float angle);
+        void rotate(float angle, const Vector& c);
     };
 
 }

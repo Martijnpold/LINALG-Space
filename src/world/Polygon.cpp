@@ -68,4 +68,17 @@ namespace space::world {
         return _points;
     }
 
+    void Polygon::rotate(float angle) {
+        rotate(angle, center());
+    }
+
+    void Polygon::rotate(float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y);
+        Matrix s = Matrix::createRotationMatrix(angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y);
+        Matrix transform = t2 * (s * t1);
+
+        std::transform(_points.begin(), _points.end(), _points.begin(),
+                       [&transform](const auto& p) { return transform * p; });
+    }
 } // namespace space::world

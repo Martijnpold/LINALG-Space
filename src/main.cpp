@@ -90,6 +90,7 @@ int main(int argc, char* argv[]) {
         sdl->present();
 
         p.scale(1.005, {0, 0});
+        p.rotate(0.01);
 
         SDL_Delay(50);
     }
