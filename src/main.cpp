@@ -65,10 +65,6 @@ int main(int argc, char* argv[]) {
     p.add({3, 3});
     p.add({3, 1});
 
-    std::cout << std::endl;
-    std::cout << "Polygon" << std::endl;
-    std::cout << p.center().x << " " << p.center().y << std::endl;
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
@@ -87,19 +83,13 @@ int main(int argc, char* argv[]) {
         float gridSize = 25;
         sdl->clear();
         spaceRenderer->renderGrid(Color {38, 38, 38}, gridSize);
-//        spaceRenderer->renderVector(a + b, Color {0, 0, 255}, gridSize);
-//        spaceRenderer->renderVector(a - b, Color {255, 255, 0}, gridSize);
-//        spaceRenderer->renderVector(1.25 * a, Color {255, 0, 255}, gridSize);
-//        spaceRenderer->renderVector(a, Color {255, 0, 0}, gridSize);
-//        spaceRenderer->renderVector(b, Color {0, 255, 0}, gridSize);
+
         spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
         spaceRenderer->renderVector(p.center(), Color {255, 255, 0}, gridSize);
 
-        p.scale(1.005);
-
-//        std::cout << p.center() << std::endl;
-
         sdl->present();
+
+        p.scale(1.005);
 
         SDL_Delay(50);
     }
