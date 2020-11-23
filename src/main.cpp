@@ -2,7 +2,7 @@
 
 #include "sdl/SDLWrapper.hpp"
 #include "world/Matrix.hpp"
-#include "world/Polygon.h"
+#include "world/Polygon.hpp"
 #include "world/SpaceRenderer.hpp"
 #include "world/Vector.hpp"
 

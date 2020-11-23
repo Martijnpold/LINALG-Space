@@ -1,7 +1,7 @@
 #pragma once
 
+#include "Polygon.hpp"
 #include "Vector.hpp"
-#include "Polygon.h"
 #include "sdl/SDLWrapper.hpp"
 
 #include <vector>
