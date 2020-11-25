@@ -140,8 +140,8 @@ int main(int argc, char* argv[]) {
     std::cout << "kloenk " << o.center() << std::endl;
      */
 
-    Object o = space::model::OBJParser::parse("./assets/model.txt");
-    o.scale(2);
+    Object o = space::model::OBJParser::parse("./assets/rocket.txt");
+    o.scale(0.03);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

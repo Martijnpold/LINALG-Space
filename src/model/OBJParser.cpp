@@ -40,13 +40,14 @@ namespace space::model {
         std::vector<std::string> lines = split(fullFile, '\n');
         for(const std::string& line : lines) {
             std::vector<std::string> args = split(line, ' ');
+            if(args.empty()) continue;
             if(args[0] == "v") {
                 points.emplace_back(toF(args[1]), toF(args[2]), toF(args[3]));
             }
             if(args[0] == "f") {
                 Polygon p {};
                 for(int i = 1; i < args.size(); i++) {
-                    p.add(points[toI(args[i])]);
+                    p.add(points[toI(split(args[i], '/')[0]) - 1]);
                 }
                 object.add(p);
             }
