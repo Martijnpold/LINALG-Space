@@ -84,9 +84,51 @@ int main(int argc, char* argv[]) {
             Vector {1, 3, 0},
     }});
     o.add(Polygon {{
+            Vector {1, 1, 0},
+            Vector {6, 1, 0},
+            Vector {6, 1, 3},
+            Vector {1, 1, 3},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 0},
+            Vector {1, 1, 3},
+            Vector {1, 3, 3},
+            Vector {1, 3, 0},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 3},
+            Vector {6, 1, 3},
+            Vector {6, 3, 3},
+            Vector {1, 3, 3},
+    }});
+    o.add(Polygon {{
+            Vector {0, 0, 0},
+            Vector {6, 0, 0},
+            Vector {6, 0, 4},
+            Vector {0, 0, 4},
+    }});
+    o.add(Polygon {{
+            Vector {0, 0, 0},
+            Vector {0, 0, 4},
+            Vector {0, 3, 4},
+            Vector {0, 3, 0},
+    }});
+    o.add(Polygon {{
+            Vector {0, 0, 4},
+            Vector {6, 0, 4},
+            Vector {6, 3, 4},
+            Vector {0, 3, 4},
+    }});
+    o.add(Polygon {{
             Vector {1, 1, 1},
             Vector {6, 1, 1},
             Vector {1, 3, 1},
+    }});
+    o.add(Polygon {{
+            Vector {1, 3, 1},
+            Vector {6, 1, 1},
+            Vector {6, 1, 2},
+            Vector {1, 3, 2},
     }});
     o.add(Polygon {{
             Vector {1, 1, 2},
@@ -120,8 +162,9 @@ int main(int argc, char* argv[]) {
 
         sdl->present();
 
-        o.translate(0.001, 0.001, 0.001);
-        o.scale(1.001);
+        //        o.translate(0.001, 0.001, 0.001);
+        //        o.scale(1.001);
+        o.rotateZ(0.01);
         //        p.scale(1.005, {0, 0});
         //        p.rotate(0.01);
 
