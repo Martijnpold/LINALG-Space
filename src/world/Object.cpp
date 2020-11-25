@@ -1,7 +1,6 @@
 #include "Object.hpp"
 
 #include <algorithm>
-#include <iostream>
 #include <numeric>
 #include <utility>
 
@@ -50,7 +49,6 @@ namespace space::world {
         Matrix s = Matrix::createScalingMatrix(xFactor, yFactor, zFactor);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        std::cout << transform << std::endl;
         multiply(transform);
     }
 
@@ -66,18 +64,6 @@ namespace space::world {
         return _surfaces;
     }
 
-    void Object::rotateZ(float angle) {
-        rotateZ(angle, center());
-    }
-
-    void Object::rotateZ(float angle, const Vector& c) {
-        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
-        Matrix s = Matrix::createRotationMatrixZ(angle);
-        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
-        Matrix transform = t2 * (s * t1);
-        multiply(transform);
-    }
-
     void Object::rotateX(float angle) {
         rotateX(angle, center());
     }
@@ -85,6 +71,30 @@ namespace space::world {
     void Object::rotateX(float angle, const Vector& c) {
         Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
         Matrix s = Matrix::createRotationMatrixX(angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
+        Matrix transform = t2 * (s * t1);
+        multiply(transform);
+    }
+
+    void Object::rotateY(float angle) {
+        rotateY(angle, center());
+    }
+
+    void Object::rotateY(float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createRotationMatrixY(angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
+        Matrix transform = t2 * (s * t1);
+        multiply(transform);
+    }
+
+    void Object::rotateZ(float angle) {
+        rotateZ(angle, center());
+    }
+
+    void Object::rotateZ(float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createRotationMatrixZ(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
         multiply(transform);

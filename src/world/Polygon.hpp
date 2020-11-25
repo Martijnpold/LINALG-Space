@@ -29,9 +29,11 @@ namespace space::world {
         void scale(float xFactor, float yFactor, float zFactor, const Vector& center);
         void scale(float factor, const Vector& center);
 
-        void rotateZ(float angle);
-        void rotateZ(float angle, const Vector& c);
         void rotateX(float angle);
         void rotateX(float angle, const Vector& c);
+        void rotateY(float angle);
+        void rotateY(float angle, const Vector& c);
+        void rotateZ(float angle);
+        void rotateZ(float angle, const Vector& c);
     };
 } // namespace space::world

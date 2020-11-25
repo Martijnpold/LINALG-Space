@@ -66,18 +66,6 @@ namespace space::world {
         return _points;
     }
 
-    void Polygon::rotateZ(float angle) {
-        rotateZ(angle, center());
-    }
-
-    void Polygon::rotateZ(float angle, const Vector& c) {
-        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
-        Matrix s = Matrix::createRotationMatrixZ(angle);
-        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
-        Matrix transform = t2 * (s * t1);
-        multiply(transform);
-    }
-
     void Polygon::rotateX(float angle) {
         rotateX(angle, center());
     }
@@ -85,6 +73,30 @@ namespace space::world {
     void Polygon::rotateX(float angle, const Vector& c) {
         Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
         Matrix s = Matrix::createRotationMatrixX(angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
+        Matrix transform = t2 * (s * t1);
+        multiply(transform);
+    }
+
+    void Polygon::rotateY(float angle) {
+        rotateY(angle, center());
+    }
+
+    void Polygon::rotateY(float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createRotationMatrixY(angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
+        Matrix transform = t2 * (s * t1);
+        multiply(transform);
+    }
+
+    void Polygon::rotateZ(float angle) {
+        rotateZ(angle, center());
+    }
+
+    void Polygon::rotateZ(float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createRotationMatrixZ(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
         multiply(transform);

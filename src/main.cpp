@@ -1,10 +1,10 @@
 #define SDL_main main
 
+#include "model/OBJParser.hpp"
 #include "sdl/SDLWrapper.hpp"
 #include "world/Matrix.hpp"
 #include "world/Object.hpp"
 #include "world/SpaceRenderer.hpp"
-#include "model/OBJParser.hpp"
 
 #include <iostream>
 
@@ -141,7 +141,7 @@ int main(int argc, char* argv[]) {
      */
 
     Object o = space::model::OBJParser::parse("./assets/rocket.txt");
-    o.scale(0.03);
+    o.scale(0.01, {0, 0, 0});
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -170,8 +170,8 @@ int main(int argc, char* argv[]) {
 
         //        o.translate(0.001, 0.001, 0.001);
         //        o.scale(1.001);
-        o.rotateZ(0.01);
         o.rotateX(0.01);
+        o.rotateZ(0.01);
         //        p.scale(1.005, {0, 0});
         //        p.rotate(0.01);
 

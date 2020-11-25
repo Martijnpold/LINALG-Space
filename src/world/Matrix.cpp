@@ -26,6 +26,12 @@ namespace space::world {
                        0, 0, 1});
     }
 
+    Matrix Matrix::createRotationMatrixY(float angle) {
+        return Matrix(4, 4,
+                      {std::cos(angle), 0, std::sin(angle), 0, 0, 1, 0, 0, -std::sin(angle), 0, std::cos(angle), 0, 0,
+                       0, 0, 1});
+    }
+
     Matrix Matrix::createRotationMatrixZ(float angle) {
         return Matrix(4, 4,
                       {std::cos(angle), -std::sin(angle), 0, 0, std::sin(angle), std::cos(angle), 0, 0, 0, 0, 1, 0, 0,
