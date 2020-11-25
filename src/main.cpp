@@ -4,6 +4,7 @@
 #include "world/Matrix.hpp"
 #include "world/Object.hpp"
 #include "world/SpaceRenderer.hpp"
+#include "model/OBJParser.hpp"
 
 #include <iostream>
 
@@ -58,6 +59,7 @@ int main(int argc, char* argv[]) {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /*
     Object o {};
     o.add(Polygon {{
             Vector {0, 0, 0},
@@ -136,6 +138,10 @@ int main(int argc, char* argv[]) {
             Vector {1, 3, 2},
     }});
     std::cout << "kloenk " << o.center() << std::endl;
+     */
+
+    Object o = space::model::OBJParser::parse("./assets/model.txt");
+    o.scale(2);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

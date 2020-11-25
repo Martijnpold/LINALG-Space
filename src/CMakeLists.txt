@@ -6,7 +6,7 @@ target_link_libraries(space_lib ${SDL2_LIBRARIES})
 
 target_include_directories(space_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable(executable main.cpp)
+add_executable(executable main.cpp model/OBJParser.cpp model/OBJParser.hpp)
 
 target_link_libraries(executable
         PUBLIC space_lib)
