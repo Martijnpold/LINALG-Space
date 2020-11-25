@@ -74,9 +74,9 @@ namespace space::world {
 
     void Polygon::rotate(float angle, const Vector& c) {
         Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y);
-        Matrix s = Matrix::createRotationMatrix(angle);
+        Matrix r = Matrix::createRotationMatrix(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y);
-        Matrix transform = t2 * (s * t1);
+        Matrix transform = t2 * (r * t1);
 
         std::transform(_points.begin(), _points.end(), _points.begin(),
                        [&transform](const auto& p) { return transform * p; });

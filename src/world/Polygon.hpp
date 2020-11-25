@@ -30,7 +30,7 @@ namespace space::world {
         void scale(float factor, const Vector& center);
 
         void rotate(float angle);
-        void rotate(float angle, const Vector& c);
+        void rotate(float angle, const Vector& center);
     };
 
 }
