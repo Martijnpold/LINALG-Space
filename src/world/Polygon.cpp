@@ -19,33 +19,35 @@ namespace space::world {
                 std::accumulate(_points.begin(), _points.end(), 0.0f, [](float s, const auto& v) { return s + v.x; });
         float ySum =
                 std::accumulate(_points.begin(), _points.end(), 0.0f, [](float s, const auto& v) { return s + v.y; });
+        float zSum =
+                std::accumulate(_points.begin(), _points.end(), 0.0f, [](float s, const auto& v) { return s + v.z; });
         float size = _points.size();
-        return Vector {xSum / size, ySum / size};
+        return Vector {xSum / size, ySum / size, zSum / size};
     }
 
-    void Polygon::translate(float x, float y) {
-        Matrix transform = Matrix::createTranslationMatrix(x, y);
+    void Polygon::translate(float x, float y, float z) {
+        Matrix transform = Matrix::createTranslationMatrix(x, y, z);
         std::transform(_points.begin(), _points.end(), _points.begin(),
                        [&transform](const auto& p) { return transform * p; });
     }
 
     void Polygon::scale(float factor) {
-        scale(factor, factor);
-    }
-
-    void Polygon::scale(float xFactor, float yFactor) {
-        Vector c = center();
-        scale(xFactor, yFactor, c);
+        scale(factor, factor, factor);
     }
 
     void Polygon::scale(float factor, const Vector& center) {
-        scale(factor, factor, center);
+        scale(factor, factor, factor, center);
     }
 
-    void Polygon::scale(float xFactor, float yFactor, const Vector& c) {
-        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y);
-        Matrix s = Matrix::createScalingMatrix(xFactor, yFactor);
-        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y);
+    void Polygon::scale(float xFactor, float yFactor, float zFactor) {
+        Vector c = center();
+        scale(xFactor, yFactor, zFactor, c);
+    }
+
+    void Polygon::scale(float xFactor, float yFactor, float zFactor, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createScalingMatrix(xFactor, yFactor, zFactor);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
 
         std::transform(_points.begin(), _points.end(), _points.begin(),
@@ -68,14 +70,14 @@ namespace space::world {
         return _points;
     }
 
-    void Polygon::rotate(float angle) {
-        rotate(angle, center());
+    void Polygon::rotateZ(float angle) {
+        rotateZ(angle, center());
     }
 
-    void Polygon::rotate(float angle, const Vector& c) {
-        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y);
-        Matrix s = Matrix::createRotationMatrix(angle);
-        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y);
+    void Polygon::rotateZ(float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createRotationMatrixZ(angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
 
         std::transform(_points.begin(), _points.end(), _points.begin(),

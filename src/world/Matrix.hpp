@@ -18,9 +18,9 @@ namespace space::world {
         Matrix(unsigned int width, unsigned int height);
         Matrix(unsigned int width, unsigned int height, const std::vector<float>& values);
 
-        static Matrix createScalingMatrix(float xScale, float yScale);
-        static Matrix createTranslationMatrix(float xTranslation, float yTranslation);
-        static Matrix createRotationMatrix(float angle);
+        static Matrix createScalingMatrix(float xScale, float yScale, float zScale);
+        static Matrix createTranslationMatrix(float xTranslation, float yTranslation, float zTranslation);
+        static Matrix createRotationMatrixZ(float angle);
 
         Matrix operator+(const Matrix& other) const;
         Matrix operator-(const Matrix& other) const;

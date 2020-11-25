@@ -22,15 +22,15 @@ namespace space::world {
         [[nodiscard]] bool isOpenEnded() const;
 
         [[nodiscard]] Vector center() const;
-        void translate(float x, float y);
+        void translate(float x, float y, float z);
 
         void scale(float factor);
-        void scale(float xFactor, float yFactor);
-        void scale(float xFactor, float yFactor, const Vector& center);
+        void scale(float xFactor, float yFactor, float zFactor);
+        void scale(float xFactor, float yFactor, float zFactor, const Vector& center);
         void scale(float factor, const Vector& center);
 
-        void rotate(float angle);
-        void rotate(float angle, const Vector& c);
+        void rotateZ(float angle);
+        void rotateZ(float angle, const Vector& c);
     };
 
 }

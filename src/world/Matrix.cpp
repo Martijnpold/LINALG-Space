@@ -12,16 +12,18 @@ namespace space::world {
         fill(values);
     }
 
-    Matrix Matrix::createScalingMatrix(float xScale, float yScale) {
-        return Matrix {3, 3, {xScale, 0, 0, 0, yScale, 0, 0, 0, 1}};
+    Matrix Matrix::createScalingMatrix(float xScale, float yScale, float zScale) {
+        return Matrix {4, 4, {xScale, 0, 0, 0, 0, yScale, 0, 0, 0, 0, zScale, 0, 0, 0, 0, 1}};
     }
 
-    Matrix Matrix::createTranslationMatrix(float xTranslation, float yTranslation) {
-        return Matrix {3, 3, {1, 0, xTranslation, 0, 1, yTranslation, 0, 0, 1}};
+    Matrix Matrix::createTranslationMatrix(float xTranslation, float yTranslation, float zTranslation) {
+        return Matrix {4, 4, {1, 0, 0, xTranslation, 0, 1, 0, yTranslation, 0, 0, zTranslation, 0, 0, 0, 0, 1}};
     }
 
-    Matrix Matrix::createRotationMatrix(float angle) {
-        return Matrix(3, 3, {std::cos(angle), -std::sin(angle), 0, std::sin(angle), std::cos(angle), 0, 0, 0, 1});
+    Matrix Matrix::createRotationMatrixZ(float angle) {
+        return Matrix(4, 4,
+                      {std::cos(angle), -std::sin(angle), 0, 0, std::sin(angle), std::cos(angle), 0, 0, 0, 0, 1, 0, 0,
+                       0, 0, 1});
     }
 
     Matrix Matrix::operator+(const Matrix& other) const {
@@ -87,9 +89,9 @@ namespace space::world {
     }
 
     Vector Matrix::operator*(const Vector& vector) const {
-        Matrix vectorAsMatrix {1, 3, {vector.x, vector.y, 1}};
+        Matrix vectorAsMatrix {1, 4, {vector.x, vector.y, vector.z, 1}};
         Matrix result = *this * vectorAsMatrix;
-        return Vector {result.get(0, 0), result.get(0, 1)};
+        return Vector {result.get(0, 0), result.get(0, 1), result.get(0, 2)};
     }
 
     //#region getters / setters

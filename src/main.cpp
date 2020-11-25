@@ -15,8 +15,8 @@ int main(int argc, char* argv[]) {
     std::cout << "Vector (basics)" << std::endl;
     std::cout << std::endl;
 
-    Vector a {2, 4};
-    Vector b {-1, 2};
+    Vector a {2, 4, 0};
+    Vector b {-1, 2, 0};
     std::cout << "a: " << a << std::endl;
     std::cout << "b: " << b << std::endl;
     std::cout << "a + b: " << a + b << std::endl;
@@ -48,9 +48,9 @@ int main(int argc, char* argv[]) {
     std::cout << "Matrix multiplication with Vector:" << std::endl;
     std::cout << std::endl;
 
-    Matrix E = Matrix::createTranslationMatrix(-1, 2);
-    Matrix F = Matrix::createScalingMatrix(2, 2);
-    Vector c {3, -1};
+    Matrix E = Matrix::createTranslationMatrix(-1, 2, 1);
+    Matrix F = Matrix::createScalingMatrix(2, 2, 2);
+    Vector c {3, -1, 3};
     std::cout << "E: " << E << std::endl;
     std::cout << "F: " << F << std::endl;
     std::cout << "c: " << c << std::endl;
@@ -60,10 +60,10 @@ int main(int argc, char* argv[]) {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Polygon p;
-    p.add({1, 1});
-    p.add({1, 3});
-    p.add({3, 3});
-    p.add({3, 1});
+    p.add({1, 1, 1});
+    p.add({3, 1, 3});
+    p.add({3, 3, 3});
+    p.add({1, 3, 1});
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -89,8 +89,8 @@ int main(int argc, char* argv[]) {
 
         sdl->present();
 
-        p.scale(1.005, {0, 0});
-        p.rotate(0.01);
+//        p.scale(1.005, {0, 0});
+//        p.rotate(0.01);
 
         SDL_Delay(50);
     }
