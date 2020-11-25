@@ -5,30 +5,32 @@
 #include <utility>
 
 namespace space::world {
-
-    Polygon::Polygon(bool isOpenEnded) : _isOpenEnded {isOpenEnded} {
+    Polygon::Polygon(std::vector<Vector> points) : _points {std::move(points)} {
     }
 
-    Polygon::Polygon(std::vector<Vector> points, bool isOpenEnded)
-        : _points {std::move(points)}, _isOpenEnded {isOpenEnded} {
+    Polygon Polygon::operator*(const Matrix& matrix) const {
+        std::vector<Vector> points {};
+        points.reserve(_points.size());
+        std::transform(_points.begin(), _points.end(), std::back_inserter(points),
+                       [&matrix](const Vector& v) { return matrix * v; });
+        return Polygon(points);
     }
 
+    void Polygon::multiply(const Matrix& matrix) {
+        std::transform(_points.begin(), _points.end(), _points.begin(),
+                       [&matrix](const Vector& v) { return matrix * v; });
+    }
 
     Vector Polygon::center() const {
-        float xSum =
-                std::accumulate(_points.begin(), _points.end(), 0.0f, [](float s, const auto& v) { return s + v.x; });
-        float ySum =
-                std::accumulate(_points.begin(), _points.end(), 0.0f, [](float s, const auto& v) { return s + v.y; });
-        float zSum =
-                std::accumulate(_points.begin(), _points.end(), 0.0f, [](float s, const auto& v) { return s + v.z; });
+        Vector sum = std::accumulate(_points.begin(), _points.end(), Vector {},
+                                     [](Vector s, const Vector& v) { return s + v; });
         float size = _points.size();
-        return Vector {xSum / size, ySum / size, zSum / size};
+        return Vector {sum.x / size, sum.y / size, sum.z / size};
     }
 
     void Polygon::translate(float x, float y, float z) {
         Matrix transform = Matrix::createTranslationMatrix(x, y, z);
-        std::transform(_points.begin(), _points.end(), _points.begin(),
-                       [&transform](const auto& p) { return transform * p; });
+        multiply(transform);
     }
 
     void Polygon::scale(float factor) {
@@ -49,17 +51,11 @@ namespace space::world {
         Matrix s = Matrix::createScalingMatrix(xFactor, yFactor, zFactor);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-
-        std::transform(_points.begin(), _points.end(), _points.begin(),
-                       [&transform](const auto& p) { return transform * p; });
+        multiply(transform);
     }
 
     void Polygon::add(const Vector& point) {
         _points.push_back(point);
-    }
-
-    bool Polygon::isOpenEnded() const {
-        return _isOpenEnded;
     }
 
     const std::vector<Vector>& Polygon::points() const {
@@ -79,8 +75,6 @@ namespace space::world {
         Matrix s = Matrix::createRotationMatrixZ(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-
-        std::transform(_points.begin(), _points.end(), _points.begin(),
-                       [&transform](const auto& p) { return transform * p; });
+        multiply(transform);
     }
 } // namespace space::world

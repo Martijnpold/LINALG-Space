@@ -17,7 +17,7 @@ namespace space::world {
     }
 
     Matrix Matrix::createTranslationMatrix(float xTranslation, float yTranslation, float zTranslation) {
-        return Matrix {4, 4, {1, 0, 0, xTranslation, 0, 1, 0, yTranslation, 0, 0, zTranslation, 0, 0, 0, 0, 1}};
+        return Matrix {4, 4, {1, 0, 0, xTranslation, 0, 1, 0, yTranslation, 0, 0, 1, zTranslation, 0, 0, 0, 1}};
     }
 
     Matrix Matrix::createRotationMatrixZ(float angle) {

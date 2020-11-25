@@ -2,9 +2,8 @@
 
 #include "sdl/SDLWrapper.hpp"
 #include "world/Matrix.hpp"
-#include "world/Polygon.hpp"
+#include "world/Object.hpp"
 #include "world/SpaceRenderer.hpp"
-#include "world/Vector.hpp"
 
 #include <iostream>
 
@@ -59,11 +58,42 @@ int main(int argc, char* argv[]) {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Polygon p;
-    p.add({1, 1, 1});
-    p.add({3, 1, 3});
-    p.add({3, 3, 3});
-    p.add({1, 3, 1});
+    Object o {};
+    o.add(Polygon {{
+            Vector {0, 0, 0},
+            Vector {6, 0, 0},
+            Vector {6, 1, 0},
+            Vector {1, 1, 0},
+            Vector {1, 3, 0},
+            Vector {0, 3, 0},
+    }});
+    o.add(Polygon {{
+            Vector {6, 0, 0},
+            Vector {6, 0, 4},
+            Vector {6, 3, 4},
+            Vector {6, 3, 3},
+            Vector {6, 1, 3},
+            Vector {6, 1, 0},
+    }});
+    o.add(Polygon {{
+            Vector {0, 3, 0},
+            Vector {0, 3, 4},
+            Vector {6, 3, 4},
+            Vector {6, 3, 3},
+            Vector {1, 3, 3},
+            Vector {1, 3, 0},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 1},
+            Vector {6, 1, 1},
+            Vector {1, 3, 1},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 2},
+            Vector {6, 1, 2},
+            Vector {1, 3, 2},
+    }});
+    std::cout << "kloenk " << o.center() << std::endl;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -84,13 +114,16 @@ int main(int argc, char* argv[]) {
         sdl->clear();
         spaceRenderer->renderGrid(Color {38, 38, 38}, gridSize);
 
-        spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
-        spaceRenderer->renderVector(p.center(), Color {255, 255, 0}, gridSize);
+        for (const auto& p : o.surfaces()) {
+            spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
+        }
 
         sdl->present();
 
-//        p.scale(1.005, {0, 0});
-//        p.rotate(0.01);
+        o.translate(0.001, 0.001, 0.001);
+        o.scale(1.001);
+        //        p.scale(1.005, {0, 0});
+        //        p.rotate(0.01);
 
         SDL_Delay(50);
     }

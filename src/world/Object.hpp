@@ -1,25 +1,26 @@
 #pragma once
 
 #include "Matrix.hpp"
+#include "Polygon.hpp"
 #include "Vector.hpp"
 
 #include <vector>
 
 namespace space::world {
-    class Polygon {
+    class Object {
     private:
-        std::vector<Vector> _points;
+        std::vector<Polygon> _surfaces;
 
     public:
-        explicit Polygon() = default;
-        explicit Polygon(std::vector<Vector> points);
+        explicit Object() = default;
+        explicit Object(std::vector<Polygon> surfaces);
 
-        Polygon operator*(const Matrix& matrix) const;
+        Object operator*(const Matrix& matrix) const;
         void multiply(const Matrix& matrix);
 
-        void add(const Vector& point);
-        [[nodiscard]] const std::vector<Vector>& points() const;
-        [[nodiscard]] std::vector<Vector>& points();
+        void add(const Polygon& surface);
+        [[nodiscard]] const std::vector<Polygon>& surfaces() const;
+        [[nodiscard]] std::vector<Polygon>& surfaces();
 
         [[nodiscard]] Vector center() const;
         void translate(float x, float y, float z);
