@@ -20,6 +20,7 @@ namespace space::world {
 
         static Matrix createScalingMatrix(float xScale, float yScale, float zScale);
         static Matrix createTranslationMatrix(float xTranslation, float yTranslation, float zTranslation);
+        static Matrix createRotationMatrixX(float angle);
         static Matrix createRotationMatrixZ(float angle);
 
         Matrix operator+(const Matrix& other) const;

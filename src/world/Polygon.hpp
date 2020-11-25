@@ -31,5 +31,7 @@ namespace space::world {
 
         void rotateZ(float angle);
         void rotateZ(float angle, const Vector& c);
+        void rotateX(float angle);
+        void rotateX(float angle, const Vector& c);
     };
 } // namespace space::world

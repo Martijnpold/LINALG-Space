@@ -20,6 +20,12 @@ namespace space::world {
         return Matrix {4, 4, {1, 0, 0, xTranslation, 0, 1, 0, yTranslation, 0, 0, 1, zTranslation, 0, 0, 0, 1}};
     }
 
+    Matrix Matrix::createRotationMatrixX(float angle) {
+        return Matrix(4, 4,
+                      {1, 0, 0, 0, 0, std::cos(angle), -std::sin(angle), 0, 0, std::sin(angle), std::cos(angle), 0, 0,
+                       0, 0, 1});
+    }
+
     Matrix Matrix::createRotationMatrixZ(float angle) {
         return Matrix(4, 4,
                       {std::cos(angle), -std::sin(angle), 0, 0, std::sin(angle), std::cos(angle), 0, 0, 0, 0, 1, 0, 0,

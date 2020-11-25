@@ -77,4 +77,16 @@ namespace space::world {
         Matrix transform = t2 * (s * t1);
         multiply(transform);
     }
+
+    void Object::rotateX(float angle) {
+        rotateX(angle, center());
+    }
+
+    void Object::rotateX(float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createRotationMatrixX(angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
+        Matrix transform = t2 * (s * t1);
+        multiply(transform);
+    }
 } // namespace space::world
