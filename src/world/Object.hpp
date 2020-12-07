@@ -16,7 +16,7 @@ namespace space::world {
         explicit Object(std::vector<Polygon> surfaces);
 
         Object operator*(const Matrix& matrix) const;
-        void multiply(const Matrix& matrix);
+        Object& operator*=(const Matrix& matrix);
 
         void add(const Polygon& surface);
         [[nodiscard]] const std::vector<Polygon>& surfaces() const;

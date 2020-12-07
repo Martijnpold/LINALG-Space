@@ -10,13 +10,14 @@ namespace space::world {
 
     Object Object::operator*(const Matrix& matrix) const {
         std::vector<Polygon> surfaces {};
+        surfaces.reserve(_surfaces.size());
         std::transform(_surfaces.begin(), _surfaces.end(), std::back_inserter(surfaces), [&matrix](const auto& p) { return p * matrix; });
         return Object(surfaces);
     }
 
-    void Object::multiply(const Matrix& matrix) {
-        std::transform(_surfaces.begin(), _surfaces.end(), _surfaces.begin(),
-                       [&matrix](const auto& p) { return p * matrix; });
+    Object& Object::operator*=(const Matrix& matrix) {
+        std::transform(_surfaces.begin(), _surfaces.end(), _surfaces.begin(), [&matrix](const auto& p) { return p * matrix; });
+        return *this;
     }
 
     Vector Object::center() const {
@@ -28,7 +29,7 @@ namespace space::world {
 
     void Object::translate(float x, float y, float z) {
         Matrix transform = Matrix::createTranslationMatrix(x, y, z);
-        multiply(transform);
+        (*this) *= transform;
     }
 
     void Object::scale(float factor) {
@@ -49,7 +50,7 @@ namespace space::world {
         Matrix s = Matrix::createScalingMatrix(xFactor, yFactor, zFactor);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        multiply(transform);
+        (*this) *= transform;
     }
 
     void Object::add(const Polygon& surface) {
@@ -73,7 +74,7 @@ namespace space::world {
         Matrix s = Matrix::createRotationMatrixX(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        multiply(transform);
+        (*this) *= transform;
     }
 
     void Object::rotateY(float angle) {
@@ -85,7 +86,7 @@ namespace space::world {
         Matrix s = Matrix::createRotationMatrixY(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        multiply(transform);
+        (*this) *= transform;
     }
 
     void Object::rotateZ(float angle) {
@@ -97,6 +98,6 @@ namespace space::world {
         Matrix s = Matrix::createRotationMatrixZ(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        multiply(transform);
+        (*this) *= transform;
     }
 } // namespace space::world

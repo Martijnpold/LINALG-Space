@@ -16,9 +16,10 @@ namespace space::world {
         return Polygon(points);
     }
 
-    void Polygon::multiply(const Matrix& matrix) {
+    Polygon& Polygon::operator*=(const Matrix& matrix) {
         std::transform(_points.begin(), _points.end(), _points.begin(),
                        [&matrix](const Vector& v) { return matrix * v; });
+        return *this;
     }
 
     Vector Polygon::center() const {
@@ -30,7 +31,7 @@ namespace space::world {
 
     void Polygon::translate(float x, float y, float z) {
         Matrix transform = Matrix::createTranslationMatrix(x, y, z);
-        multiply(transform);
+        (*this) *= transform;
     }
 
     void Polygon::scale(float factor) {
@@ -51,7 +52,7 @@ namespace space::world {
         Matrix s = Matrix::createScalingMatrix(xFactor, yFactor, zFactor);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        multiply(transform);
+        (*this) *= transform;
     }
 
     void Polygon::add(const Vector& point) {
@@ -75,7 +76,7 @@ namespace space::world {
         Matrix s = Matrix::createRotationMatrixX(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        multiply(transform);
+        (*this) *= transform;
     }
 
     void Polygon::rotateY(float angle) {
@@ -87,7 +88,7 @@ namespace space::world {
         Matrix s = Matrix::createRotationMatrixY(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        multiply(transform);
+        (*this) *= transform;
     }
 
     void Polygon::rotateZ(float angle) {
@@ -99,6 +100,6 @@ namespace space::world {
         Matrix s = Matrix::createRotationMatrixZ(angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
-        multiply(transform);
+        (*this) *= transform;
     }
 } // namespace space::world

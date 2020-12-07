@@ -15,7 +15,7 @@ namespace space::world {
         explicit Polygon(std::vector<Vector> points);
 
         Polygon operator*(const Matrix& matrix) const;
-        void multiply(const Matrix& matrix);
+        Polygon& operator*=(const Matrix& matrix);
 
         void add(const Vector& point);
         [[nodiscard]] const std::vector<Vector>& points() const;
