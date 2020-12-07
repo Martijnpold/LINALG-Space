@@ -47,6 +47,7 @@ namespace space::world {
 
         void set(unsigned int x, unsigned int y, float value);
         [[nodiscard]] float get(unsigned int x, unsigned int y) const;
+        [[nodiscard]] float operator()(unsigned int x, unsigned int y) const;
 
         [[nodiscard]] unsigned int size() const;
         [[nodiscard]] unsigned int height() const;

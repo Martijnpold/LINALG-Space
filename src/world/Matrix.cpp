@@ -124,6 +124,10 @@ namespace space::world {
         return _values.at(to_index(x, y));
     }
 
+    float Matrix::operator()(unsigned int x, unsigned int y) const {
+        return get(x, y);
+    }
+
     void Matrix::set(unsigned int x, unsigned int y, float value) {
         _values[to_index(x, y)] = value;
     }
