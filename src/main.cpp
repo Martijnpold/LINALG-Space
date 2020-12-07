@@ -141,7 +141,7 @@ int main(int argc, char* argv[]) {
      */
 
     Object o = space::model::OBJParser::parse("./assets/rocket.txt");
-    o.scale(0.01, {0, 0, 0});
+    o.scale(0.05, {0, 0, 0});
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
