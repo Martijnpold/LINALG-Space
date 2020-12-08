@@ -1,6 +1,7 @@
 #include "Matrix.hpp"
 
 #include <cmath>
+#include <util/VectorRotationUtil.hpp>
 
 namespace space::world {
 
@@ -36,6 +37,15 @@ namespace space::world {
         return Matrix(4, 4,
                       {std::cos(angle), -std::sin(angle), 0, 0, std::sin(angle), std::cos(angle), 0, 0, 0, 0, 1, 0, 0,
                        0, 0, 1});
+    }
+
+    Matrix Matrix::createRotationMatrixVec(const Vector& v, float angle) {
+        Matrix result = util::VectorRotationUtil::rotateM5(v, angle);
+        result *= util::VectorRotationUtil::rotateM4(v, angle);
+        result *= util::VectorRotationUtil::rotateM3(v, angle);
+        result *= util::VectorRotationUtil::rotateM2(v, angle);
+        result *= util::VectorRotationUtil::rotateM1(v, angle);
+        return result;
     }
 
     Matrix Matrix::operator+(const Matrix& other) const {
@@ -98,6 +108,26 @@ namespace space::world {
         }
 
         return dest;
+    }
+
+    Matrix& Matrix::operator*=(const Matrix& matrix) {
+        unsigned int multiplicationRowSize = width();
+
+        for (int y = 0; y < height(); ++y) {
+            for (int x = 0; x < matrix.width(); ++x) {
+                float value = 0;
+
+                for (int i = 0; i < multiplicationRowSize; ++i) {
+                    float a = get(i, y);
+                    float b = matrix.get(x, i);
+                    value += a * b;
+                }
+
+                set(x, y, value);
+            }
+        }
+
+        return *this;
     }
 
     Vector Matrix::operator*(const Vector& vector) const {
@@ -168,7 +198,6 @@ namespace space::world {
     std::ostream& operator<<(std::ostream& strm, const Matrix& matrix) {
         return strm << matrix.to_string();
     }
-
     //#endregion
 
 } // namespace space::world

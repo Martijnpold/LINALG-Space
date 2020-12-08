@@ -23,10 +23,12 @@ namespace space::world {
         static Matrix createRotationMatrixX(float angle);
         static Matrix createRotationMatrixY(float angle);
         static Matrix createRotationMatrixZ(float angle);
+        static Matrix createRotationMatrixVec(const Vector& v, float angle);
 
         Matrix operator+(const Matrix& other) const;
         Matrix operator-(const Matrix& other) const;
         Matrix operator*(const Matrix& matrix) const;
+        Matrix& operator*=(const Matrix& matrix);
         Vector operator*(const Vector& vector) const;
 
         /**
