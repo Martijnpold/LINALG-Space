@@ -4,7 +4,7 @@
 
 using namespace space::world;
 
-TEST_CASE("Matrix data access", "[Matrix]") {
+TEST_CASE("Matrix data access & construction", "[Matrix]") {
 
     SECTION("Default Matrices are filled with '0' as the value") {
         Matrix m {2, 2};
@@ -90,4 +90,175 @@ TEST_CASE("Matrix arithmetic", "[Matrix]") {
         REQUIRE(r.y == -2);
         REQUIRE(r.z == -6);
     }
+}
+
+TEST_CASE("Utility Matrix construction") {
+
+    SECTION("Scaling matrix") {
+        float xScale {2};
+        float yScale {4};
+        float zScale {6};
+        Matrix m = Matrix::createScalingMatrix(xScale, yScale, zScale);
+
+        SECTION("is properly sized to be multiplied with a Vector") {
+            REQUIRE(m.width() == 4);
+            REQUIRE(m.height() == 4);
+        }
+
+        SECTION("contains scaling values in the correct positions") {
+            REQUIRE(m(0, 0) == xScale);
+            REQUIRE(m(1, 1) == yScale);
+            REQUIRE(m(2, 2) == zScale);
+            REQUIRE(m(3, 3) == 1);
+        }
+
+        SECTION("contains 0 in all other positions") {
+            REQUIRE(m(1, 0) == 0);
+            REQUIRE(m(2, 0) == 0);
+            REQUIRE(m(3, 0) == 0);
+            REQUIRE(m(0, 1) == 0);
+            REQUIRE(m(2, 1) == 0);
+            REQUIRE(m(3, 1) == 0);
+            REQUIRE(m(0, 2) == 0);
+            REQUIRE(m(1, 2) == 0);
+            REQUIRE(m(3, 2) == 0);
+            REQUIRE(m(0, 3) == 0);
+            REQUIRE(m(1, 3) == 0);
+            REQUIRE(m(2, 3) == 0);
+        }
+    }
+
+    SECTION("Translation matrix") {
+        float xTranslation {2};
+        float yTranslation {4};
+        float zTranslation {6};
+        Matrix m = Matrix::createTranslationMatrix(xTranslation, yTranslation, zTranslation);
+
+        SECTION("is properly sized to be multiplied with a Vector") {
+            REQUIRE(m.width() == 4);
+            REQUIRE(m.height() == 4);
+        }
+
+        SECTION("contains translation values in the correct positions") {
+            REQUIRE(m(3, 0) == xTranslation);
+            REQUIRE(m(3, 1) == yTranslation);
+            REQUIRE(m(3, 2) == zTranslation);
+            REQUIRE(m(0, 0) == 1);
+            REQUIRE(m(1, 1) == 1);
+            REQUIRE(m(2, 2) == 1);
+            REQUIRE(m(3, 3) == 1);
+        }
+
+        SECTION("contains 0 in all other positions") {
+            REQUIRE(m(1, 0) == 0);
+            REQUIRE(m(2, 0) == 0);
+            REQUIRE(m(0, 1) == 0);
+            REQUIRE(m(2, 1) == 0);
+            REQUIRE(m(0, 2) == 0);
+            REQUIRE(m(1, 2) == 0);
+            REQUIRE(m(0, 3) == 0);
+            REQUIRE(m(1, 3) == 0);
+            REQUIRE(m(2, 3) == 0);
+        }
+    }
+
+    SECTION("X rotation matrix") {
+        float a = 5;
+        Matrix m = Matrix::createRotationMatrixX(a);
+
+        SECTION("is properly sized to be multiplied with a Vector") {
+            REQUIRE(m.width() == 4);
+            REQUIRE(m.height() == 4);
+        }
+
+        SECTION("contains rotation values in the correct positions") {
+            REQUIRE(m(1, 1) == cos(a));
+            REQUIRE(m(2, 1) == -sin(a));
+            REQUIRE(m(1, 2) == sin(a));
+            REQUIRE(m(2, 2) == cos(a));
+
+            REQUIRE(m(0, 0) == 1);
+            REQUIRE(m(3, 3) == 1);
+        }
+
+        SECTION("contains 0 in all other positions") {
+            REQUIRE(m(1, 0) == 0);
+            REQUIRE(m(2, 0) == 0);
+            REQUIRE(m(3, 0) == 0);
+            REQUIRE(m(0, 1) == 0);
+            REQUIRE(m(3, 1) == 0);
+            REQUIRE(m(0, 2) == 0);
+            REQUIRE(m(3, 2) == 0);
+            REQUIRE(m(0, 3) == 0);
+            REQUIRE(m(1, 3) == 0);
+            REQUIRE(m(2, 3) == 0);
+        }
+    }
+
+    SECTION("Y rotation matrix") {
+        float a = 5;
+        Matrix m = Matrix::createRotationMatrixY(a);
+
+        SECTION("is properly sized to be multiplied with a Vector") {
+            REQUIRE(m.width() == 4);
+            REQUIRE(m.height() == 4);
+        }
+
+        SECTION("contains rotation values in the correct positions") {
+            REQUIRE(m(0, 0) == cos(a));
+            REQUIRE(m(2, 0) == sin(a));
+            REQUIRE(m(0, 2) == -sin(a));
+            REQUIRE(m(2, 2) == cos(a));
+
+            REQUIRE(m(1, 1) == 1);
+            REQUIRE(m(3, 3) == 1);
+        }
+
+        SECTION("contains 0 in all other positions") {
+            REQUIRE(m(1, 0) == 0);
+            REQUIRE(m(3, 0) == 0);
+            REQUIRE(m(0, 1) == 0);
+            REQUIRE(m(2, 1) == 0);
+            REQUIRE(m(3, 1) == 0);
+            REQUIRE(m(1, 2) == 0);
+            REQUIRE(m(3, 2) == 0);
+            REQUIRE(m(0, 3) == 0);
+            REQUIRE(m(1, 3) == 0);
+            REQUIRE(m(2, 3) == 0);
+        }
+    }
+
+    SECTION("Z rotation matrix") {
+        float a = 5;
+        Matrix m = Matrix::createRotationMatrixZ(a);
+
+        SECTION("is properly sized to be multiplied with a Vector") {
+            REQUIRE(m.width() == 4);
+            REQUIRE(m.height() == 4);
+        }
+
+        SECTION("contains rotation values in the correct positions") {
+            REQUIRE(m(0, 0) == cos(a));
+            REQUIRE(m(1, 0) == -sin(a));
+            REQUIRE(m(0, 1) == sin(a));
+            REQUIRE(m(1, 1) == cos(a));
+
+            REQUIRE(m(2, 2) == 1);
+            REQUIRE(m(3, 3) == 1);
+        }
+
+        SECTION("contains 0 in all other positions") {
+            REQUIRE(m(2, 0) == 0);
+            REQUIRE(m(3, 0) == 0);
+            REQUIRE(m(2, 1) == 0);
+            REQUIRE(m(3, 1) == 0);
+            REQUIRE(m(0, 2) == 0);
+            REQUIRE(m(1, 2) == 0);
+            REQUIRE(m(3, 2) == 0);
+            REQUIRE(m(0, 3) == 0);
+            REQUIRE(m(1, 3) == 0);
+            REQUIRE(m(2, 3) == 0);
+        }
+    }
+
 }

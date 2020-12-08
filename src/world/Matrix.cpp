@@ -1,7 +1,7 @@
 #include "Matrix.hpp"
+#include "util/VectorRotationUtil.hpp"
 
 #include <cmath>
-#include <util/VectorRotationUtil.hpp>
 
 namespace space::world {
 
@@ -23,8 +23,10 @@ namespace space::world {
 
     Matrix Matrix::createRotationMatrixX(float angle) {
         return Matrix(4, 4,
-                      {1, 0, 0, 0, 0, std::cos(angle), -std::sin(angle), 0, 0, std::sin(angle), std::cos(angle), 0, 0,
-                       0, 0, 1});
+                      {1, 0, 0, 0,
+                              0, std::cos(angle), -std::sin(angle), 0,
+                              0, std::sin(angle), std::cos(angle), 0,
+                              0, 0, 0, 1});
     }
 
     Matrix Matrix::createRotationMatrixY(float angle) {
