@@ -12,8 +12,11 @@ namespace space::world {
 
         Vector operator+(const Vector& v) const;
         Vector operator-(const Vector& v) const;
+        Vector& operator*=(float f);
         Vector operator*(float f) const;
         friend Vector operator*(float i, const Vector& v);
+
+        float length() const;
 
         [[nodiscard]] std::string to_string() const;
         friend std::ostream& operator<<(std::ostream& outputStream, const Vector& v);

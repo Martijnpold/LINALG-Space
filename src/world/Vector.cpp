@@ -1,5 +1,7 @@
 #include "Vector.hpp"
 
+#include <cmath>
+
 namespace space::world {
     Vector::Vector(float vx, float vy, float vz) : x {vx}, y {vy}, z {vz} {
     }
@@ -15,8 +17,19 @@ namespace space::world {
         return Vector {x - v.x, y - v.y, z - v.z};
     }
 
+    Vector & Vector::operator*=(float f) {
+        this->x *= f;
+        this->y *= f;
+        this->z *= f;
+        return *this;
+    }
+
     Vector Vector::operator*(float f) const {
         return Vector {x * f, y * f, z * f};
+    }
+
+    float Vector::length() const {
+            return std::sqrt((x * x) + (y * y) + (z * z));
     }
 
     std::string Vector::to_string() const {
