@@ -25,6 +25,7 @@ namespace space::world {
         static Matrix createRotationMatrixZ(float angle);
         static Matrix createRotationMatrixVec(const Vector& v, float angle);
 
+        bool operator==(const Matrix& matrix) const;
         Matrix operator+(const Matrix& other) const;
         Matrix operator-(const Matrix& other) const;
         Matrix operator*(const Matrix& matrix) const;

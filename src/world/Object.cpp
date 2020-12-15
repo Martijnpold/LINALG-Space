@@ -11,12 +11,14 @@ namespace space::world {
     Object Object::operator*(const Matrix& matrix) const {
         std::vector<Polygon> surfaces {};
         surfaces.reserve(_surfaces.size());
-        std::transform(_surfaces.begin(), _surfaces.end(), std::back_inserter(surfaces), [&matrix](const auto& p) { return p * matrix; });
+        std::transform(_surfaces.begin(), _surfaces.end(), std::back_inserter(surfaces),
+                       [&matrix](const auto& p) { return p * matrix; });
         return Object(surfaces);
     }
 
     Object& Object::operator*=(const Matrix& matrix) {
-        std::transform(_surfaces.begin(), _surfaces.end(), _surfaces.begin(), [&matrix](const auto& p) { return p * matrix; });
+        std::transform(_surfaces.begin(), _surfaces.end(), _surfaces.begin(),
+                       [&matrix](const auto& p) { return p * matrix; });
         return *this;
     }
 
@@ -96,6 +98,18 @@ namespace space::world {
     void Object::rotateZ(float angle, const Vector& c) {
         Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
         Matrix s = Matrix::createRotationMatrixZ(angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
+        Matrix transform = t2 * (s * t1);
+        (*this) *= transform;
+    }
+
+    void Object::rotateVec(const Vector& vec, float angle) {
+        rotateVec(vec, angle, center());
+    }
+
+    void Object::rotateVec(const Vector& vec, float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createRotationMatrixVec(vec, angle);
         Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
         Matrix transform = t2 * (s * t1);
         (*this) *= transform;
