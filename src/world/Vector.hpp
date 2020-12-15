@@ -17,6 +17,7 @@ namespace space::world {
         friend Vector operator*(float i, const Vector& v);
 
         float length() const;
+        void normalize();
 
         float dot(const Vector& v) const;
         Vector cross(const Vector& v) const;

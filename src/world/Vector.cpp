@@ -36,6 +36,17 @@ namespace space::world {
         return std::sqrt((x * x) + (y * y) + (z * z));
     }
 
+    void Vector::normalize() {
+        float l = length();
+
+        if (l <= 0) {
+            throw std::logic_error { "Can not normalize a Vector of length: " + std::to_string(l)};
+        }
+
+        float factor = 1 / l;
+        (*this) *= factor;
+    }
+
     float Vector::dot(const Vector& v) const {
         return (x * v.x) + (y * v.y) + (z * v.z);
     }
