@@ -102,4 +102,16 @@ namespace space::world {
         Matrix transform = t2 * (s * t1);
         (*this) *= transform;
     }
+
+    void Polygon::rotateVec(const Vector& vec, float angle) {
+        rotateVec(vec, angle, center());
+    }
+
+    void Polygon::rotateVec(const Vector& vec, float angle, const Vector& c) {
+        Matrix t1 = Matrix::createTranslationMatrix(-c.x, -c.y, -c.z);
+        Matrix s = Matrix::createRotationMatrixVec(vec, angle);
+        Matrix t2 = Matrix::createTranslationMatrix(c.x, c.y, c.z);
+        Matrix transform = t2 * (s * t1);
+        (*this) *= transform;
+    }
 } // namespace space::world

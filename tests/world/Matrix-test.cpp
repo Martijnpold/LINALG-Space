@@ -172,10 +172,10 @@ TEST_CASE("Utility Matrix construction") {
         }
 
         SECTION("contains rotation values in the correct positions") {
-            REQUIRE(m(1, 1) == cos(a));
-            REQUIRE(m(2, 1) == -sin(a));
-            REQUIRE(m(1, 2) == sin(a));
-            REQUIRE(m(2, 2) == cos(a));
+            REQUIRE(m(1, 1) == std::cos(a));
+            REQUIRE(m(2, 1) == -std::sin(a));
+            REQUIRE(m(1, 2) == std::sin(a));
+            REQUIRE(m(2, 2) == std::cos(a));
 
             REQUIRE(m(0, 0) == 1);
             REQUIRE(m(3, 3) == 1);
@@ -205,10 +205,10 @@ TEST_CASE("Utility Matrix construction") {
         }
 
         SECTION("contains rotation values in the correct positions") {
-            REQUIRE(m(0, 0) == cos(a));
-            REQUIRE(m(2, 0) == sin(a));
-            REQUIRE(m(0, 2) == -sin(a));
-            REQUIRE(m(2, 2) == cos(a));
+            REQUIRE(m(0, 0) == std::cos(a));
+            REQUIRE(m(2, 0) == std::sin(a));
+            REQUIRE(m(0, 2) == -std::sin(a));
+            REQUIRE(m(2, 2) == std::cos(a));
 
             REQUIRE(m(1, 1) == 1);
             REQUIRE(m(3, 3) == 1);
@@ -238,10 +238,10 @@ TEST_CASE("Utility Matrix construction") {
         }
 
         SECTION("contains rotation values in the correct positions") {
-            REQUIRE(m(0, 0) == cos(a));
-            REQUIRE(m(1, 0) == -sin(a));
-            REQUIRE(m(0, 1) == sin(a));
-            REQUIRE(m(1, 1) == cos(a));
+            REQUIRE(m(0, 0) == std::cos(a));
+            REQUIRE(m(1, 0) == -std::sin(a));
+            REQUIRE(m(0, 1) == std::sin(a));
+            REQUIRE(m(1, 1) == std::cos(a));
 
             REQUIRE(m(2, 2) == 1);
             REQUIRE(m(3, 3) == 1);
@@ -261,4 +261,14 @@ TEST_CASE("Utility Matrix construction") {
         }
     }
 
+    SECTION("Vector rotation matrix") {
+//        Vector v {1, 2, 3};
+//        float a = 4;
+//        Matrix m = Matrix::createRotationMatrixVec(a);
+//
+//        SECTION("is properly sized to be multiplied with a Vector") {
+//            REQUIRE(m.width() == 4);
+//            REQUIRE(m.height() == 4);
+//        }
+    }
 }

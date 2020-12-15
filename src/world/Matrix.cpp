@@ -1,7 +1,9 @@
 #include "Matrix.hpp"
+
 #include "util/VectorRotationUtil.hpp"
 
 #include <cmath>
+#include <iostream>
 
 namespace space::world {
 
@@ -23,10 +25,8 @@ namespace space::world {
 
     Matrix Matrix::createRotationMatrixX(float angle) {
         return Matrix(4, 4,
-                      {1, 0, 0, 0,
-                              0, std::cos(angle), -std::sin(angle), 0,
-                              0, std::sin(angle), std::cos(angle), 0,
-                              0, 0, 0, 1});
+                      {1, 0, 0, 0, 0, std::cos(angle), -std::sin(angle), 0, 0, std::sin(angle), std::cos(angle), 0, 0,
+                       0, 0, 1});
     }
 
     Matrix Matrix::createRotationMatrixY(float angle) {
@@ -42,12 +42,22 @@ namespace space::world {
     }
 
     Matrix Matrix::createRotationMatrixVec(const Vector& v, float angle) {
-        Matrix result = util::VectorRotationUtil::rotateM5(v, angle);
+        Matrix result = {4, 4, {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}};
+
+        if (v.z != 0)
+            result *= util::VectorRotationUtil::rotateM5(v, angle);
         result *= util::VectorRotationUtil::rotateM4(v, angle);
         result *= util::VectorRotationUtil::rotateM3(v, angle);
         result *= util::VectorRotationUtil::rotateM2(v, angle);
-        result *= util::VectorRotationUtil::rotateM1(v, angle);
+        if (v.z != 0)
+            result *= util::VectorRotationUtil::rotateM1(v, angle);
         return result;
+    }
+
+    bool Matrix::operator==(const Matrix& matrix) const {
+        if (matrix.size() != size())
+            return false;
+        return _values == matrix._values;
     }
 
     Matrix Matrix::operator+(const Matrix& other) const {

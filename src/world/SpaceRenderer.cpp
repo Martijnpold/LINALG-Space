@@ -18,11 +18,11 @@ namespace space::world {
         _renderer->drawLine(width / 2 + from.x * gridSize, height / 2 - from.y * gridSize, width / 2 + to.x * gridSize,
                             height / 2 - to.y * gridSize);
 
-        _renderer->drawLine(width / 2 + 175 + from.z * gridSize, height / 2 - from.y * gridSize,
-                            width / 2 + 175 + to.z * gridSize, height / 2 - to.y * gridSize);
-
-        _renderer->drawLine(width / 2 + from.x * gridSize, height / 2 + 175 - from.z * gridSize,
-                            width / 2 + to.x * gridSize, height / 2 + 175 - to.z * gridSize);
+//        _renderer->drawLine(width / 2 + 175 + from.z * gridSize, height / 2 - from.y * gridSize,
+//                            width / 2 + 175 + to.z * gridSize, height / 2 - to.y * gridSize);
+//
+//        _renderer->drawLine(width / 2 + from.x * gridSize, height / 2 + 175 - from.z * gridSize,
+//                            width / 2 + to.x * gridSize, height / 2 + 175 - to.z * gridSize);
     }
 
     void SpaceRenderer::renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize) {

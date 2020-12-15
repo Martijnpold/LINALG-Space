@@ -12,54 +12,9 @@ using namespace space::world;
 using namespace space::sdl;
 
 int main(int argc, char* argv[]) {
-    std::cout << "Vector (basics)" << std::endl;
-    std::cout << std::endl;
-
-    Vector a {2, 4, 0};
-    Vector b {-1, 2, 0};
-    std::cout << "a: " << a << std::endl;
-    std::cout << "b: " << b << std::endl;
-    std::cout << "a + b: " << a + b << std::endl;
-    std::cout << "a - b: " << a - b << std::endl;
-    std::cout << "2 * a: " << a * 2 << std::endl;
-
-    std::cout << std::endl;
-    std::cout << "Matrices (basic)" << std::endl;
-    std::cout << std::endl;
-
-    Matrix A {2, 2, {1, 2, 3, 4}};
-    Matrix B {2, 2, {4, 3, 2, 1}};
-    std::cout << "A: " << A << std::endl;
-    std::cout << "B: " << B << std::endl;
-    std::cout << "A + B: " << A + B << std::endl;
-    std::cout << "A - B: " << A - B << std::endl;
-
-    std::cout << std::endl;
-    std::cout << "Matrix multiplication:" << std::endl;
-    std::cout << std::endl;
-
-    Matrix C {3, 2, {1, 2, 3, 4, 5, 6}};
-    Matrix D {2, 3, {7, 8, 9, 10, 11, 12}};
-    std::cout << "C: " << C << std::endl;
-    std::cout << "D: " << D << std::endl;
-    std::cout << "C * D: " << C * D << std::endl;
-
-    std::cout << std::endl;
-    std::cout << "Matrix multiplication with Vector:" << std::endl;
-    std::cout << std::endl;
-
-    Matrix E = Matrix::createTranslationMatrix(-1, 2, 1);
-    Matrix F = Matrix::createScalingMatrix(2, 2, 2);
-    Vector c {3, -1, 3};
-    std::cout << "E: " << E << std::endl;
-    std::cout << "F: " << F << std::endl;
-    std::cout << "c: " << c << std::endl;
-    std::cout << "E * c: " << E * c << std::endl;
-    std::cout << "F * c: " << F * c << std::endl;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /*
     Object o {};
     o.add(Polygon {{
             Vector {0, 0, 0},
@@ -137,11 +92,10 @@ int main(int argc, char* argv[]) {
             Vector {6, 1, 2},
             Vector {1, 3, 2},
     }});
-    std::cout << "kloenk " << o.center() << std::endl;
-     */
 
-    Object o = space::model::OBJParser::parse("./assets/rocket.txt");
-    o.scale(0.05, {0, 0, 0});
+
+    //Object o = space::model::OBJParser::parse("./assets/rocket.txt");
+    //o.scale(0.05, {0, 0, 0});
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -170,12 +124,13 @@ int main(int argc, char* argv[]) {
 
         //        o.translate(0.001, 0.001, 0.001);
         //        o.scale(1.001);
-        o.rotateX(0.01);
-        o.rotateZ(0.01);
+        //o.rotateX(0.01);
+        //o.rotateZ(0.01);
+        o.surfaces()[0].rotateVec({0,0,1}, 0.01);
         //        p.scale(1.005, {0, 0});
         //        p.rotate(0.01);
 
-        SDL_Delay(50);
+        SDL_Delay(100);
     }
 
     return 0;
