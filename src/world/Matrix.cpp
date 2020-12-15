@@ -123,21 +123,9 @@ namespace space::world {
     }
 
     Matrix& Matrix::operator*=(const Matrix& matrix) {
-        unsigned int multiplicationRowSize = width();
-
-        for (int y = 0; y < height(); ++y) {
-            for (int x = 0; x < matrix.width(); ++x) {
-                float value = 0;
-
-                for (int i = 0; i < multiplicationRowSize; ++i) {
-                    float a = get(i, y);
-                    float b = matrix.get(x, i);
-                    value += a * b;
-                }
-
-                set(x, y, value);
-            }
-        }
+        Matrix copy {*this};
+        copy = copy * matrix;
+        _values = copy._values;
 
         return *this;
     }
