@@ -17,7 +17,7 @@ namespace space::world {
         return Vector {x - v.x, y - v.y, z - v.z};
     }
 
-    Vector & Vector::operator*=(float f) {
+    Vector& Vector::operator*=(float f) {
         this->x *= f;
         this->y *= f;
         this->z *= f;
@@ -28,8 +28,24 @@ namespace space::world {
         return Vector {x * f, y * f, z * f};
     }
 
+    Vector operator*(float i, const Vector& v) {
+        return v * i;
+    }
+
     float Vector::length() const {
-            return std::sqrt((x * x) + (y * y) + (z * z));
+        return std::sqrt((x * x) + (y * y) + (z * z));
+    }
+
+    float Vector::dot(const Vector& v) const {
+        return (x * v.x) + (y * v.y) + (z * v.z);
+    }
+
+    Vector Vector::cross(const Vector& v) const {
+        return Vector {
+                (y * v.z) - (z * v.y),
+                (z * v.x) - (x * v.z),
+                (x * v.y) - (y * v.x),
+        };
     }
 
     std::string Vector::to_string() const {
@@ -38,9 +54,5 @@ namespace space::world {
 
     std::ostream& operator<<(std::ostream& strm, const Vector& v) {
         return strm << v.to_string();
-    }
-
-    Vector operator*(float i, const Vector& v) {
-        return v * i;
     }
 } // namespace space::world
