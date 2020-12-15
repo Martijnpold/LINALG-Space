@@ -21,6 +21,7 @@ namespace space::world {
 
         float dot(const Vector& v) const;
         Vector cross(const Vector& v) const;
+        float angle(const Vector& v) const;
 
         [[nodiscard]] std::string to_string() const;
         friend std::ostream& operator<<(std::ostream& outputStream, const Vector& v);

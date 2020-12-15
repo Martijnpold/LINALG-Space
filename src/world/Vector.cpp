@@ -59,6 +59,10 @@ namespace space::world {
         };
     }
 
+    float Vector::angle(const Vector& v) const {
+        return std::acos(dot(v) / (length() * v.length()));
+    }
+
     std::string Vector::to_string() const {
         return "Vector(" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ")";
     }
