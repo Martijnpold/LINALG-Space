@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Camera.hpp"
+#include "Object.hpp"
 #include "Polygon.hpp"
 #include "Vector.hpp"
 #include "sdl/SDLWrapper.hpp"
@@ -19,5 +21,6 @@ namespace space::world {
         void renderGrid(const sdl::Color& c, float gridSize);
         void renderLine(const Vector& from, const Vector& to, const sdl::Color& c, float gridSize);
         void renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize);
+        void renderObject(const Camera& camera, const Object& object);
     };
 } // namespace space::world

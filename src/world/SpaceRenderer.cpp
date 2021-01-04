@@ -18,11 +18,11 @@ namespace space::world {
         _renderer->drawLine(width / 2 + from.x * gridSize, height / 2 - from.y * gridSize, width / 2 + to.x * gridSize,
                             height / 2 - to.y * gridSize);
 
-//        _renderer->drawLine(width / 2 + 175 + from.z * gridSize, height / 2 - from.y * gridSize,
-//                            width / 2 + 175 + to.z * gridSize, height / 2 - to.y * gridSize);
-//
-//        _renderer->drawLine(width / 2 + from.x * gridSize, height / 2 + 175 - from.z * gridSize,
-//                            width / 2 + to.x * gridSize, height / 2 + 175 - to.z * gridSize);
+        //        _renderer->drawLine(width / 2 + 175 + from.z * gridSize, height / 2 - from.y * gridSize,
+        //                            width / 2 + 175 + to.z * gridSize, height / 2 - to.y * gridSize);
+        //
+        //        _renderer->drawLine(width / 2 + from.x * gridSize, height / 2 + 175 - from.z * gridSize,
+        //                            width / 2 + to.x * gridSize, height / 2 + 175 - to.z * gridSize);
     }
 
     void SpaceRenderer::renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize) {
@@ -50,6 +50,34 @@ namespace space::world {
                 _renderer->drawLine(0, height / 2 + y * gridSize, width, height / 2 + y * gridSize);
                 _renderer->drawLine(0, height / 2 - y * gridSize, width, height / 2 - y * gridSize);
             }
+        }
+    }
+
+    void SpaceRenderer::renderObject(const Camera& camera, const Object& object) {
+        _renderer->setColor(0, 0, 255);
+
+        Matrix projection {camera.createProjectionMatrix()};
+        float screenW {( float ) _renderer->getWidth()};
+        float screenH {( float ) _renderer->getHeight()};
+
+        for (const auto& polygon : object.surfaces()) {
+            for (int i = 0; i < polygon.points().size(); i++) {
+                Vector from {polygon.points()[i]};
+                from = projection * from;
+                Vector to {polygon.points()[(i + 1) % polygon.points().size()]};
+                to = projection * to;
+
+                if (from.w < 0 && to.w < 0)
+                    continue;
+
+                float xFrom = screenW / 2 + (from.x / from.w) * (screenW / 2);
+                float yFrom = screenH / 2 + (from.y / from.w) * (screenH / 2);
+                float xTo = screenW / 2 + (to.x / to.w) * (screenW / 2);
+                float yTo = screenH / 2 + (to.y / to.w) * (screenH / 2);
+
+                _renderer->drawLine(xFrom, yFrom, xTo, yTo);
+            }
+            //            spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
         }
     }
 } // namespace space::world

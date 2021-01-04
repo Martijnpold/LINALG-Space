@@ -3,10 +3,13 @@
 #include <cmath>
 
 namespace space::world {
-    Vector::Vector(float vx, float vy, float vz) : x {vx}, y {vy}, z {vz} {
+    Vector::Vector(float vx, float vy, float vz) : x {vx}, y {vy}, z {vz}, w {1} {
     }
 
     Vector::Vector() : Vector(0, 0, 0) {
+    }
+
+    Vector::Vector(float vx, float vy, float vz, float vw) : x {vx}, y {vy}, z {vz}, w {vw} {
     }
 
     Vector Vector::operator+(const Vector& v) const {
@@ -36,15 +39,16 @@ namespace space::world {
         return std::sqrt((x * x) + (y * y) + (z * z));
     }
 
-    void Vector::normalize() {
+    Vector& Vector::normalize() {
         float l = length();
 
         if (l <= 0) {
-            throw std::logic_error { "Can not normalize a Vector of length: " + std::to_string(l)};
+            throw std::logic_error {"Can not normalize a Vector of length: " + std::to_string(l)};
         }
 
         float factor = 1 / l;
         (*this) *= factor;
+        return *this;
     }
 
     float Vector::dot(const Vector& v) const {

@@ -5,10 +5,11 @@
 namespace space::world {
     class Vector {
     public:
-        float x, y, z;
+        float x, y, z, w;
 
         Vector();
         Vector(float x, float y, float z);
+        Vector(float x, float y, float z, float w);
 
         Vector operator+(const Vector& v) const;
         Vector operator-(const Vector& v) const;
@@ -17,7 +18,7 @@ namespace space::world {
         friend Vector operator*(float i, const Vector& v);
 
         float length() const;
-        void normalize();
+        Vector& normalize();
 
         float dot(const Vector& v) const;
         Vector cross(const Vector& v) const;

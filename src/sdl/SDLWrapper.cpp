@@ -8,6 +8,8 @@ namespace space::sdl {
 
         _window.reset(SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, 0));
         _renderer.reset(SDL_CreateRenderer(_window.get(), -1, SDL_RENDERER_ACCELERATED));
+
+        SDL_SetWindowResizable(_window.get(), SDL_bool::SDL_TRUE);
     }
 
     SDLWrapper::~SDLWrapper() {

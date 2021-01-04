@@ -19,6 +19,10 @@ namespace space::world {
         return Matrix {4, 4, {xScale, 0, 0, 0, 0, yScale, 0, 0, 0, 0, zScale, 0, 0, 0, 0, 1}};
     }
 
+    Matrix Matrix::createTranslationMatrix(const Vector& vector) {
+        return Matrix::createTranslationMatrix(vector.x, vector.y, vector.z);
+    }
+
     Matrix Matrix::createTranslationMatrix(float xTranslation, float yTranslation, float zTranslation) {
         return Matrix {4, 4, {1, 0, 0, xTranslation, 0, 1, 0, yTranslation, 0, 0, 1, zTranslation, 0, 0, 0, 1}};
     }
@@ -131,9 +135,9 @@ namespace space::world {
     }
 
     Vector Matrix::operator*(const Vector& vector) const {
-        Matrix vectorAsMatrix {1, 4, {vector.x, vector.y, vector.z, 1}};
+        Matrix vectorAsMatrix {1, 4, {vector.x, vector.y, vector.z, vector.w}};
         Matrix result = *this * vectorAsMatrix;
-        return Vector {result.get(0, 0), result.get(0, 1), result.get(0, 2)};
+        return Vector {result(0, 0), result(0, 1), result(0, 2), result(0, 3)};
     }
 
     //#region getters / setters
