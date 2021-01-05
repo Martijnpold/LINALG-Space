@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
 
     Object o = space::model::OBJParser::parse("./assets/rocket.txt");
     o.scale(0.05, {0, 0, 0});
-    o.translate(0, 0, -30);
+    //o.translate(0, 0, -30);
 
     o.rotateX(3.14 * 1.1);
     //o.rotateY(-0.1);
@@ -147,9 +147,17 @@ int main(int argc, char* argv[]) {
                     case SDLK_j:
                         camera.rotate(Vector {0, cameraRotationSpeed, 0});
                         break;
+                    case SDLK_o:
+                        camera.move(Vector {0, 0, 50});
+                        break;
+                    case SDLK_p:
+                        camera.move(Vector {0, 0, -50});
+                        break;
                 }
             }
         }
+
+        std::cout << camera._location << std::endl;
 
         float gridSize = 25;
         sdl->clear();
@@ -168,7 +176,7 @@ int main(int argc, char* argv[]) {
         // o.rotateX(0.1, {0, 0, 0});
         //o.rotateZ(0.01);
         //o.surfaces()[0].rotateX(0.1, {0, 0, 0});
-        o.rotateVec(heading, 0.02);
+        //o.rotateVec(heading, 0.02);
         //        p.scale(1.005, {0, 0});
         //        p.rotate(0.01);
 

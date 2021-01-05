@@ -1,10 +1,11 @@
 #include "Camera.hpp"
 
 #include <cmath>
+#include <iostream>
 
 // TODO: probably clean this up?
-float deg_to_rad(float deg) {
-    return deg * (M_PI / 180);
+float deg_to_rad(double deg) {
+    return (float) (deg * (M_PI / 180.0));
 }
 
 namespace space::world {
@@ -29,7 +30,9 @@ namespace space::world {
     }
 
     Matrix Camera::createOriginTranslationMatrix() const {
-        return createTranslationMatrix() * Matrix::createTranslationMatrix(_location * -1);
+        auto translation = createTranslationMatrix();
+        auto invertedTranslation = Matrix::createTranslationMatrix(_location);
+        return createTranslationMatrix() * Matrix::createTranslationMatrix(_location);
     }
 
     float Camera::scale() const {
@@ -65,6 +68,6 @@ namespace space::world {
         Matrix rotationZ {Matrix::createRotationMatrixVec(direction(), v.z)};
         Matrix transform = rotationX * rotationY * rotationZ;
         _location = transform * _location;
-        _lookat = transform * _lookat;
+        //_lookat = transform * _lookat;
     }
 } // namespace space::world

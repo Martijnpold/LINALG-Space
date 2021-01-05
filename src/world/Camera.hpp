@@ -5,8 +5,7 @@
 namespace space::world {
     class Camera {
     private:
-        Vector _location {0, 0, 0};
-        Vector _lookat {0, 0, 1};
+        Vector _lookat {0, 0, 0};
 
         float _fov {90};
         float _near {0.1};
@@ -14,6 +13,8 @@ namespace space::world {
         float scale() const;
 
     public:
+        Vector _location {0, 0, 1000};
+
         Vector direction() const;
         Vector directionRight() const;
         Vector directionUp() const;
