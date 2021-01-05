@@ -2,6 +2,11 @@
 
 #include <cmath>
 
+// TODO: probably clean this up?
+float deg_to_rad(float deg) {
+    return deg * (M_PI / 180);
+}
+
 namespace space::world {
     Vector Camera::direction() const {
         return (_location - _lookat).normalize();
@@ -28,7 +33,7 @@ namespace space::world {
     }
 
     float Camera::scale() const {
-        return _near * std::tan(_fov * 0.5f);
+        return _near * std::tan(deg_to_rad(_fov) * 0.5f);
     }
 
     Matrix Camera::createProjectionMatrix() const {

@@ -8,9 +8,9 @@ namespace space::world {
         Vector _location;
         Vector _lookat;
 
-        float _fov {50};
-        float _near {0.1};
-        float _far {100};
+        float _fov {90};
+        float _near {10};
+        float _far {200};
         float scale() const;
 
     public:
