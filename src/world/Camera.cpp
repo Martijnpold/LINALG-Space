@@ -42,4 +42,29 @@ namespace space::world {
                       {scl, 0, 0, 0, 0, scl, 0, 0, 0, 0, -_far / (_far - _near), -1, 0, 0,
                        (-_far * _near) / (_far - _near), 0});
     }
+
+    void Camera::move(const Vector& v) {
+        //        Vector lookAtDiff {_location - _lookat};
+
+        //        Vector dRight {directionRight()};
+        //        _location *= (dRight * v.x);
+        //        Vector dUp {directionUp()};
+        //        _location *= (dUp * v.y);
+        //        Vector dForward {direction()};
+        //        _location *= (dForward * v.z);
+
+        Matrix translate {createTranslationMatrix()};
+        Vector move {translate * v};
+        _location += move;
+        _lookat += move;
+    }
+
+    void Camera::rotate(const Vector& v) {
+        Matrix rotationX {Matrix::createRotationMatrixVec(directionRight(), v.x)};
+        Matrix rotationY {Matrix::createRotationMatrixVec(directionUp(), v.y)};
+        Matrix rotationZ {Matrix::createRotationMatrixVec(direction(), v.z)};
+        Matrix transform = rotationX * rotationY * rotationZ;
+        _location = transform * _location;
+        _lookat = transform * _lookat;
+    }
 } // namespace space::world

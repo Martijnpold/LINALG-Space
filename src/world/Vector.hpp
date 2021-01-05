@@ -11,7 +11,10 @@ namespace space::world {
         Vector(float x, float y, float z);
         Vector(float x, float y, float z, float w);
 
+        Vector operator*(const Vector& v) const;
+        Vector& operator*=(const Vector& v);
         Vector operator+(const Vector& v) const;
+        Vector& operator+=(const Vector& v);
         Vector operator-(const Vector& v) const;
         Vector& operator*=(float f);
         Vector operator*(float f) const;

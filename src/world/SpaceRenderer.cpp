@@ -56,7 +56,7 @@ namespace space::world {
     void SpaceRenderer::renderObject(const Camera& camera, const Object& object) {
         _renderer->setColor(0, 0, 255);
 
-        Matrix projection {camera.createProjectionMatrix()};
+        Matrix projection {camera.createOriginTranslationMatrix() * camera.createProjectionMatrix()};
         float screenW {( float ) _renderer->getWidth()};
         float screenH {( float ) _renderer->getHeight()};
 

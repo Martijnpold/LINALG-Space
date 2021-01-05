@@ -5,12 +5,12 @@
 namespace space::world {
     class Camera {
     private:
-        Vector _location;
-        Vector _lookat;
+        Vector _location {0, 0, 0};
+        Vector _lookat {0, 0, 1};
 
         float _fov {90};
-        float _near {10};
-        float _far {200};
+        float _near {0.1};
+        float _far {100};
         float scale() const;
 
     public:
@@ -22,5 +22,8 @@ namespace space::world {
         Matrix createOriginTranslationMatrix() const;
 
         Matrix createProjectionMatrix() const;
+
+        void move(const Vector& v);
+        void rotate(const Vector& v);
     };
 } // namespace space::world

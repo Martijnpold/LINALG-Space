@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
 
     Object o = space::model::OBJParser::parse("./assets/rocket.txt");
     o.scale(0.05, {0, 0, 0});
-    o.translate(0, 0, -20);
+    o.translate(0, 0, -30);
 
     o.rotateX(3.14 * 1.1);
     //o.rotateY(-0.1);
@@ -112,12 +112,42 @@ int main(int argc, char* argv[]) {
     SDL_bool done = SDL_FALSE;
 
     Camera camera {};
+    float cameraMovementSpeed {0.1};
+    float cameraRotationSpeed {0.02};
 
     while (!done) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 done = SDL_TRUE;
+            }
+            if (event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+                    case SDLK_UP:
+                        camera.move(Vector {0, cameraMovementSpeed, 0});
+                        break;
+                    case SDLK_RIGHT:
+                        camera.move(Vector {cameraMovementSpeed, 0, 0});
+                        break;
+                    case SDLK_DOWN:
+                        camera.move(Vector {0, -cameraMovementSpeed, 0});
+                        break;
+                    case SDLK_LEFT:
+                        camera.move(Vector {-cameraMovementSpeed, 0, 0});
+                        break;
+                    case SDLK_i:
+                        camera.rotate(Vector {-cameraRotationSpeed, 0, 0});
+                        break;
+                    case SDLK_l:
+                        camera.rotate(Vector {0, -cameraRotationSpeed, 0});
+                        break;
+                    case SDLK_k:
+                        camera.rotate(Vector {cameraRotationSpeed, 0, 0});
+                        break;
+                    case SDLK_j:
+                        camera.rotate(Vector {0, cameraRotationSpeed, 0});
+                        break;
+                }
             }
         }
 
