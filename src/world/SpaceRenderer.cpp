@@ -69,7 +69,7 @@ namespace space::world {
                 Vector to {polygon.points()[(i + 1) % polygon.points().size()]};
                 to = projection * to;
 
-                if (from.w <= 0 && to.w <= 0)
+                if (from.w <= 0 || to.w <= 0)
                     continue;
 
                 float xFrom = screenW / 2 + (from.x / from.w) * (screenW / 2);
