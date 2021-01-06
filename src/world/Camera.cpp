@@ -55,6 +55,8 @@ namespace space::world {
         Vector move {translate * v};
         _location += move;
         _lookat += move;
+
+        update_directions();
     }
 
     void Camera::rotate(const Vector& v) {
@@ -64,7 +66,5 @@ namespace space::world {
         Matrix transform = rotationX * rotationY * rotationZ;
         _location = transform * _location;
         update_directions();
-        // std::cout << direction() << std::endl;
-        //_lookat = transform * _lookat;
     }
 } // namespace space::world

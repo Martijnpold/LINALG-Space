@@ -8,7 +8,7 @@ namespace space::world {
         Vector _lookat {0, 0, 0};
         Vector _location {0, 0, 10};
 
-        Vector _direction {0, 0, -1};
+        Vector _direction {0, 0, 1};
         Vector _up {0, 1, 0};
         Vector _right {1, 0, 0};
 
