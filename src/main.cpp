@@ -149,10 +149,10 @@ int main(int argc, char* argv[]) {
                         camera.rotate(Vector {0, cameraRotationSpeed * 10, 0});
                         break;
                     case SDLK_o:
-                        camera.move(Vector {0, 0, 50});
+                        camera.move(Vector {0, 0, 5});
                         break;
                     case SDLK_p:
-                        camera.move(Vector {0, 0, -50});
+                        camera.move(Vector {0, 0, -5});
                         break;
                 }
             }

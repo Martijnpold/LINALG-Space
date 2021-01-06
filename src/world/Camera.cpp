@@ -51,20 +51,10 @@ namespace space::world {
     }
 
     void Camera::move(const Vector& v) {
-        //        Vector lookAtDiff {_location - _lookat};
-
-        //        Vector dRight {directionRight()};
-        //        _location *= (dRight * v.x);
-        //        Vector dUp {directionUp()};
-        //        _location *= (dUp * v.y);
-        //        Vector dForward {direction()};
-        //        _location *= (dForward * v.z);
-
         Matrix translate {createTranslationMatrix()};
         Vector move {translate * v};
         _location += move;
-        // TODO: update directions
-        //_lookat += move;
+        _lookat += move;
     }
 
     void Camera::rotate(const Vector& v) {
