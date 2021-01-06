@@ -6,6 +6,11 @@ namespace space::world {
     class Camera {
     private:
         Vector _lookat {0, 0, 0};
+        Vector _location {0, 0, 10};
+
+        Vector _direction {0, 0, -1};
+        Vector _up {0, 1, 0};
+        Vector _right {1, 0, 0};
 
         float _fov {90};
         float _near {0.1};
@@ -13,8 +18,6 @@ namespace space::world {
         float scale() const;
 
     public:
-        Vector _location {0, 0, 10};
-
         Vector direction() const;
         Vector directionRight() const;
         Vector directionUp() const;
@@ -26,5 +29,8 @@ namespace space::world {
 
         void move(const Vector& v);
         void rotate(const Vector& v);
+
+    private:
+        void update_directions();
     };
 } // namespace space::world

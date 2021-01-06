@@ -9,17 +9,23 @@ float deg_to_rad(double deg) {
 }
 
 namespace space::world {
+
+    void Camera::update_directions() {
+        _direction = (_location - _lookat).normalize();
+        _right = _up.cross(_direction).normalize(); // this works because '_up' has been initialised correctly
+        _up = _direction.cross(_right).normalize();
+    }
+
     Vector Camera::direction() const {
-        return (_location - _lookat).normalize();
+        return _direction;
     }
 
     Vector Camera::directionRight() const {
-        Vector up {0, 1, 0};
-        return up.cross(direction()).normalize();
+        return _right;
     }
 
     Vector Camera::directionUp() const {
-        return direction().cross(directionRight()).normalize();
+        return _up;
     }
 
     Matrix Camera::createTranslationMatrix() const {
@@ -57,6 +63,7 @@ namespace space::world {
         Matrix translate {createTranslationMatrix()};
         Vector move {translate * v};
         _location += move;
+        // TODO: update directions
         //_lookat += move;
     }
 
@@ -66,7 +73,8 @@ namespace space::world {
         Matrix rotationZ {Matrix::createRotationMatrixVec(direction(), v.z)};
         Matrix transform = rotationX * rotationY * rotationZ;
         _location = transform * _location;
-        std::cout << direction() << std::endl;
+        update_directions();
+        // std::cout << direction() << std::endl;
         //_lookat = transform * _lookat;
     }
 } // namespace space::world
