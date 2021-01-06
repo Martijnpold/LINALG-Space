@@ -58,12 +58,6 @@ namespace space::world {
     void SpaceRenderer::renderObject(const Camera& camera, const Object& object) {
         _renderer->setColor(0, 0, 255);
 
-        Matrix origin = camera.createOriginTranslationMatrix();
-        std::cout << "origin matrix " << origin << std::endl;
-
-        Matrix preprojection = camera.createProjectionMatrix();
-        std::cout << "projection matrix " << preprojection << std::endl;
-
         Matrix projection {camera.createProjectionMatrix() * camera.createOriginTranslationMatrix()};
         float screenW {( float ) _renderer->getWidth()};
         float screenH {( float ) _renderer->getHeight()};

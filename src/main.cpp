@@ -109,12 +109,13 @@ int main(int argc, char* argv[]) {
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
     auto spaceRenderer = std::make_unique<space::world::SpaceRenderer>(sdl);
 
-    SDL_bool done = SDL_FALSE;
-
     Camera camera {};
     float cameraMovementSpeed {0.1};
-    float cameraRotationSpeed {0.02};
+    float cameraRotationSpeed {0.002};
 
+    SDL_bool done = SDL_FALSE;
+
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     while (!done) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -124,28 +125,28 @@ int main(int argc, char* argv[]) {
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
                     case SDLK_UP:
-                        camera.move(Vector {0, cameraMovementSpeed, 0});
+                        camera.move(Vector {0, cameraMovementSpeed * 10, 0});
                         break;
                     case SDLK_RIGHT:
-                        camera.move(Vector {cameraMovementSpeed, 0, 0});
+                        camera.move(Vector {cameraMovementSpeed * 10, 0, 0});
                         break;
                     case SDLK_DOWN:
-                        camera.move(Vector {0, -cameraMovementSpeed, 0});
+                        camera.move(Vector {0, -cameraMovementSpeed * 10, 0});
                         break;
                     case SDLK_LEFT:
-                        camera.move(Vector {-cameraMovementSpeed, 0, 0});
+                        camera.move(Vector {-cameraMovementSpeed * 10, 0, 0});
                         break;
                     case SDLK_i:
-                        camera.rotate(Vector {-cameraRotationSpeed, 0, 0});
+                        camera.rotate(Vector {-cameraRotationSpeed * 10, 0, 0});
                         break;
                     case SDLK_l:
-                        camera.rotate(Vector {0, -cameraRotationSpeed, 0});
+                        camera.rotate(Vector {0, -cameraRotationSpeed * 10, 0});
                         break;
                     case SDLK_k:
-                        camera.rotate(Vector {cameraRotationSpeed, 0, 0});
+                        camera.rotate(Vector {cameraRotationSpeed * 10, 0, 0});
                         break;
                     case SDLK_j:
-                        camera.rotate(Vector {0, cameraRotationSpeed, 0});
+                        camera.rotate(Vector {0, cameraRotationSpeed * 10, 0});
                         break;
                     case SDLK_o:
                         camera.move(Vector {0, 0, 50});
@@ -155,9 +156,10 @@ int main(int argc, char* argv[]) {
                         break;
                 }
             }
+            if(event.type == SDL_MOUSEMOTION) {
+                camera.rotate(Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
+            }
         }
-
-        std::cout << camera._location << std::endl;
 
         float gridSize = 25;
         sdl->clear();

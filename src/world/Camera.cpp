@@ -5,7 +5,7 @@
 
 // TODO: probably clean this up?
 float deg_to_rad(double deg) {
-    return (float) (deg * (M_PI / 180.0));
+    return ( float ) (deg * (M_PI / 180.0));
 }
 
 namespace space::world {
@@ -66,6 +66,7 @@ namespace space::world {
         Matrix rotationZ {Matrix::createRotationMatrixVec(direction(), v.z)};
         Matrix transform = rotationX * rotationY * rotationZ;
         _location = transform * _location;
+        std::cout << direction() << std::endl;
         //_lookat = transform * _lookat;
     }
 } // namespace space::world
