@@ -8,9 +8,9 @@ namespace space::world {
         Vector _lookat {0, 0, 0};
         Vector _location {0, 0, 10};
 
-        Vector _direction {0, 0, 1};
-        Vector _up {0, 1, 0};
-        Vector _right {1, 0, 0};
+        Vector _direction;
+        Vector _up;
+        Vector _right;
 
         float _fov {90};
         float _near {0.1};
@@ -18,6 +18,11 @@ namespace space::world {
         float scale() const;
 
     public:
+        Camera() {
+            _up = {0, 1, 0};
+            update_directions();
+        }
+
         Vector direction() const;
         Vector directionRight() const;
         Vector directionUp() const;
