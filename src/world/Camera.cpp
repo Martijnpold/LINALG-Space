@@ -10,6 +10,11 @@ float deg_to_rad(double deg) {
 
 namespace space::world {
 
+    Camera::Camera() {
+        _up = {0, 1, 0};
+        update_directions();
+    }
+
     void Camera::update_directions() {
         _direction = (_location - _lookat).normalize();
         _right = _up.cross(_direction).normalize(); // this works because '_up' has been initialised correctly

@@ -18,10 +18,7 @@ namespace space::world {
         float scale() const;
 
     public:
-        Camera() {
-            _up = {0, 1, 0};
-            update_directions();
-        }
+        Camera();
 
         Vector direction() const;
         Vector directionRight() const;
