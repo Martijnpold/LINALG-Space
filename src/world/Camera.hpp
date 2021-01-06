@@ -9,11 +9,11 @@ namespace space::world {
 
         float _fov {90};
         float _near {0.1};
-        float _far {100};
+        float _far {1000};
         float scale() const;
 
     public:
-        Vector _location {0, 0, 1000};
+        Vector _location {0, 0, 10};
 
         Vector direction() const;
         Vector directionRight() const;

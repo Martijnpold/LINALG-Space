@@ -15,93 +15,93 @@ int main(int argc, char* argv[]) {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //    Object o {};
-    //    o.add(Polygon {{
-    //            Vector {0, 0, 0},
-    //            Vector {6, 0, 0},
-    //            Vector {6, 1, 0},
-    //            Vector {1, 1, 0},
-    //            Vector {1, 3, 0},
-    //            Vector {0, 3, 0},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {6, 0, 0},
-    //            Vector {6, 0, 4},
-    //            Vector {6, 3, 4},
-    //            Vector {6, 3, 3},
-    //            Vector {6, 1, 3},
-    //            Vector {6, 1, 0},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {0, 3, 0},
-    //            Vector {0, 3, 4},
-    //            Vector {6, 3, 4},
-    //            Vector {6, 3, 3},
-    //            Vector {1, 3, 3},
-    //            Vector {1, 3, 0},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {1, 1, 0},
-    //            Vector {6, 1, 0},
-    //            Vector {6, 1, 3},
-    //            Vector {1, 1, 3},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {1, 1, 0},
-    //            Vector {1, 1, 3},
-    //            Vector {1, 3, 3},
-    //            Vector {1, 3, 0},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {1, 1, 3},
-    //            Vector {6, 1, 3},
-    //            Vector {6, 3, 3},
-    //            Vector {1, 3, 3},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {0, 0, 0},
-    //            Vector {6, 0, 0},
-    //            Vector {6, 0, 4},
-    //            Vector {0, 0, 4},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {0, 0, 0},
-    //            Vector {0, 0, 4},
-    //            Vector {0, 3, 4},
-    //            Vector {0, 3, 0},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {0, 0, 4},
-    //            Vector {6, 0, 4},
-    //            Vector {6, 3, 4},
-    //            Vector {0, 3, 4},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {1, 1, 1},
-    //            Vector {6, 1, 1},
-    //            Vector {1, 3, 1},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {1, 3, 1},
-    //            Vector {6, 1, 1},
-    //            Vector {6, 1, 2},
-    //            Vector {1, 3, 2},
-    //    }});
-    //    o.add(Polygon {{
-    //            Vector {1, 1, 2},
-    //            Vector {6, 1, 2},
-    //            Vector {1, 3, 2},
-    //    }});
+    Object o {};
+    o.add(Polygon {{
+            Vector {0, 0, 0},
+            Vector {6, 0, 0},
+            Vector {6, 1, 0},
+            Vector {1, 1, 0},
+            Vector {1, 3, 0},
+            Vector {0, 3, 0},
+    }});
+    o.add(Polygon {{
+            Vector {6, 0, 0},
+            Vector {6, 0, 4},
+            Vector {6, 3, 4},
+            Vector {6, 3, 3},
+            Vector {6, 1, 3},
+            Vector {6, 1, 0},
+    }});
+    o.add(Polygon {{
+            Vector {0, 3, 0},
+            Vector {0, 3, 4},
+            Vector {6, 3, 4},
+            Vector {6, 3, 3},
+            Vector {1, 3, 3},
+            Vector {1, 3, 0},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 0},
+            Vector {6, 1, 0},
+            Vector {6, 1, 3},
+            Vector {1, 1, 3},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 0},
+            Vector {1, 1, 3},
+            Vector {1, 3, 3},
+            Vector {1, 3, 0},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 3},
+            Vector {6, 1, 3},
+            Vector {6, 3, 3},
+            Vector {1, 3, 3},
+    }});
+    o.add(Polygon {{
+            Vector {0, 0, 0},
+            Vector {6, 0, 0},
+            Vector {6, 0, 4},
+            Vector {0, 0, 4},
+    }});
+    o.add(Polygon {{
+            Vector {0, 0, 0},
+            Vector {0, 0, 4},
+            Vector {0, 3, 4},
+            Vector {0, 3, 0},
+    }});
+    o.add(Polygon {{
+            Vector {0, 0, 4},
+            Vector {6, 0, 4},
+            Vector {6, 3, 4},
+            Vector {0, 3, 4},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 1},
+            Vector {6, 1, 1},
+            Vector {1, 3, 1},
+    }});
+    o.add(Polygon {{
+            Vector {1, 3, 1},
+            Vector {6, 1, 1},
+            Vector {6, 1, 2},
+            Vector {1, 3, 2},
+    }});
+    o.add(Polygon {{
+            Vector {1, 1, 2},
+            Vector {6, 1, 2},
+            Vector {1, 3, 2},
+    }});
 
 
-    Object o = space::model::OBJParser::parse("./assets/rocket.txt");
-    o.scale(0.05, {0, 0, 0});
-    //o.translate(0, 0, -30);
-
-    o.rotateX(3.14 * 1.1);
-    //o.rotateY(-0.1);
-    Vector heading {0, 0, 1};
-    heading = Matrix::createRotationMatrixX(3.14 * 1.1) * heading;
+    //    Object o = space::model::OBJParser::parse("./assets/rocket.txt");
+//    o.scale(0.05, {0, 0, 0});
+//    //o.translate(0, 0, -30);
+//
+//    o.rotateX(3.14 * 1.1);
+//    //o.rotateY(-0.1);
+//    Vector heading {0, 0, 1};
+//    heading = Matrix::createRotationMatrixX(3.14 * 1.1) * heading;
     //heading = Matrix::createRotationMatrixY(-0.1) * heading;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

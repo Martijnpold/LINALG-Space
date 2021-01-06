@@ -1,5 +1,7 @@
 #include "SpaceRenderer.hpp"
 
+#include <iostream>
+
 namespace space::world {
     SpaceRenderer::SpaceRenderer(std::shared_ptr<sdl::SDLWrapper> renderer) : _renderer {std::move(renderer)} {
     }
@@ -56,7 +58,13 @@ namespace space::world {
     void SpaceRenderer::renderObject(const Camera& camera, const Object& object) {
         _renderer->setColor(0, 0, 255);
 
-        Matrix projection {camera.createOriginTranslationMatrix() * camera.createProjectionMatrix()};
+        Matrix origin = camera.createOriginTranslationMatrix();
+        std::cout << "origin matrix " << origin << std::endl;
+
+        Matrix preprojection = camera.createProjectionMatrix();
+        std::cout << "projection matrix " << preprojection << std::endl;
+
+        Matrix projection {camera.createProjectionMatrix() * camera.createOriginTranslationMatrix()};
         float screenW {( float ) _renderer->getWidth()};
         float screenH {( float ) _renderer->getHeight()};
 
@@ -67,7 +75,7 @@ namespace space::world {
                 Vector to {polygon.points()[(i + 1) % polygon.points().size()]};
                 to = projection * to;
 
-                if (from.w < 0 && to.w < 0)
+                if (from.w <= 0 && to.w <= 0)
                     continue;
 
                 float xFrom = screenW / 2 + (from.x / from.w) * (screenW / 2);

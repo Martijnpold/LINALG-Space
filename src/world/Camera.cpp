@@ -30,9 +30,7 @@ namespace space::world {
     }
 
     Matrix Camera::createOriginTranslationMatrix() const {
-        auto translation = createTranslationMatrix();
-        auto invertedTranslation = Matrix::createTranslationMatrix(_location);
-        return createTranslationMatrix() * Matrix::createTranslationMatrix(_location);
+        return createTranslationMatrix() * Matrix::createTranslationMatrix(_location * -1);
     }
 
     float Camera::scale() const {
@@ -59,7 +57,7 @@ namespace space::world {
         Matrix translate {createTranslationMatrix()};
         Vector move {translate * v};
         _location += move;
-        _lookat += move;
+        //_lookat += move;
     }
 
     void Camera::rotate(const Vector& v) {
