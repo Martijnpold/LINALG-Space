@@ -1,19 +1,19 @@
-#include "SpaceRenderer.hpp"
+#include "Renderer.hpp"
 
 #include <iostream>
 
 namespace space::world {
-    SpaceRenderer::SpaceRenderer(std::shared_ptr<sdl::SDLWrapper> renderer) : _renderer {std::move(renderer)} {
+    Renderer::Renderer(std::shared_ptr<sdl::SDLWrapper> renderer) : _renderer {std::move(renderer)} {
     }
 
-    void SpaceRenderer::renderVector(const Vector& v, const sdl::Color& c, float gridSize) {
+    void Renderer::renderVector(const Vector& v, const sdl::Color& c, float gridSize) {
         _renderer->setColor(c);
         float width = _renderer->getWidth();
         float height = _renderer->getHeight();
         _renderer->drawLine(width / 2, height / 2, width / 2 + v.x * gridSize, height / 2 - v.y * gridSize);
     }
 
-    void SpaceRenderer::renderLine(const Vector& from, const Vector& to, const sdl::Color& c, float gridSize) {
+    void Renderer::renderLine(const Vector& from, const Vector& to, const sdl::Color& c, float gridSize) {
         _renderer->setColor(c);
         float width = _renderer->getWidth();
         float height = _renderer->getHeight();
@@ -27,13 +27,13 @@ namespace space::world {
         //                            width / 2 + to.x * gridSize, height / 2 + 175 - to.z * gridSize);
     }
 
-    void SpaceRenderer::renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize) {
+    void Renderer::renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize) {
         for (int i = 0; i < polygon.points().size(); i++) {
             renderLine(polygon.points()[i], polygon.points()[(i + 1) % polygon.points().size()], c, gridSize);
         }
     }
 
-    void SpaceRenderer::renderGrid(const sdl::Color& c, float gridSize) {
+    void Renderer::renderGrid(const sdl::Color& c, float gridSize) {
         _renderer->setColor(c);
         float width = _renderer->getWidth();
         float height = _renderer->getHeight();
@@ -55,7 +55,7 @@ namespace space::world {
         }
     }
 
-    void SpaceRenderer::renderObject(const Camera& camera, const Object& object) {
+    void Renderer::renderObject(const Camera& camera, const Object& object) {
         _renderer->setColor(0, 0, 255);
 
         Matrix projection {camera.createProjectionMatrix() * camera.createOriginTranslationMatrix()};
@@ -77,7 +77,7 @@ namespace space::world {
                 float xTo = screenW / 2 + (to.x / to.w) * (screenW / 2);
                 float yTo = screenH / 2 + (to.y / to.w) * (screenH / 2);
 
-                _renderer->drawLine(xFrom, yFrom, xTo, yTo);
+                _renderer->drawLine(xFrom, (screenH) - yFrom, xTo, (screenH) - yTo);
             }
             //            spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
         }

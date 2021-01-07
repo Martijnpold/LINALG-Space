@@ -1,10 +1,12 @@
 #pragma once
 
-#include "Matrix.hpp"
 #include "Polygon.hpp"
-#include "Vector.hpp"
+#include "math/Matrix.hpp"
+#include "math/Vector.hpp"
 
 #include <vector>
+
+using namespace space::math;
 
 namespace space::world {
     class Object {

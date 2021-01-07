@@ -2,7 +2,7 @@
 
 #include <ostream>
 
-namespace space::world {
+namespace space::math {
     class Vector {
     public:
         float x, y, z, w;

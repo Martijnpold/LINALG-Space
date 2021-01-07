@@ -1,7 +1,10 @@
 #pragma once
 
-#include "Matrix.hpp"
-#include "Vector.hpp"
+#include "math/Matrix.hpp"
+#include "math/Vector.hpp"
+
+using namespace space::math;
+
 namespace space::world {
     class Camera {
     private:

@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-namespace space::world {
+namespace space::math {
 
     class Matrix {
     private:

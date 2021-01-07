@@ -1,4 +1,4 @@
-#include "world/Matrix.hpp"
+#include "math/Matrix.hpp"
 
 #include <catch.hpp>
 

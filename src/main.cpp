@@ -1,10 +1,10 @@
 #define SDL_main main
 
-#include "model/OBJParser.hpp"
+#include "math/Matrix.hpp"
+#include "parser/OBJParser.hpp"
 #include "sdl/SDLWrapper.hpp"
-#include "world/Matrix.hpp"
 #include "world/Object.hpp"
-#include "world/SpaceRenderer.hpp"
+#include "world/Renderer.hpp"
 
 #include <iostream>
 
@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
     }});
 
 
-    //    Object o = space::model::OBJParser::parse("./assets/rocket.txt");
+    //    Object o = space::parser::OBJParser::parse("./assets/rocket.txt");
 //    o.scale(0.05, {0, 0, 0});
 //    //o.translate(0, 0, -30);
 //
@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
-    auto spaceRenderer = std::make_unique<space::world::SpaceRenderer>(sdl);
+    auto spaceRenderer = std::make_unique<space::world::Renderer>(sdl);
 
     Camera camera {};
     float cameraMovementSpeed {0.1};

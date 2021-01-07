@@ -59,7 +59,7 @@ namespace space::world {
         Matrix translate {createTranslationMatrix()};
         Vector move {translate * v};
         _location += move;
-        _lookat += move;
+//        _lookat += move;
 
         update_directions();
     }

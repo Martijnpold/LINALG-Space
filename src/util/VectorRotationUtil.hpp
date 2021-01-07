@@ -1,8 +1,8 @@
 #pragma once
 
-#include "world/Matrix.hpp"
+#include "math/Matrix.hpp"
 
-using namespace space::world;
+using namespace space::math;
 
 namespace space::util {
     class VectorRotationUtil {

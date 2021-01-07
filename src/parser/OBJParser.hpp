@@ -4,7 +4,8 @@
 #include <vector>
 #include <world/Object.hpp>
 
-namespace space::model {
+namespace space::parser {
+
     class OBJParser {
     private:
         static std::string loadFile(const std::string& path);
@@ -15,4 +16,5 @@ namespace space::model {
     public:
         static world::Object parse(const std::string& path);
     };
-} // namespace space::model
+
+} // namespace space::parser

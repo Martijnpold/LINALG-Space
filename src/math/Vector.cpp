@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace space::world {
+namespace space::math {
     Vector::Vector(float vx, float vy, float vz) : x {vx}, y {vy}, z {vz}, w {1} {
     }
 
@@ -92,4 +92,4 @@ namespace space::world {
     std::ostream& operator<<(std::ostream& strm, const Vector& v) {
         return strm << v.to_string();
     }
-} // namespace space::world
+} // namespace space::math

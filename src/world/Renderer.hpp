@@ -3,18 +3,19 @@
 #include "Camera.hpp"
 #include "Object.hpp"
 #include "Polygon.hpp"
-#include "Vector.hpp"
+#include "math/Vector.hpp"
 #include "sdl/SDLWrapper.hpp"
 
 #include <vector>
 
 namespace space::world {
-    class SpaceRenderer {
+
+    class Renderer {
     private:
         std::shared_ptr<sdl::SDLWrapper> _renderer;
 
     public:
-        explicit SpaceRenderer(std::shared_ptr<sdl::SDLWrapper> renderer);
+        explicit Renderer(std::shared_ptr<sdl::SDLWrapper> renderer);
 
         void renderVector(const Vector& v, const sdl::Color& c, float gridSize);
 
@@ -23,4 +24,5 @@ namespace space::world {
         void renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize);
         void renderObject(const Camera& camera, const Object& object);
     };
+
 } // namespace space::world

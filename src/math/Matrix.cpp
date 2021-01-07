@@ -5,7 +5,7 @@
 #include <cmath>
 #include <iostream>
 
-namespace space::world {
+namespace space::math {
 
     Matrix::Matrix(unsigned int width, unsigned int height)
         : _values {std::vector<float>(width * height)}, _width {width}, _height {height} {
@@ -204,4 +204,4 @@ namespace space::world {
     }
     //#endregion
 
-} // namespace space::world
+} // namespace space::math
