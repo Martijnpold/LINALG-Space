@@ -3,6 +3,7 @@
 #include "math/Matrix.hpp"
 #include "parser/OBJParser.hpp"
 #include "sdl/SDLWrapper.hpp"
+#include "world/AABB.hpp"
 #include "world/Object.hpp"
 #include "world/Renderer.hpp"
 
@@ -93,14 +94,15 @@ int main(int argc, char* argv[]) {
             Vector {1, 3, 2},
     }});
 
+    AABB hitbox = AABB::from_object(o);
 
     //    Object o = space::parser::OBJParser::parse("./assets/rocket.txt");
-//    o.scale(0.05, {0, 0, 0});
-//
-//    o.rotateX(3.14 * 1.1);
-//    //o.rotateY(-0.1);
-//    Vector heading {0, 0, 1};
-//    heading = Matrix::createRotationMatrixX(3.14 * 1.1) * heading;
+    //    o.scale(0.05, {0, 0, 0});
+    //
+    //    o.rotateX(3.14 * 1.1);
+    //    //o.rotateY(-0.1);
+    //    Vector heading {0, 0, 1};
+    //    heading = Matrix::createRotationMatrixX(3.14 * 1.1) * heading;
     //heading = Matrix::createRotationMatrixY(-0.1) * heading;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,8 +157,9 @@ int main(int argc, char* argv[]) {
                         break;
                 }
             }
-            if(event.type == SDL_MOUSEMOTION) {
-                camera.rotate(Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
+            if (event.type == SDL_MOUSEMOTION) {
+                camera.rotate(
+                        Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
             }
         }
 
@@ -165,6 +168,7 @@ int main(int argc, char* argv[]) {
         renderer->renderGrid(Color {38, 38, 38}, gridSize);
 
         renderer->renderObject(camera, o);
+        renderer->renderObject(camera, hitbox.model(), Color {255, 0, 0});
 
         sdl->present();
 

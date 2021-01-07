@@ -4,12 +4,14 @@
 
 namespace space::world {
 
-    Entity::Entity(std::unique_ptr<Object>& model, Vector heading) : _heading {heading}, _model {std::move(model)} {
+    Entity::Entity(std::unique_ptr<Object>& model, Vector heading)
+        : _heading {heading}, _model {std::move(model)}, _hitbox {nullptr} {
+        update_hitbox();
     }
 
     void Entity::move(const Vector& v) {
         _model->translate(v);
-        // TODO: move hitbox
+        _hitbox->move(v);
     }
 
     void Entity::move(float amount) {
@@ -18,15 +20,21 @@ namespace space::world {
 
     void Entity::roll(float angle) {
         _model->rotateVec(_heading, angle);
-        // TODO: update hitbox
+        update_hitbox();
     }
 
     void Entity::pitch(float angle) {
         // TODO
+        update_hitbox();
     }
 
     void Entity::yaw(float angle) {
         // TODO
+        update_hitbox();
+    }
+
+    void Entity::update_hitbox() {
+        _hitbox = std::make_unique<AABB>(AABB::from_object(*_model));
     }
 
     void Entity::link_world(World* world) {
@@ -35,6 +43,10 @@ namespace space::world {
 
     Object& Entity::model() const {
         return *_model;
+    }
+
+    AABB& Entity::hitbox() const {
+        return *_hitbox;
     }
 
     Vector Entity::heading() const {

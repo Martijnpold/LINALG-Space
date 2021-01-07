@@ -2,6 +2,9 @@
 
 #include "math/Vector.hpp"
 #include "world/Object.hpp"
+#include "world/AABB.hpp"
+
+#include <memory>
 
 using namespace space::math;
 
@@ -14,6 +17,7 @@ namespace space::world {
         Vector _heading;
 
         std::unique_ptr<Object> _model;
+        std::unique_ptr<AABB> _hitbox;
 
         World* _world {nullptr}; // TODO: no raw pointer?
 
@@ -46,9 +50,13 @@ namespace space::world {
         void link_world(World* world);
 
         Object& model() const;
+        AABB& hitbox() const;
         /// The center point of the underlying model
         Vector position() const;
         Vector heading() const;
+
+    private:
+        void update_hitbox();
     };
 
 } // namespace space::world
