@@ -26,6 +26,7 @@ namespace space::world {
 
         [[nodiscard]] Vector center() const;
         void translate(float x, float y, float z);
+        void translate(const Vector& v);
 
         void scale(float factor);
         void scale(float xFactor, float yFactor, float zFactor);

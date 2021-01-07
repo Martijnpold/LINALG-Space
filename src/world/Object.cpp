@@ -34,6 +34,10 @@ namespace space::world {
         (*this) *= transform;
     }
 
+    void Object::translate(const Vector& v) {
+        translate(v.x, v.y, v.z);
+    }
+
     void Object::scale(float factor) {
         scale(factor, factor, factor);
     }

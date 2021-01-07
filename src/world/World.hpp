@@ -12,7 +12,7 @@ namespace space::world {
 
     public:
         void add(std::unique_ptr<Entity>& entity);
-        std::vector<std::unique_ptr<Entity>> entities() const;
+        std::vector<std::unique_ptr<Entity>>& entities();
     };
 
 } // namespace space::world
