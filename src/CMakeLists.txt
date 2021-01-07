@@ -1,6 +1,6 @@
 file(GLOB_RECURSE SPACE_SOURCES "*.cpp")
 list(REMOVE_ITEM SPACE_SOURCES "main.cpp")
-add_library(space_lib STATIC ${SPACE_SOURCES} world/Camera.cpp world/Camera.hpp)
+add_library(space_lib STATIC ${SPACE_SOURCES})
 
 target_link_libraries(space_lib ${SDL2_LIBRARIES})
 

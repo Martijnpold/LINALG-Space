@@ -6,7 +6,8 @@
 using namespace space::math;
 
 namespace space::world {
-    class Camera {
+
+    class OrbitingCamera {
     private:
         Vector _lookat {0, 0, 0};
         Vector _location {0, 0, 10};
@@ -21,7 +22,7 @@ namespace space::world {
         float scale() const;
 
     public:
-        Camera();
+        OrbitingCamera();
 
         Vector direction() const;
         Vector directionRight() const;
@@ -38,4 +39,5 @@ namespace space::world {
     private:
         void update_directions();
     };
+
 } // namespace space::world

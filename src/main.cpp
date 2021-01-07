@@ -96,7 +96,6 @@ int main(int argc, char* argv[]) {
 
     //    Object o = space::parser::OBJParser::parse("./assets/rocket.txt");
 //    o.scale(0.05, {0, 0, 0});
-//    //o.translate(0, 0, -30);
 //
 //    o.rotateX(3.14 * 1.1);
 //    //o.rotateY(-0.1);
@@ -107,9 +106,9 @@ int main(int argc, char* argv[]) {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
-    auto spaceRenderer = std::make_unique<space::world::Renderer>(sdl);
+    auto renderer = std::make_unique<space::world::Renderer>(sdl);
 
-    Camera camera {};
+    OrbitingCamera camera {};
     float cameraMovementSpeed {0.1};
     float cameraRotationSpeed {0.002};
 
@@ -163,24 +162,11 @@ int main(int argc, char* argv[]) {
 
         float gridSize = 25;
         sdl->clear();
-        spaceRenderer->renderGrid(Color {38, 38, 38}, gridSize);
+        renderer->renderGrid(Color {38, 38, 38}, gridSize);
 
-        //        for (const auto& p : o.surfaces()) {
-        //            spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
-        //        }
-
-        spaceRenderer->renderObject(camera, o);
+        renderer->renderObject(camera, o);
 
         sdl->present();
-
-        //        o.translate(0.001, 0.001, 0.001);
-        //        o.scale(1.001);
-        // o.rotateX(0.1, {0, 0, 0});
-        //o.rotateZ(0.01);
-        //o.surfaces()[0].rotateX(0.1, {0, 0, 0});
-        //o.rotateVec(heading, 0.02);
-        //        p.scale(1.005, {0, 0});
-        //        p.rotate(0.01);
 
         SDL_Delay(20);
     }

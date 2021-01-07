@@ -55,7 +55,7 @@ namespace space::world {
         }
     }
 
-    void Renderer::renderObject(const Camera& camera, const Object& object) {
+    void Renderer::renderObject(const OrbitingCamera& camera, const Object& object) {
         _renderer->setColor(0, 0, 255);
 
         Matrix projection {camera.createProjectionMatrix() * camera.createOriginTranslationMatrix()};
