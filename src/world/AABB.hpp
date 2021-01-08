@@ -1,7 +1,9 @@
 #pragma once
 
-#include "math/Vector.hpp"
 #include "Object.hpp"
+#include "math/Vector.hpp"
+
+#include <memory>
 
 using namespace space::math;
 
@@ -33,4 +35,4 @@ namespace space::world {
         static Object create_model(const Vector& min, const Vector& max);
     };
 
-}
+} // namespace space::world
