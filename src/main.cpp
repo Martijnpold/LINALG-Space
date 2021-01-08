@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
     //    }});
 
     auto shipObject = std::make_unique<Object>(space::parser::OBJParser::parse("./assets/ship.txt"));
-    shipObject->scale(1, {0, 0, 0});
+    shipObject->scale(5, {0, 0, 0});
 
     World world;
     world.addSpaceShip(shipObject);
