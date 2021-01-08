@@ -18,10 +18,16 @@ namespace space::world {
         AABB(Vector min, Vector max);
         static AABB from_object(const Object& object);
 
-        bool collides_with(const AABB& other) const;
+        bool intersects(const AABB& other) const;
         void move(const Vector& v);
 
+        bool is_valid() const;
+
         Object& model() const;
+
+    protected:
+        const Vector& min() const;
+        const Vector& max() const;
 
     private:
         static Object create_model(const Vector& min, const Vector& max);

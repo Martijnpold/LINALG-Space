@@ -6,10 +6,16 @@ namespace space::world {
 
     AABB::AABB(Vector min, Vector max)
         : _min {min}, _max {max}, _model {std::make_unique<Object>(create_model(min, max))} {
+        if (!is_valid()) {
+            throw std::logic_error {"Invalid min/max for AABB (min: " + _min.to_string() +
+                                    ", max: " + _max.to_string() + ")"};
+        }
     }
 
-    bool AABB::collides_with(const AABB& other) const {
-        return false; // TODO
+    bool AABB::intersects(const AABB& other) const {
+        return (min().x <= other.max().x && max().x >= other.min().x) &&
+                (min().y <= other.max().y && max().y >= other.min().y) &&
+                (min().z <= other.max().z && max().z >= other.min().z);
     }
 
     void AABB::move(const Vector& v) {
@@ -39,6 +45,18 @@ namespace space::world {
         }
 
         return AABB(min, max);
+    }
+
+    bool AABB::is_valid() const {
+        return _min.x < _max.x && _min.y < _max.y && _min.z < _max.z;
+    }
+
+    const Vector& AABB::min() const {
+        return _min;
+    }
+
+    const Vector& AABB::max() const {
+        return _max;
     }
 
     Object& AABB::model() const {
