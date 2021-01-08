@@ -4,7 +4,12 @@
 
 namespace space::world {
 
-    Entity::Entity(std::unique_ptr<Object>& model) : _model {std::move(model)}, _hitbox {nullptr} {
+    Entity::Entity(std::unique_ptr<Object>& model) : Entity(model, {0, 0, 1}, {1, 0, 0}, {0, 1, 0}) {
+        update_hitbox();
+    }
+
+    Entity::Entity(std::unique_ptr<Object>& model, Vector heading, Vector pitch, Vector yaw)
+        : _heading {heading}, _pitch {pitch}, _yaw {yaw}, _model {std::move(model)}, _hitbox {nullptr} {
         update_hitbox();
     }
 

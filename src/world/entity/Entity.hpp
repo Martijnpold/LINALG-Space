@@ -14,9 +14,9 @@ namespace space::world {
 
     class Entity {
     private:
-        Vector _heading {0, 0, 1};
-        Vector _pitch {1, 0, 0};
-        Vector _yaw {0, 1, 0};
+        Vector _heading;
+        Vector _pitch;
+        Vector _yaw;
 
         std::unique_ptr<Object> _model;
         std::unique_ptr<AABB> _hitbox;
@@ -24,8 +24,8 @@ namespace space::world {
         World* _world {nullptr}; // TODO: no raw pointer?
 
     public:
-        // TODO: allow setting of heading, pitch, yaw axis
         explicit Entity(std::unique_ptr<Object>& model);
+        Entity(std::unique_ptr<Object>& model, Vector heading, Vector pitch, Vector yaw);
 
         /// Move the entity in global space
         void move(const Vector& v);
