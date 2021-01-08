@@ -5,6 +5,7 @@
 #include "Polygon.hpp"
 #include "math/Vector.hpp"
 #include "sdl/SDLWrapper.hpp"
+#include "world/World.hpp"
 
 #include <vector>
 
@@ -15,15 +16,22 @@ namespace space::world {
     private:
         std::shared_ptr<sdl::SDLWrapper> _renderer;
 
+        bool _render_grid {true};
+        bool _render_hitboxes {false};
+
     public:
         explicit Renderer(std::shared_ptr<sdl::SDLWrapper> renderer);
 
-        void renderVector(const Vector& v, const sdl::Color& c, float gridSize);
+        void render_world(const OrbitingCamera& camera, World& world);
 
-        void renderGrid(const sdl::Color& c, float gridSize);
-        void renderLine(const Vector& from, const Vector& to, const sdl::Color& c, float gridSize);
-        void renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize);
-        void renderObject(const OrbitingCamera& camera, const Object& object, const sdl::Color& color = {0, 0, 255});
+        void show_hitboxes(bool value = true);
+        void toggle_hitboxes();
+        void show_grid(bool value = true);
+        void toggle_grid();
+
+    private:
+        void render_grid(const sdl::Color& c, float gridSize);
+        void render_object(const OrbitingCamera& camera, const Object& object, const sdl::Color& color = {0, 0, 255});
     };
 
 } // namespace space::world

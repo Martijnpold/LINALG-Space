@@ -16,7 +16,8 @@ using namespace space::sdl;
 
 int main(int argc, char* argv[]) {
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    auto o = std::make_unique<Object>(space::parser::OBJParser::parse("./assets/ship.txt"));
+    o->scale(1, {0, 0, 0});
 
     //    auto o = std::make_unique<Object>();
     //    o->add(Polygon {{
@@ -96,26 +97,19 @@ int main(int argc, char* argv[]) {
     //            Vector {1, 3, 2},
     //    }});
 
-    //    Entity entity {o};
+    auto entity = std::make_unique<Entity>(o);
 
-    auto o = std::make_unique<Object>(space::parser::OBJParser::parse("./assets/ship.txt"));
-    o->scale(1, {0, 0, 0});
-    Entity entity {o};
-
-//    o->rotateX(3.14 * 1.1);
-//    o->rotateY(-0.1);
-//    Vector heading {0, 0, 1};
-//    heading = Matrix::createRotationMatrixX(3.14 * 1.1) * heading;
-//    heading = Matrix::createRotationMatrixY(-0.1) * heading;
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
-    auto renderer = std::make_unique<space::world::Renderer>(sdl);
+    World world;
+    world.add(entity);
 
     OrbitingCamera camera {};
     float cameraMovementSpeed {0.1};
     float cameraRotationSpeed {0.002};
+
+    auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
+    auto renderer = std::make_unique<space::world::Renderer>(sdl);
+    renderer->show_grid(true);
+    renderer->show_hitboxes(true);
 
     SDL_bool done = SDL_FALSE;
 
@@ -128,24 +122,25 @@ int main(int argc, char* argv[]) {
             }
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
-                    case SDLK_q:
-                        entity.roll(-0.01);
-                        break;
-                    case SDLK_e:
-                        entity.roll(0.01);
-                        break;
-                    case SDLK_w:
-                        entity.pitch(-0.01);
-                        break;
-                    case SDLK_s:
-                        entity.pitch(0.01);
-                        break;
-                    case SDLK_a:
-                        entity.yaw(-0.01);
-                        break;
-                    case SDLK_d:
-                        entity.yaw(0.01);
-                        break;
+                        // TODO: world->spaceship()...dostuff
+//                    case SDLK_q:
+//                        entity->roll(-0.01);
+//                        break;
+//                    case SDLK_e:
+//                        entity->roll(0.01);
+//                        break;
+//                    case SDLK_w:
+//                        entity->pitch(-0.01);
+//                        break;
+//                    case SDLK_s:
+//                        entity->pitch(0.01);
+//                        break;
+//                    case SDLK_a:
+//                        entity->yaw(-0.01);
+//                        break;
+//                    case SDLK_d:
+//                        entity->yaw(0.01);
+//                        break;
 
                     case SDLK_UP:
                         camera.move(Vector {0, cameraMovementSpeed * 10, 0});
@@ -185,12 +180,9 @@ int main(int argc, char* argv[]) {
             //            }
         }
 
-        float gridSize = 25;
         sdl->clear();
-        renderer->renderGrid(Color {38, 38, 38}, gridSize);
 
-        renderer->renderObject(camera, entity.model());
-        renderer->renderObject(camera, entity.hitbox().model(), Color {255, 0, 0});
+        renderer->render_world(camera, world);
 
         sdl->present();
 
