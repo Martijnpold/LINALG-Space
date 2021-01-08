@@ -4,8 +4,7 @@
 
 namespace space::world {
 
-    Entity::Entity(std::unique_ptr<Object>& model, Vector heading)
-        : _heading {heading}, _model {std::move(model)}, _hitbox {nullptr} {
+    Entity::Entity(std::unique_ptr<Object>& model) : _model {std::move(model)}, _hitbox {nullptr} {
         update_hitbox();
     }
 
@@ -20,16 +19,34 @@ namespace space::world {
 
     void Entity::roll(float angle) {
         _model->rotateVec(_heading, angle);
+
+        // TODO: does this work??
+        Matrix rotation = Matrix::createRotationMatrixVec(_heading, angle);
+        _pitch *= rotation;
+        _yaw *= rotation;
+
         update_hitbox();
     }
 
     void Entity::pitch(float angle) {
-        // TODO
+        _model->rotateVec(_pitch, angle);
+
+        // TODO: does this work??
+        Matrix rotation = Matrix::createRotationMatrixVec(_pitch, angle);
+        _heading *= rotation;
+        _yaw *= rotation;
+
         update_hitbox();
     }
 
     void Entity::yaw(float angle) {
-        // TODO
+        _model->rotateVec(_yaw, angle);
+
+        // TODO: does this work??
+        Matrix rotation = Matrix::createRotationMatrixVec(_yaw, angle);
+        _heading *= rotation;
+        _pitch *= rotation;
+
         update_hitbox();
     }
 

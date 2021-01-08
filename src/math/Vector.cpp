@@ -1,8 +1,11 @@
 #include "Vector.hpp"
 
+#include "Matrix.hpp"
+
 #include <cmath>
 
 namespace space::math {
+
     Vector::Vector(float vx, float vy, float vz) : x {vx}, y {vy}, z {vz}, w {1} {
     }
 
@@ -21,6 +24,18 @@ namespace space::math {
         y *= v.y;
         z *= v.z;
         return *this;
+    }
+
+    Vector Vector::operator*(const Matrix& m) {
+        return m * (*this);
+    }
+
+    Vector& Vector::operator*=(const Matrix& m) {
+        Vector result = m * (*this);
+        x = result.x;
+        y = result.y;
+        z = result.z;
+        w = result.w;
     }
 
     Vector Vector::operator+(const Vector& v) const {
@@ -92,4 +107,5 @@ namespace space::math {
     std::ostream& operator<<(std::ostream& strm, const Vector& v) {
         return strm << v.to_string();
     }
+
 } // namespace space::math

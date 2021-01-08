@@ -1,8 +1,8 @@
 #pragma once
 
 #include "math/Vector.hpp"
-#include "world/Object.hpp"
 #include "world/AABB.hpp"
+#include "world/Object.hpp"
 
 #include <memory>
 
@@ -14,7 +14,9 @@ namespace space::world {
 
     class Entity {
     private:
-        Vector _heading;
+        Vector _heading {0, 0, 1};
+        Vector _pitch {1, 0, 0};
+        Vector _yaw {0, 1, 0};
 
         std::unique_ptr<Object> _model;
         std::unique_ptr<AABB> _hitbox;
@@ -22,29 +24,19 @@ namespace space::world {
         World* _world {nullptr}; // TODO: no raw pointer?
 
     public:
-        explicit Entity(std::unique_ptr<Object>& model, Vector heading = {0, 1, 0});
+        // TODO: allow setting of heading, pitch, yaw axis
+        explicit Entity(std::unique_ptr<Object>& model);
 
         /// Move the entity in global space
         void move(const Vector& v);
         /// Move the entity in the direction of its heading
         void move(float amount);
 
-        /**
-         * Rotate around heading
-         * @param angle (in radians)
-         */
+        /// Rotate around heading (angle in radians)
         void roll(float angle);
-
-        /**
-         * Rotate up/down
-         * @param angle
-         */
+        /// Rotate up/down (angle in radians)
         void pitch(float angle);
-
-        /**
-         * Rotate left/right
-         * @param angle
-         */
+        ///Rotate left/right (angle in radians)
         void yaw(float angle);
 
         void link_world(World* world);

@@ -3,6 +3,9 @@
 #include <ostream>
 
 namespace space::math {
+
+    class Matrix; // forward declare
+
     class Vector {
     public:
         float x, y, z, w;
@@ -13,6 +16,10 @@ namespace space::math {
 
         Vector operator*(const Vector& v) const;
         Vector& operator*=(const Vector& v);
+
+        Vector operator*(const Matrix& m);
+        Vector& operator*=(const Matrix& m);
+
         Vector operator+(const Vector& v) const;
         Vector& operator+=(const Vector& v);
         Vector operator-(const Vector& v) const;
@@ -30,4 +37,5 @@ namespace space::math {
         [[nodiscard]] std::string to_string() const;
         friend std::ostream& operator<<(std::ostream& outputStream, const Vector& v);
     };
+
 } // namespace space::world
