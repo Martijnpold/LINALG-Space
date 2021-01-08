@@ -21,20 +21,18 @@ namespace space::world {
     void AABB::move(const Vector& v) {
         _min += v;
         _max += v;
+        _model->translate(v);
     }
 
     AABB AABB::from_object(const Object& object) {
-        float float_min = std::numeric_limits<float>::min();
-        float float_max = std::numeric_limits<float>::min();
+        float float_min = std::numeric_limits<float>::lowest();
+        float float_max = std::numeric_limits<float>::max();
 
         Vector min {float_max, float_max, float_max};
         Vector max {float_min, float_min, float_min};
 
         for (const Polygon& surface : object.surfaces()) {
             for (const Vector& point : surface.points()) {
-                if (point.x < min.x)
-                    min.x = point.x;
-
                 min.x = std::min(point.x, min.x);
                 min.y = std::min(point.y, min.y);
                 min.z = std::min(point.z, min.z);
