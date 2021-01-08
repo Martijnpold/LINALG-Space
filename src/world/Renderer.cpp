@@ -4,7 +4,7 @@
 
 namespace space::world {
     using namespace sdl;
-    
+
     Renderer::Renderer(std::shared_ptr<SDLWrapper> renderer) : _renderer {std::move(renderer)} {
     }
 
@@ -32,17 +32,17 @@ namespace space::world {
         }
 
         for (const auto& entity : world.entities()) {
-            render_object(camera, entity->model());
+            render_object(camera, entity->model(), Color {255, 0, 255});
 
             if (_show_hitboxes) {
-                render_object(camera, entity->hitbox().model(), {255, 0, 0});
+                render_object(camera, entity->hitbox().model(), Color {0, 255, 255});
             }
         }
     }
 
     void Renderer::render_coordinate_system(const OrbitingCamera& camera, float size) {
         float segment_size = 1;
-        int segments = size/segment_size;
+        int segments = size / segment_size;
 
         Color x_color {255, 0, 0};
         Color y_color {0, 255, 0};
@@ -51,11 +51,11 @@ namespace space::world {
         Vector x {1, 0, 0};
         Vector y {0, 1, 0};
         Vector z {0, 0, 1};
-        
+
         for (int i = 0; i < segments; ++i) {
             float start = i * segment_size;
             float end = (i + 1) * segment_size;
-            
+
             render_line(camera, x * start, x * end, x_color);
             render_line(camera, x * -start, x * -end, x_color);
 
@@ -94,8 +94,7 @@ namespace space::world {
         }
     }
 
-    void Renderer::render_line(const OrbitingCamera& camera, const Vector& from, const Vector& to,
-                               const Color& color) {
+    void Renderer::render_line(const OrbitingCamera& camera, const Vector& from, const Vector& to, const Color& color) {
         Matrix projection {camera.createProjectionMatrix() * camera.createOriginTranslationMatrix()};
         float screenW {( float ) _renderer->getWidth()};
         float screenH {( float ) _renderer->getHeight()};

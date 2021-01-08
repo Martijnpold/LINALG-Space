@@ -123,22 +123,22 @@ int main(int argc, char* argv[]) {
                 switch (event.key.keysym.sym) {
                         // TODO: world->spaceship()...dostuff
                     case SDLK_q:
-                        rocket->roll(-0.01);
+                        rocket->roll(0.02);
                         break;
                     case SDLK_e:
-                        rocket->roll(0.01);
+                        rocket->roll(-0.02);
                         break;
                     case SDLK_w:
-                        rocket->pitch(-0.01);
+                        rocket->pitch(-0.02);
                         break;
                     case SDLK_s:
-                        rocket->pitch(0.01);
+                        rocket->pitch(0.02);
                         break;
                     case SDLK_a:
-                        rocket->yaw(-0.01);
+                        rocket->yaw(0.02);
                         break;
                     case SDLK_d:
-                        rocket->yaw(0.01);
+                        rocket->yaw(-0.02);
                         break;
 
                     case SDLK_UP:
