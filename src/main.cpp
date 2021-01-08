@@ -177,8 +177,8 @@ int main(int argc, char* argv[]) {
                 camera.rotate(
                         Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
             }
-            if(event.type == SDL_MOUSEWHEEL) {
-                camera.zoom(0.8f * -event.wheel.y);
+            if (event.type == SDL_MOUSEWHEEL) {
+                camera.zoom(0.8f * -event.wheel.y * (event.wheel.direction == SDL_MOUSEWHEEL_FLIPPED ? -1.0f : 1.0f));
             }
         }
 
