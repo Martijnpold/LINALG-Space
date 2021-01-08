@@ -32,10 +32,10 @@ namespace space::world {
         }
 
         for (const auto& entity : world.entities()) {
-            render_object(camera, entity->model(), Color {255, 0, 255});
+            render_object(camera, entity->location(), entity->model(), Color {255, 0, 255});
 
             if (_show_hitboxes) {
-                render_object(camera, entity->hitbox().model(), Color {0, 255, 255});
+                render_object(camera, entity->location(), entity->hitbox().model(), Color {0, 255, 255});
             }
         }
     }
@@ -67,29 +67,13 @@ namespace space::world {
         }
     }
 
-    void Renderer::render_grid(const Color& c, float gridSize) {
-        _renderer->setColor(c);
-        float width = _renderer->getWidth();
-        float height = _renderer->getHeight();
-        int rows = width / gridSize;
-        int columns = height / gridSize;
-        for (int x = 0; x <= rows / 2; x += 1) {
-            for (int y = 0; y <= columns / 2; y += 1) {
-                _renderer->drawLine(width / 2 + x * gridSize, 0, width / 2 + x * gridSize, height);
-                _renderer->drawLine(width / 2 - x * gridSize, 0, width / 2 - x * gridSize, height);
-                _renderer->drawLine(0, height / 2 + y * gridSize, width, height / 2 + y * gridSize);
-                _renderer->drawLine(0, height / 2 - y * gridSize, width, height / 2 - y * gridSize);
-            }
-        }
-    }
-
-    void Renderer::render_object(const OrbitingCamera& camera, const Object& object, const Color& color) {
+    void Renderer::render_object(const OrbitingCamera& camera, const Vector& location, const Object& object, const Color& color) {
         for (const auto& polygon : object.surfaces()) {
             for (int i = 0; i < polygon.points().size(); i++) {
                 Vector from {polygon.points()[i]};
                 Vector to {polygon.points()[(i + 1) % polygon.points().size()]};
 
-                render_line(camera, from, to, color);
+                render_line(camera, location + from, location + to, color);
             }
         }
     }

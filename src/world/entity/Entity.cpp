@@ -3,24 +3,27 @@
 #include "world/World.hpp"
 
 namespace space::world {
-    Entity::Entity(World& world, std::unique_ptr<Object>& model)
-        : Entity(world, model, {0, 0, 1}, {1, 0, 0}, {0, 1, 0}) {
+    Entity::Entity(World& world, std::unique_ptr<Object>& model, Vector location)
+        : Entity(world, model, location, {0, 0, 1}, {1, 0, 0}, {0, 1, 0}) {
         update_hitbox();
     }
 
-    Entity::Entity(World& world, std::unique_ptr<Object>& model, Vector heading, Vector pitch, Vector yaw)
+    Entity::Entity(World& world, std::unique_ptr<Object>& model, Vector location, Vector heading, Vector pitch,
+                   Vector yaw)
         : _world {world}, _heading {heading}, _pitch {pitch}, _yaw {yaw}, _model {std::move(model)}, _hitbox {nullptr} {
         update_hitbox();
     }
 
-    void Entity::move(const Vector& v) {
-        // TODO: don't move the model, instead do this when rendering?
-        _model->translate(v);
-        _hitbox->move(v);
+    void Entity::move_global(const Vector& v) {
+        _location += v;
+    }
+
+    void Entity::place(const Vector& location) {
+        _location = location;
     }
 
     void Entity::move(float amount) {
-        move(_heading * amount);
+        move_global(_heading * amount);
     }
 
     void Entity::roll(float angle) {
@@ -55,6 +58,10 @@ namespace space::world {
 
     void Entity::update_hitbox() {
         _hitbox = std::make_unique<AABB>(AABB::from_object(*_model));
+    }
+
+    const Vector& Entity::location() const {
+        return _location;
     }
 
     Object& Entity::model() const {

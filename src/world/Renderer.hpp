@@ -11,7 +11,6 @@
 
 namespace space::world {
 
-    // TODO: clean up and add render(World&)
     class Renderer {
     private:
         std::shared_ptr<sdl::SDLWrapper> _renderer;
@@ -30,11 +29,9 @@ namespace space::world {
         void toggle_coordinate_system();
 
     private:
-        void render_grid(const sdl::Color& c, float gridSize); // TODO:remove
-
         void render_coordinate_system(const OrbitingCamera& camera, float size);
 
-        void render_object(const OrbitingCamera& camera, const Object& object, const sdl::Color& color = {0, 0, 255});
+        void render_object(const OrbitingCamera& camera, const Vector& location, const Object& object, const sdl::Color& color = {0, 0, 255});
         void render_line(const OrbitingCamera& camera, const Vector& from, const Vector& to, const sdl::Color& color);
     };
 

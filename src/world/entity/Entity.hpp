@@ -18,19 +18,22 @@ namespace space::world {
         Vector _pitch;
         Vector _yaw;
 
+        Vector _location;
+
         std::unique_ptr<Object> _model;
         std::unique_ptr<AABB> _hitbox;
 
         World& _world;
 
     public:
-        explicit Entity(World& world, std::unique_ptr<Object>& model);
-        Entity(World& world, std::unique_ptr<Object>& model, Vector heading, Vector pitch, Vector yaw);
+        explicit Entity(World& world, std::unique_ptr<Object>& model, Vector location = {0, 0, 0});
+        Entity(World& world, std::unique_ptr<Object>& model, Vector location, Vector heading, Vector pitch, Vector yaw);
 
-        /// Move the entity in global space
-        void move(const Vector& v);
         /// Move the entity in the direction of its heading
         void move(float amount);
+
+        void place(const Vector& location);
+        void move_global(const Vector& v);
 
         /// Rotate around heading (angle in radians)
         void roll(float angle);
@@ -39,6 +42,7 @@ namespace space::world {
         ///Rotate left/right (angle in radians)
         void yaw(float angle);
 
+        const Vector& location() const;
         Object& model() const;
         AABB& hitbox() const;
         /// The center point of the underlying model
