@@ -10,15 +10,12 @@
 
 #include <iostream>
 #include <memory>
+#include <world/entity/SpaceShip.hpp>
 
 using namespace space::world;
 using namespace space::sdl;
 
 int main(int argc, char* argv[]) {
-
-    auto o = std::make_unique<Object>(space::parser::OBJParser::parse("./assets/ship.txt"));
-    o->scale(1, {0, 0, 0});
-
     //    auto o = std::make_unique<Object>();
     //    o->add(Polygon {{
     //            Vector {0, 0, 0},
@@ -97,10 +94,11 @@ int main(int argc, char* argv[]) {
     //            Vector {1, 3, 2},
     //    }});
 
-    auto entity = std::make_unique<Entity>(o);
+    auto shipObject = std::make_unique<Object>(space::parser::OBJParser::parse("./assets/ship.txt"));
+    shipObject->scale(1, {0, 0, 0});
 
     World world;
-    world.add(entity);
+    world.addSpaceShip(shipObject);
 
     OrbitingCamera camera {};
     float cameraMovementSpeed {0.1};
@@ -121,26 +119,27 @@ int main(int argc, char* argv[]) {
                 done = SDL_TRUE;
             }
             if (event.type == SDL_KEYDOWN) {
+                auto* rocket = world.spaceship();
                 switch (event.key.keysym.sym) {
                         // TODO: world->spaceship()...dostuff
-//                    case SDLK_q:
-//                        entity->roll(-0.01);
-//                        break;
-//                    case SDLK_e:
-//                        entity->roll(0.01);
-//                        break;
-//                    case SDLK_w:
-//                        entity->pitch(-0.01);
-//                        break;
-//                    case SDLK_s:
-//                        entity->pitch(0.01);
-//                        break;
-//                    case SDLK_a:
-//                        entity->yaw(-0.01);
-//                        break;
-//                    case SDLK_d:
-//                        entity->yaw(0.01);
-//                        break;
+                    case SDLK_q:
+                        rocket->roll(-0.01);
+                        break;
+                    case SDLK_e:
+                        rocket->roll(0.01);
+                        break;
+                    case SDLK_w:
+                        rocket->pitch(-0.01);
+                        break;
+                    case SDLK_s:
+                        rocket->pitch(0.01);
+                        break;
+                    case SDLK_a:
+                        rocket->yaw(-0.01);
+                        break;
+                    case SDLK_d:
+                        rocket->yaw(0.01);
+                        break;
 
                     case SDLK_UP:
                         camera.move(Vector {0, cameraMovementSpeed * 10, 0});

@@ -3,13 +3,13 @@
 #include "world/World.hpp"
 
 namespace space::world {
-
-    Entity::Entity(std::unique_ptr<Object>& model) : Entity(model, {0, 0, 1}, {1, 0, 0}, {0, 1, 0}) {
+    Entity::Entity(World& world, std::unique_ptr<Object>& model)
+        : Entity(world, model, {0, 0, 1}, {1, 0, 0}, {0, 1, 0}) {
         update_hitbox();
     }
 
-    Entity::Entity(std::unique_ptr<Object>& model, Vector heading, Vector pitch, Vector yaw)
-        : _heading {heading}, _pitch {pitch}, _yaw {yaw}, _model {std::move(model)}, _hitbox {nullptr} {
+    Entity::Entity(World& world, std::unique_ptr<Object>& model, Vector heading, Vector pitch, Vector yaw)
+        : _world {world}, _heading {heading}, _pitch {pitch}, _yaw {yaw}, _model {std::move(model)}, _hitbox {nullptr} {
         update_hitbox();
     }
 
@@ -55,10 +55,6 @@ namespace space::world {
 
     void Entity::update_hitbox() {
         _hitbox = std::make_unique<AABB>(AABB::from_object(*_model));
-    }
-
-    void Entity::link_world(World* world) {
-        _world = world;
     }
 
     Object& Entity::model() const {

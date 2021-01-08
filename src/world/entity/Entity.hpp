@@ -21,11 +21,11 @@ namespace space::world {
         std::unique_ptr<Object> _model;
         std::unique_ptr<AABB> _hitbox;
 
-        World* _world {nullptr}; // TODO: no raw pointer?
+        World& _world;
 
     public:
-        explicit Entity(std::unique_ptr<Object>& model);
-        Entity(std::unique_ptr<Object>& model, Vector heading, Vector pitch, Vector yaw);
+        explicit Entity(World& world, std::unique_ptr<Object>& model);
+        Entity(World& world, std::unique_ptr<Object>& model, Vector heading, Vector pitch, Vector yaw);
 
         /// Move the entity in global space
         void move(const Vector& v);
@@ -38,8 +38,6 @@ namespace space::world {
         void pitch(float angle);
         ///Rotate left/right (angle in radians)
         void yaw(float angle);
-
-        void link_world(World* world);
 
         Object& model() const;
         AABB& hitbox() const;
