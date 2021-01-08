@@ -7,6 +7,6 @@ namespace space::sdl {
 
         Color();
 
-        Color(int rc, int bc, int gc);
+        Color(int rc, int gc, int bc);
     };
 } // namespace space::sdl

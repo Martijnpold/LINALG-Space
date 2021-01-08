@@ -79,7 +79,7 @@ namespace space::world {
 
                 _renderer->drawLine(xFrom, (screenH) - yFrom, xTo, (screenH) - yTo);
             }
-            //            spaceRenderer->renderPolygon(p, Color {0, 255, 0}, gridSize);
+            //            spaceRenderer->renderPolygon(p, Color {0, 0, 255}, gridSize);
         }
     }
 } // namespace space::world

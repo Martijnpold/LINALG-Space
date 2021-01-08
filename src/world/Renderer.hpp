@@ -23,7 +23,7 @@ namespace space::world {
         void renderGrid(const sdl::Color& c, float gridSize);
         void renderLine(const Vector& from, const Vector& to, const sdl::Color& c, float gridSize);
         void renderPolygon(const Polygon& polygon, const sdl::Color& c, float gridSize);
-        void renderObject(const OrbitingCamera& camera, const Object& object, const sdl::Color& color = {0, 255, 0});
+        void renderObject(const OrbitingCamera& camera, const Object& object, const sdl::Color& color = {0, 0, 255});
     };
 
 } // namespace space::world
