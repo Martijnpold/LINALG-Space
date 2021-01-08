@@ -12,16 +12,15 @@ namespace space::world {
         }
     }
 
-    bool AABB::intersects(const AABB& other) const {
-        return (min().x <= other.max().x && max().x >= other.min().x) &&
-                (min().y <= other.max().y && max().y >= other.min().y) &&
-                (min().z <= other.max().z && max().z >= other.min().z);
-    }
-
-    void AABB::move(const Vector& v) {
-        _min += v;
-        _max += v;
-        _model->translate(v);
+    bool AABB::intersects(const Vector& location, const AABB& other, const Vector& other_location) const {
+        Vector min = _min + location;
+        Vector max = _max + location;
+        Vector other_min = other.min() + other_location;
+        Vector other_max = other.max() + other_location;
+        
+        return (min.x <= other_max.x && max.x >= other_min.x) &&
+                (min.y <= other_max.y && max.y >= other_min.y) &&
+                (min.z <= other_max.z && max.z >= other_min.z);
     }
 
     AABB AABB::from_object(const Object& object) {

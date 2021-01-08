@@ -69,6 +69,14 @@ namespace space::world {
         }
     }
 
+    bool Entity::collides_with(const Entity& other) const {
+        if (!_hitbox) {
+            return false;
+        }
+
+        return _hitbox->intersects(_location, other.hitbox(), other.location());
+    }
+
     const Vector& Entity::location() const {
         return _location;
     }

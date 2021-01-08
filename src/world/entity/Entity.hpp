@@ -47,6 +47,8 @@ namespace space::world {
         ///Rotate left/right (angle in radians)
         void yaw(float angle);
 
+        bool collides_with(const Entity& other) const;
+
         const Vector& location() const;
         Object& model() const;
         AABB& hitbox() const;
