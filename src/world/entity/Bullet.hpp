@@ -5,6 +5,6 @@
 namespace space::world {
     class Bullet : public Entity {
     public:
-        using Entity::Entity;
+        explicit Bullet(World& world, Vector location, Vector heading, Vector pitch, Vector yaw, float velocity);
     };
 }

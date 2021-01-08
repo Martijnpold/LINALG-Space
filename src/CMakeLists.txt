@@ -1,6 +1,6 @@
 file(GLOB_RECURSE SPACE_SOURCES "*.cpp")
 list(REMOVE_ITEM SPACE_SOURCES "main.cpp")
-add_library(space_lib STATIC ${SPACE_SOURCES} world/entity/SpaceShip.cpp world/entity/SpaceShip.hpp world/entity/Bullet.cpp world/entity/Bullet.hpp world/entity/Target.cpp world/entity/Target.hpp)
+add_library(space_lib STATIC ${SPACE_SOURCES} world/entity/SpaceShip.cpp world/entity/SpaceShip.hpp world/entity/Bullet.cpp world/entity/Bullet.hpp world/entity/Target.cpp world/entity/Target.hpp math/utils.cpp math/utils.hpp)
 
 target_link_libraries(space_lib ${SDL2_LIBRARIES})
 

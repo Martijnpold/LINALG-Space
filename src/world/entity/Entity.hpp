@@ -13,10 +13,11 @@ namespace space::world {
     class World; // forward declare
 
     class Entity {
-    private:
+    protected:
         Vector _heading;
         Vector _pitch;
         Vector _yaw;
+        float _velocity {0};
 
         Vector _location;
 
@@ -25,9 +26,13 @@ namespace space::world {
 
         World& _world;
 
+        void update_hitbox();
+
     public:
-        explicit Entity(World& world, std::unique_ptr<Object>& model, Vector location = {0, 0, 0});
-        Entity(World& world, std::unique_ptr<Object>& model, Vector location, Vector heading, Vector pitch, Vector yaw);
+        explicit Entity(World& world, std::unique_ptr<Object> model, Vector location = {0, 0, 0});
+        Entity(World& world, std::unique_ptr<Object> model, Vector location, Vector heading, Vector pitch, Vector yaw);
+
+        void tick();
 
         /// Move the entity in the direction of its heading
         void move(float amount);
@@ -49,8 +54,8 @@ namespace space::world {
         Vector position() const;
         Vector heading() const;
 
-    private:
-        void update_hitbox();
+        void setVelocity(float velocity);
+        float getVelocity() const;
     };
 
 } // namespace space::world

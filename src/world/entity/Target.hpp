@@ -5,6 +5,6 @@
 namespace space::world {
     class Target : public Entity {
     public:
-        using Entity::Entity;
+        explicit Target(World& world);
     };
 }

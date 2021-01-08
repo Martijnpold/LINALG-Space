@@ -3,15 +3,20 @@
 #include "world/World.hpp"
 
 namespace space::world {
-    Entity::Entity(World& world, std::unique_ptr<Object>& model, Vector location)
-        : Entity(world, model, location, {0, 0, 1}, {1, 0, 0}, {0, 1, 0}) {
+    Entity::Entity(World& world, std::unique_ptr<Object> model, Vector location)
+        : Entity(world, std::move(model), location, {0, 0, 1}, {1, 0, 0}, {0, 1, 0}) {
         update_hitbox();
     }
 
-    Entity::Entity(World& world, std::unique_ptr<Object>& model, Vector location, Vector heading, Vector pitch,
+    Entity::Entity(World& world, std::unique_ptr<Object> model, Vector location, Vector heading, Vector pitch,
                    Vector yaw)
-        : _world {world}, _heading {heading}, _pitch {pitch}, _yaw {yaw}, _model {std::move(model)}, _hitbox {nullptr} {
+        : _world {world}, _location {location}, _heading {heading}, _pitch {pitch}, _yaw {yaw},
+          _model {std::move(model)}, _hitbox {nullptr} {
         update_hitbox();
+    }
+
+    void Entity::tick() {
+        move(-_velocity);
     }
 
     void Entity::move_global(const Vector& v) {
@@ -57,7 +62,11 @@ namespace space::world {
     }
 
     void Entity::update_hitbox() {
-        _hitbox = std::make_unique<AABB>(AABB::from_object(*_model));
+        if (_model) {
+            _hitbox = std::make_unique<AABB>(AABB::from_object(*_model));
+        } else {
+            _hitbox = nullptr;
+        }
     }
 
     const Vector& Entity::location() const {
@@ -80,4 +89,11 @@ namespace space::world {
         return _model->center();
     }
 
+    void Entity::setVelocity(float velocity) {
+        _velocity = velocity;
+    }
+
+    float Entity::getVelocity() const {
+        return _velocity;
+    }
 } // namespace space::world

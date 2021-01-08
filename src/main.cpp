@@ -1,16 +1,17 @@
 #define SDL_main main
 
 #include "math/Matrix.hpp"
+#include "math/utils.hpp"
 #include "parser/OBJParser.hpp"
 #include "sdl/SDLWrapper.hpp"
 #include "world/AABB.hpp"
 #include "world/Object.hpp"
 #include "world/Renderer.hpp"
 #include "world/entity/Entity.hpp"
+#include "world/entity/SpaceShip.hpp"
 
 #include <iostream>
 #include <memory>
-#include <world/entity/SpaceShip.hpp>
 
 using namespace space::world;
 using namespace space::sdl;
@@ -94,11 +95,8 @@ int main(int argc, char* argv[]) {
     //            Vector {1, 3, 2},
     //    }});
 
-    auto shipObject = std::make_unique<Object>(space::parser::OBJParser::parse("./assets/ship.txt"));
-    shipObject->scale(5, {0, 0, 0});
-
     World world;
-    world.addSpaceShip(shipObject);
+    world.addSpaceShip();
 
     OrbitingCamera camera {};
     float cameraMovementSpeed {0.1};
@@ -113,13 +111,14 @@ int main(int argc, char* argv[]) {
 
     SDL_SetRelativeMouseMode(SDL_TRUE);
     while (!done) {
+        auto* rocket = world.spaceship();
+
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 done = SDL_TRUE;
             }
             if (event.type == SDL_KEYDOWN) {
-                auto* rocket = world.spaceship();
                 switch (event.key.keysym.sym) {
                         // TODO: world->spaceship()...dostuff
                     case SDLK_q:
@@ -141,7 +140,10 @@ int main(int argc, char* argv[]) {
                         rocket->yaw(-0.02);
                         break;
                     case SDLK_LSHIFT:
-                        rocket->move(-2);
+                        rocket->setVelocity(0.4f);
+                        break;
+                    case SDLK_LCTRL:
+                        rocket->setVelocity(rocket->getVelocity() / 2);
                         break;
 
                     case SDLK_UP:
@@ -176,6 +178,11 @@ int main(int argc, char* argv[]) {
                         break;
                 }
             }
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                if (event.button.button == SDL_BUTTON_LEFT) {
+                    rocket->shoot();
+                }
+            }
             if (event.type == SDL_MOUSEMOTION) {
                 camera.rotate(
                         Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
@@ -185,10 +192,10 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        world.tick();
+
         sdl->clear();
-
         renderer->render_world(camera, world);
-
         sdl->present();
 
         SDL_Delay(20);

@@ -22,6 +22,7 @@ namespace space::world {
         explicit Renderer(std::shared_ptr<sdl::SDLWrapper> renderer);
 
         void render_world(const OrbitingCamera& camera, World& world);
+        void render_object(const OrbitingCamera& camera, const Vector& location, const Object& object, const sdl::Color& color = {0, 0, 255});
 
         void show_hitboxes(bool value = true);
         void toggle_hitboxes();
@@ -31,7 +32,6 @@ namespace space::world {
     private:
         void render_coordinate_system(const OrbitingCamera& camera, float size);
 
-        void render_object(const OrbitingCamera& camera, const Vector& location, const Object& object, const sdl::Color& color = {0, 0, 255});
         void render_line(const OrbitingCamera& camera, const Vector& from, const Vector& to, const sdl::Color& color);
     };
 

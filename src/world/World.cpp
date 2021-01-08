@@ -3,6 +3,12 @@
 #include <algorithm>
 
 namespace space::world {
+    void World::tick() {
+        for(auto& e : _entities) {
+            e->tick();
+        }
+    }
+
     std::vector<std::unique_ptr<Entity>>& World::entities() {
         return _entities;
     }

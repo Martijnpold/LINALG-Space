@@ -54,6 +54,9 @@ namespace space::parser {
                 object.add(p);
             }
         }
+
+        object.translate(object.center() * -1);
+
         return object;
     }
 } // namespace space::parser

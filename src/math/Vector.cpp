@@ -5,7 +5,6 @@
 #include <cmath>
 
 namespace space::math {
-
     Vector::Vector(float vx, float vy, float vz) : x {vx}, y {vy}, z {vz}, w {1} {
     }
 

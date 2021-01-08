@@ -17,26 +17,34 @@ namespace space::world {
         SpaceShip* _spaceShip;
 
     public:
+        void tick();
+
         template<typename Entity, typename... Args> void add(Args&&... args) {
             _entities.emplace_back(std::make_unique<Entity>(*this, args...));
         }
 
-        template<typename... Args> void addSpaceShip(Args&&... args) {
-            auto ship = std::make_unique<SpaceShip>(*this, args...);
-            _spaceShip = ship.get();
+        SpaceShip& addSpaceShip() {
+            auto ship = std::make_unique<SpaceShip>(*this);
+            auto& temp = *ship;
             _entities.emplace_back(std::move(ship));
+            _spaceShip = &temp;
+            return temp;
         }
 
-        template<typename... Args> void addBullet(Args&&... args) {
-            auto bullet = std::make_unique<Bullet>(*this, args...);
-            _bullets.emplace_back(bullet.get());
+        Bullet& addBullet(Vector location, Vector heading, Vector pitch, Vector yaw, float velocity) {
+            auto bullet = std::make_unique<Bullet>(*this, location, heading, pitch, yaw, velocity);
+            auto& temp = *bullet;
             _entities.emplace_back(std::move(bullet));
+            _bullets.emplace_back(&temp);
+            return temp;
         }
 
-        template<typename... Args> void addTarget(Args&&... args) {
-            auto target = std::make_unique<Target>(*this, args...);
-            _targets.emplace_back(target.get());
+        Target& addTarget() {
+            auto target = std::make_unique<Target>(*this);
+            auto& temp = *target;
             _entities.emplace_back(std::move(target));
+            _targets.emplace_back(&temp);
+            return temp;
         }
 
         std::vector<std::unique_ptr<Entity>>& entities();

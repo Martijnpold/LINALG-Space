@@ -5,7 +5,7 @@
 namespace space::world {
     class SpaceShip : public Entity {
     public:
-        using Entity::Entity;
+        explicit SpaceShip(World& world);
 
         void shoot();
     };

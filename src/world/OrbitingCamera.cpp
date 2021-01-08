@@ -1,12 +1,6 @@
 #include "OrbitingCamera.hpp"
 
-#include <cmath>
-#include <iostream>
-
-// TODO: probably clean this up?
-float deg_to_rad(double deg) {
-    return ( float ) (deg * (M_PI / 180.0));
-}
+#include "math/utils.hpp"
 
 namespace space::world {
 
@@ -52,7 +46,7 @@ namespace space::world {
     }
 
     float OrbitingCamera::scale() const {
-        return _near * std::tan(deg_to_rad(_fov) * 0.5f);
+        return _near * std::tan(math::toRadians(_fov) * 0.5f);
     }
 
     Matrix OrbitingCamera::createProjectionMatrix() const {
