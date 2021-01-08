@@ -14,6 +14,7 @@ namespace space::world {
     }
 
     void Entity::move(const Vector& v) {
+        // TODO: don't move the model, instead do this when rendering?
         _model->translate(v);
         _hitbox->move(v);
     }
@@ -25,7 +26,6 @@ namespace space::world {
     void Entity::roll(float angle) {
         _model->rotateVec(_heading, angle);
 
-        // TODO: does this work??
         Matrix rotation = Matrix::createRotationMatrixVec(_heading, angle);
         _pitch *= rotation;
         _yaw *= rotation;
@@ -36,7 +36,6 @@ namespace space::world {
     void Entity::pitch(float angle) {
         _model->rotateVec(_pitch, angle);
 
-        // TODO: does this work??
         Matrix rotation = Matrix::createRotationMatrixVec(_pitch, angle);
         _heading *= rotation;
         _yaw *= rotation;
@@ -47,7 +46,6 @@ namespace space::world {
     void Entity::yaw(float angle) {
         _model->rotateVec(_yaw, angle);
 
-        // TODO: does this work??
         Matrix rotation = Matrix::createRotationMatrixVec(_yaw, angle);
         _heading *= rotation;
         _pitch *= rotation;

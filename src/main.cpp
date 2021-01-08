@@ -6,8 +6,10 @@
 #include "world/AABB.hpp"
 #include "world/Object.hpp"
 #include "world/Renderer.hpp"
+#include "world/entity/Entity.hpp"
 
 #include <iostream>
+#include <memory>
 
 using namespace space::world;
 using namespace space::sdl;
@@ -15,9 +17,9 @@ using namespace space::sdl;
 int main(int argc, char* argv[]) {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    Object o {};
-    o.add(Polygon {{
+    
+    auto o = std::make_unique<Object>();
+    o->add(Polygon {{
             Vector {0, 0, 0},
             Vector {6, 0, 0},
             Vector {6, 1, 0},
@@ -25,7 +27,7 @@ int main(int argc, char* argv[]) {
             Vector {1, 3, 0},
             Vector {0, 3, 0},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {6, 0, 0},
             Vector {6, 0, 4},
             Vector {6, 3, 4},
@@ -33,7 +35,7 @@ int main(int argc, char* argv[]) {
             Vector {6, 1, 3},
             Vector {6, 1, 0},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {0, 3, 0},
             Vector {0, 3, 4},
             Vector {6, 3, 4},
@@ -41,73 +43,73 @@ int main(int argc, char* argv[]) {
             Vector {1, 3, 3},
             Vector {1, 3, 0},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {1, 1, 0},
             Vector {6, 1, 0},
             Vector {6, 1, 3},
             Vector {1, 1, 3},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {1, 1, 0},
             Vector {1, 1, 3},
             Vector {1, 3, 3},
             Vector {1, 3, 0},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {1, 1, 3},
             Vector {6, 1, 3},
             Vector {6, 3, 3},
             Vector {1, 3, 3},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {0, 0, 0},
             Vector {6, 0, 0},
             Vector {6, 0, 4},
             Vector {0, 0, 4},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {0, 0, 0},
             Vector {0, 0, 4},
             Vector {0, 3, 4},
             Vector {0, 3, 0},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {0, 0, 4},
             Vector {6, 0, 4},
             Vector {6, 3, 4},
             Vector {0, 3, 4},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {1, 1, 1},
             Vector {6, 1, 1},
             Vector {1, 3, 1},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {1, 3, 1},
             Vector {6, 1, 1},
             Vector {6, 1, 2},
             Vector {1, 3, 2},
     }});
-    o.add(Polygon {{
+    o->add(Polygon {{
             Vector {1, 1, 2},
             Vector {6, 1, 2},
             Vector {1, 3, 2},
     }});
 
-    AABB hitbox = AABB::from_object(o);
+    Entity entity {o};
 
-    //    Object o = space::parser::OBJParser::parse("./assets/rocket.txt");
-    //    o.scale(0.05, {0, 0, 0});
-    //
-    //    o.rotateX(3.14 * 1.1);
-    //    //o.rotateY(-0.1);
-    //    Vector heading {0, 0, 1};
-    //    heading = Matrix::createRotationMatrixX(3.14 * 1.1) * heading;
-    //heading = Matrix::createRotationMatrixY(-0.1) * heading;
+            //    Object o = space::parser::OBJParser::parse("./assets/rocket.txt");
+            //    o->scale(0.05, {0, 0, 0});
+            //
+            //    o->rotateX(3.14 * 1.1);
+            //    //o->rotateY(-0.1);
+            //    Vector heading {0, 0, 1};
+            //    heading = Matrix::createRotationMatrixX(3.14 * 1.1) * heading;
+            //heading = Matrix::createRotationMatrixY(-0.1) * heading;
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
+            auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
     auto renderer = std::make_unique<space::world::Renderer>(sdl);
 
     OrbitingCamera camera {};
@@ -116,7 +118,7 @@ int main(int argc, char* argv[]) {
 
     SDL_bool done = SDL_FALSE;
 
-    SDL_SetRelativeMouseMode(SDL_TRUE);
+//    SDL_SetRelativeMouseMode(SDL_TRUE);
     while (!done) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -125,6 +127,25 @@ int main(int argc, char* argv[]) {
             }
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
+                    case SDLK_q:
+                        entity.roll(-0.01);
+                        break;
+                    case SDLK_e:
+                        entity.roll(0.01);
+                        break;
+                    case SDLK_w:
+                        entity.pitch(-0.01);
+                        break;
+                    case SDLK_s:
+                        entity.pitch(0.01);
+                        break;
+                    case SDLK_a:
+                        entity.yaw(-0.01);
+                        break;
+                    case SDLK_d:
+                        entity.yaw(0.01);
+                        break;
+
                     case SDLK_UP:
                         camera.move(Vector {0, cameraMovementSpeed * 10, 0});
                         break;
@@ -157,18 +178,18 @@ int main(int argc, char* argv[]) {
                         break;
                 }
             }
-            if (event.type == SDL_MOUSEMOTION) {
-                camera.rotate(
-                        Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
-            }
+//            if (event.type == SDL_MOUSEMOTION) {
+//                camera.rotate(
+//                        Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
+//            }
         }
 
         float gridSize = 25;
         sdl->clear();
         renderer->renderGrid(Color {38, 38, 38}, gridSize);
 
-        renderer->renderObject(camera, o);
-        renderer->renderObject(camera, hitbox.model(), Color {255, 0, 0});
+        renderer->renderObject(camera, entity.model());
+        renderer->renderObject(camera, entity.hitbox().model(), Color {255, 0, 0});
 
         sdl->present();
 
