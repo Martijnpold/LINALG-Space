@@ -36,6 +36,8 @@ namespace space::math {
         y = result.y;
         z = result.z;
         w = result.w;
+
+        return *this;
     }
 
     Vector Vector::operator+(const Vector& v) const {
