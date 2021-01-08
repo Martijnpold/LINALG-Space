@@ -37,11 +37,18 @@ namespace space::world {
         Vector d {direction()};
         Vector r {directionRight()};
         Vector u {directionUp()};
-        return Matrix(4, 4, {r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, d.x, d.y, d.z, 0, 0, 0, 0, 1});
+        return {4, 4, {r.x, u.x, d.x, 0, r.y, u.y, d.y, 0, r.z, u.z, d.z, 0, 0, 0, 0, 1}};
+    }
+
+    Matrix OrbitingCamera::createInverseTranslationMatrix() const {
+        Vector d {direction()};
+        Vector r {directionRight()};
+        Vector u {directionUp()};
+        return {4, 4, {r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, d.x, d.y, d.z, 0, 0, 0, 0, 1}};
     }
 
     Matrix OrbitingCamera::createOriginTranslationMatrix() const {
-        return createTranslationMatrix() * Matrix::createTranslationMatrix(_location * -1);
+        return createInverseTranslationMatrix() * Matrix::createTranslationMatrix(_location * -1);
     }
 
     float OrbitingCamera::scale() const {
@@ -55,10 +62,17 @@ namespace space::world {
                        (-_far * _near) / (_far - _near), 0});
     }
 
+    void OrbitingCamera::zoom(float zoom) {
+        Matrix translate {createTranslationMatrix()};
+        Vector move {translate * Vector {0, 0, zoom}};
+        _location += move;
+    }
+
     void OrbitingCamera::move(const Vector& v) {
         Matrix translate {createTranslationMatrix()};
         Vector move {translate * v};
         _location += move;
+        _lookat += move;
         update_directions();
     }
 

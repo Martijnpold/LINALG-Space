@@ -16,7 +16,7 @@ namespace space::world {
         Vector _up;
         Vector _right;
 
-        float _fov {90};
+        float _fov {60};
         float _near {0.1};
         float _far {1000};
         float scale() const;
@@ -29,10 +29,12 @@ namespace space::world {
         Vector directionUp() const;
 
         Matrix createTranslationMatrix() const;
+        Matrix createInverseTranslationMatrix() const;
         Matrix createOriginTranslationMatrix() const;
 
         Matrix createProjectionMatrix() const;
 
+        void zoom(float zoom);
         void move(const Vector& v);
         void rotate(const Vector& v);
 

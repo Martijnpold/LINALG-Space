@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
 
     SDL_bool done = SDL_FALSE;
 
-        SDL_SetRelativeMouseMode(SDL_TRUE);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
     while (!done) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -166,16 +166,19 @@ int main(int argc, char* argv[]) {
                         camera.rotate(Vector {0, cameraRotationSpeed * 10, 0});
                         break;
                     case SDLK_o:
-                        camera.move(Vector {0, 0, 2});
+                        camera.zoom(2);
                         break;
                     case SDLK_p:
-                        camera.move(Vector {0, 0, -2});
+                        camera.zoom(-2);
                         break;
                 }
             }
             if (event.type == SDL_MOUSEMOTION) {
                 camera.rotate(
                         Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
+            }
+            if(event.type == SDL_MOUSEWHEEL) {
+                camera.zoom(0.8f * -event.wheel.y);
             }
         }
 
