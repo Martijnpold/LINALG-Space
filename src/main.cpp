@@ -140,6 +140,9 @@ int main(int argc, char* argv[]) {
                     case SDLK_d:
                         rocket->yaw(-0.02);
                         break;
+                    case SDLK_LSHIFT:
+                        rocket->move(-2);
+                        break;
 
                     case SDLK_UP:
                         camera.move(Vector {0, cameraMovementSpeed * 10, 0});
