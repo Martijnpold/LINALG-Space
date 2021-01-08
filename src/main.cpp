@@ -106,12 +106,12 @@ int main(int argc, char* argv[]) {
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
     auto renderer = std::make_unique<space::world::Renderer>(sdl);
-    renderer->show_grid(true);
+    renderer->show_coordinate_system(true);
     renderer->show_hitboxes(true);
 
     SDL_bool done = SDL_FALSE;
 
-    //    SDL_SetRelativeMouseMode(SDL_TRUE);
+        SDL_SetRelativeMouseMode(SDL_TRUE);
     while (!done) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -173,10 +173,10 @@ int main(int argc, char* argv[]) {
                         break;
                 }
             }
-            //            if (event.type == SDL_MOUSEMOTION) {
-            //                camera.rotate(
-            //                        Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
-            //            }
+            if (event.type == SDL_MOUSEMOTION) {
+                camera.rotate(
+                        Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
+            }
         }
 
         sdl->clear();
