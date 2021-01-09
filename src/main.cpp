@@ -108,14 +108,14 @@ int main(int argc, char* argv[]) {
         t.move(15 + (rand() % 5));
     }
 
-    OrbitingCamera camera {};
+    OrbitingCamera camera {{5, 5, 5}, {0, 0,0}, 60, 0.1, 100};
     float cameraMovementSpeed {0.1};
     float cameraRotationSpeed {0.002};
 
     auto sdl = std::make_shared<space::sdl::SDLWrapper>(1000, 1000);
     auto renderer = std::make_unique<space::world::Renderer>(sdl);
     renderer->show_coordinate_system(true);
-    renderer->show_hitboxes(true);
+    renderer->show_hitboxes(false);
 
     SDL_bool done = SDL_FALSE;
 
@@ -130,30 +130,36 @@ int main(int argc, char* argv[]) {
             }
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
-                        // TODO: world->spaceship()...dostuff
                     case SDLK_q:
-                        rocket->roll(0.02);
+                        rocket->roll(0.05);
                         break;
                     case SDLK_e:
-                        rocket->roll(-0.02);
+                        rocket->roll(-0.05);
                         break;
                     case SDLK_w:
-                        rocket->pitch(-0.02);
+                        rocket->pitch(-0.05);
                         break;
                     case SDLK_s:
-                        rocket->pitch(0.02);
+                        rocket->pitch(0.05);
                         break;
                     case SDLK_a:
-                        rocket->yaw(0.02);
+                        rocket->yaw(0.05);
                         break;
                     case SDLK_d:
-                        rocket->yaw(-0.02);
+                        rocket->yaw(-0.05);
                         break;
                     case SDLK_LSHIFT:
-                        rocket->setVelocity(0.4f);
+                        rocket->setVelocity(0.05);
                         break;
                     case SDLK_LCTRL:
-                        rocket->setVelocity(rocket->getVelocity() / 2);
+                        rocket->setVelocity(0);
+                        break;
+                    case SDLK_SPACE:
+                        rocket->shoot();
+                        break;
+
+                    case SDLK_h:
+                        renderer->toggle_hitboxes();
                         break;
 
                     case SDLK_UP:

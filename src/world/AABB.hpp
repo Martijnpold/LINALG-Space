@@ -20,9 +20,7 @@ namespace space::world {
         AABB(Vector min, Vector max);
         static AABB from_object(const Object& object);
 
-        bool intersects(const AABB& other) const;
-        void move(const Vector& v);
-
+        bool intersects(const Vector& location, const AABB& other, const Vector& other_location) const;
         bool is_valid() const;
 
         Object& model() const;

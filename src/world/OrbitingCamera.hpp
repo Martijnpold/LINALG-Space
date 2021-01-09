@@ -9,20 +9,19 @@ namespace space::world {
 
     class OrbitingCamera {
     private:
-        Vector _lookat {0, 0, 0};
-        Vector _location {0, 0, 10};
+        Vector _location;
+        Vector _lookat;
 
         Vector _direction;
         Vector _up;
         Vector _right;
 
-        float _fov {60};
-        float _near {0.1};
-        float _far {1000};
-        float scale() const;
+        float _fov;
+        float _near;
+        float _far;
 
     public:
-        OrbitingCamera();
+        OrbitingCamera(const Vector& location, const Vector& lookat, float fov = 60, float near = 0.1, float far = 100);
 
         Vector direction() const;
         Vector directionRight() const;
@@ -39,6 +38,7 @@ namespace space::world {
         void rotate(const Vector& v);
 
     private:
+        float scale() const;
         void update_directions();
     };
 
