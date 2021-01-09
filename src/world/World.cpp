@@ -16,6 +16,9 @@ namespace space::world {
             _entities.erase(std::remove_if(_entities.begin(), _entities.end(),
                                            [&ent](auto& i) { return i && (i.get() == ent); }),
                             _entities.end());
+            if (_spaceShip == ent) {
+                _spaceShip = nullptr;
+            }
         }
         _toRemove.clear();
     }

@@ -128,36 +128,48 @@ int main(int argc, char* argv[]) {
             if (event.type == SDL_QUIT) {
                 done = SDL_TRUE;
             }
+            if (rocket) {
+                if (event.type == SDL_KEYDOWN) {
+                    switch (event.key.keysym.sym) {
+                        case SDLK_q:
+                            rocket->roll(0.05);
+                            break;
+                        case SDLK_e:
+                            rocket->roll(-0.05);
+                            break;
+                        case SDLK_w:
+                            rocket->pitch(-0.05);
+                            break;
+                        case SDLK_s:
+                            rocket->pitch(0.05);
+                            break;
+                        case SDLK_a:
+                            rocket->yaw(0.05);
+                            break;
+                        case SDLK_d:
+                            rocket->yaw(-0.05);
+                            break;
+                        case SDLK_LSHIFT:
+                            rocket->setVelocity(0.05);
+                            break;
+                        case SDLK_LCTRL:
+                            rocket->setVelocity(0);
+                            break;
+                        case SDLK_SPACE:
+                            rocket->shoot();
+                            break;
+                    }
+                }
+
+                if (event.type == SDL_MOUSEBUTTONDOWN) {
+                    if (event.button.button == SDL_BUTTON_LEFT) {
+                        rocket->shoot();
+                    }
+                }
+            }
+
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
-                    case SDLK_q:
-                        rocket->roll(0.05);
-                        break;
-                    case SDLK_e:
-                        rocket->roll(-0.05);
-                        break;
-                    case SDLK_w:
-                        rocket->pitch(-0.05);
-                        break;
-                    case SDLK_s:
-                        rocket->pitch(0.05);
-                        break;
-                    case SDLK_a:
-                        rocket->yaw(0.05);
-                        break;
-                    case SDLK_d:
-                        rocket->yaw(-0.05);
-                        break;
-                    case SDLK_LSHIFT:
-                        rocket->setVelocity(0.05);
-                        break;
-                    case SDLK_LCTRL:
-                        rocket->setVelocity(0);
-                        break;
-                    case SDLK_SPACE:
-                        rocket->shoot();
-                        break;
-
                     case SDLK_h:
                         renderer->toggle_hitboxes();
                         break;
@@ -194,11 +206,6 @@ int main(int argc, char* argv[]) {
                         break;
                 }
             }
-            if (event.type == SDL_MOUSEBUTTONDOWN) {
-                if (event.button.button == SDL_BUTTON_LEFT) {
-                    rocket->shoot();
-                }
-            }
             if (event.type == SDL_MOUSEMOTION) {
                 camera.rotate(
                         Vector {cameraRotationSpeed * event.motion.yrel, cameraRotationSpeed * event.motion.xrel, 0});
@@ -208,9 +215,14 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        Vector rocketLocation {rocket->location()};
+        Vector rocketLocation;
+        if (rocket)
+            rocketLocation = rocket->location();
+
         world.tick();
-        camera.moveGlobal(rocket->location() - rocketLocation);
+
+        if (rocket)
+            camera.moveGlobal(rocket->location() - rocketLocation);
 
         sdl->clear();
         renderer->render_world(camera, world);

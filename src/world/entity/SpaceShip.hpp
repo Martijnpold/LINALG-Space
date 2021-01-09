@@ -8,5 +8,6 @@ namespace space::world {
         explicit SpaceShip(World& world);
 
         void shoot();
+        void tick() override;
     };
 }

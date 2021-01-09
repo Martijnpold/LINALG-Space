@@ -15,6 +15,14 @@ namespace space::world {
     void Bullet::tick() {
         Entity::tick();
 
+        for (Target* target : _world.targets()) {
+            if (target->collides_with(*this)) {
+                _world.remove(*target);
+                _world.remove(*this);
+                return;
+            }
+        }
+
         _ticksRemaining--;
         if (_ticksRemaining <= 0) {
             _world.remove(*this);
