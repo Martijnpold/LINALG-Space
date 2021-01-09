@@ -35,6 +35,7 @@ namespace space::world {
 
         void zoom(float zoom);
         void move(const Vector& v);
+        void moveGlobal(const Vector& v);
         void rotate(const Vector& v);
 
     private:

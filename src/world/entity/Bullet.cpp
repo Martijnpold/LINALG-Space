@@ -1,5 +1,6 @@
 #include "Bullet.hpp"
 
+#include "../World.hpp"
 #include "parser/OBJParser.hpp"
 
 namespace space::world {
@@ -9,5 +10,14 @@ namespace space::world {
         _model->scale(0.5f);
         _velocity = velocity;
         update_hitbox();
+    }
+
+    void Bullet::tick() {
+        Entity::tick();
+
+        _ticksRemaining--;
+        if (_ticksRemaining <= 0) {
+            _world.remove(*this);
+        }
     }
 } // namespace space::world

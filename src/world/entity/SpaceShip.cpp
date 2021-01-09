@@ -10,6 +10,6 @@ namespace space::world {
     }
 
     void SpaceShip::shoot() {
-        auto& bullet = _world.addBullet(_location, _heading, _pitch, _yaw, _velocity + 0.2);
+        auto& bullet = _world.addBullet(_location, _heading, _pitch, _yaw, _velocity + 0.4);
     }
 } // namespace space::world
