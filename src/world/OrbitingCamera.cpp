@@ -61,6 +61,7 @@ namespace space::world {
         Matrix translate {createTranslationMatrix()};
         Vector move {translate * Vector {0, 0, zoom}};
         _location += move;
+        update_directions();
     }
 
     void OrbitingCamera::move(const Vector& v) {
