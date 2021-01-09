@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
         t.move(15 + (rand() % 5));
     }
 
-    OrbitingCamera camera {{5, 5, 5}, {0, 0,0}, 60, 0.1, 100};
+    OrbitingCamera camera {{5, 5, 5}, {0, 0, 0}, 60, 0.1, 100};
     float cameraMovementSpeed {0.1};
     float cameraRotationSpeed {0.002};
 
@@ -174,6 +174,13 @@ int main(int argc, char* argv[]) {
                     case SDLK_LEFT:
                         camera.move(Vector {-cameraMovementSpeed * 10, 0, 0});
                         break;
+                    case SDLK_PAGEUP:
+                        camera.move(Vector {0, 0, -cameraMovementSpeed * 10});
+                        break;
+                    case SDLK_PAGEDOWN:
+                        camera.move(Vector {0, 0, cameraMovementSpeed * 10});
+                        break;
+
                     case SDLK_i:
                         camera.rotate(Vector {-cameraRotationSpeed * 10, 0, 0});
                         break;
