@@ -32,7 +32,7 @@ namespace space::world {
         explicit Entity(World& world, std::unique_ptr<Object> model, Vector location = {0, 0, 0});
         Entity(World& world, std::unique_ptr<Object> model, Vector location, Vector heading, Vector pitch, Vector yaw);
 
-        void tick();
+        virtual void tick();
 
         /// Move the entity in the direction of its heading
         void move(float amount);
