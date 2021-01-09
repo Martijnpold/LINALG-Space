@@ -14,6 +14,7 @@ namespace space::world {
         std::vector<std::unique_ptr<Entity>> _entities;
         std::vector<Bullet*> _bullets;
         std::vector<Target*> _targets;
+        std::vector<Entity*> _toRemove;
         SpaceShip* _spaceShip;
 
     public:
@@ -54,6 +55,8 @@ namespace space::world {
         std::vector<Bullet*> bullets();
 
         std::vector<Target*> targets();
+
+        void remove(Entity& ent);
     };
 
 } // namespace space::world

@@ -72,11 +72,17 @@ namespace space::world {
         update_directions();
     }
 
+    void OrbitingCamera::moveGlobal(const Vector& v) {
+        _location += v;
+        _lookat += v;
+        update_directions();
+    }
+
     void OrbitingCamera::rotate(const Vector& v) {
         Matrix rotationX {Matrix::createRotationMatrixVec(directionRight(), v.x)};
         Matrix rotationY {Matrix::createRotationMatrixVec(directionUp(), v.y)};
         Matrix rotationZ {Matrix::createRotationMatrixVec(direction(), v.z)};
-        Matrix transform = rotationX * rotationY * rotationZ;
+        Matrix transform = Matrix::createTranslationMatrix(_lookat * 1) * rotationX * rotationY * rotationZ * Matrix::createTranslationMatrix(_lookat * -1);
         _location = transform * _location;
         update_directions();
     }

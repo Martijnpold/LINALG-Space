@@ -215,7 +215,9 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        Vector rocketLocation {rocket->location()};
         world.tick();
+        camera.moveGlobal(rocket->location() - rocketLocation);
 
         sdl->clear();
         renderer->render_world(camera, world);
