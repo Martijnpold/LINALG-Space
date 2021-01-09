@@ -186,6 +186,13 @@ int main(int argc, char* argv[]) {
                     case SDLK_LEFT:
                         camera.move(Vector {-cameraMovementSpeed * 10, 0, 0});
                         break;
+                    case SDLK_PAGEUP:
+                        camera.move(Vector {0, 0, -cameraMovementSpeed * 10});
+                        break;
+                    case SDLK_PAGEDOWN:
+                        camera.move(Vector {0, 0, cameraMovementSpeed * 10});
+                        break;
+
                     case SDLK_i:
                         camera.rotate(Vector {-cameraRotationSpeed * 10, 0, 0});
                         break;
