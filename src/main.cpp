@@ -10,6 +10,7 @@
 #include "world/entity/Entity.hpp"
 #include "world/entity/SpaceShip.hpp"
 
+#include <ctime>
 #include <iostream>
 #include <memory>
 
@@ -97,6 +98,15 @@ int main(int argc, char* argv[]) {
 
     World world;
     world.addSpaceShip();
+
+    srand(time(NULL));
+    for (int i = 0; i < 20; i++) {
+        Target& t {world.addTarget()};
+        t.yaw(toRadians(rand() % 360));
+        t.roll(toRadians(rand() % 360));
+        t.pitch(toRadians(rand() % 360));
+        t.move(15 + (rand() % 5));
+    }
 
     OrbitingCamera camera {};
     float cameraMovementSpeed {0.1};
