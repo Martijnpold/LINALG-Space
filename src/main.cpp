@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
     World world;
     world.addSpaceShip();
 
-    OrbitingCamera camera {};
+    OrbitingCamera camera {{5, 5, 5}, {0, 0,0}, 60, 0.1, 100};
     float cameraMovementSpeed {0.1};
     float cameraRotationSpeed {0.002};
 

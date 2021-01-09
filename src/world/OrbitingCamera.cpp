@@ -4,7 +4,8 @@
 
 namespace space::world {
 
-    OrbitingCamera::OrbitingCamera() {
+    OrbitingCamera::OrbitingCamera(const Vector& location, const Vector& lookat, float fov, float near, float far)
+        : _location {location}, _lookat {lookat}, _fov {fov}, _near {near}, _far {far} {
         _up = {0, 1, 0};
         update_directions();
     }
