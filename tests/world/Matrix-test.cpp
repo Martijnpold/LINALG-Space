@@ -2,7 +2,7 @@
 
 #include <catch.hpp>
 
-using namespace space::world;
+using namespace space::math;
 
 TEST_CASE("Matrix data access & construction", "[Matrix]") {
 
